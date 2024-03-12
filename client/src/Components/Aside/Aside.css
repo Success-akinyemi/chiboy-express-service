@@ -1,0 +1,160 @@
+.aside{
+    position: fixed;
+    width: 23rem;
+    height: 100%;
+    top: 0;
+    right: 0;
+    margin-top: 1.4rem;
+    padding-right: 2rem;
+}
+
+.aside .a-top{
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+.aside .menu{
+    display: none;
+}
+
+.aside .a-top .a-profile{
+    display: flex;
+    gap: 2rem;
+    text-align: right;
+    align-items: center;
+}
+
+.aside .a-top .a-profile .adminImg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+
+.aside .recentUpdates{
+    margin-top: 1rem;
+}
+
+.aside .recentUpdates h2{
+    margin-bottom: 3rem;
+}
+
+.aside .recentUpdates .updates{
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+.aside .recentUpdates .updates:hover{
+    box-shadow: none;
+}
+
+.aside .recentUpdates .updates .update{
+    display: grid;
+    grid-template-columns: 2.6rem auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.aside .sales-analytics{
+    margin-top: 2rem;
+}
+
+.aside .sales-analytics h2{
+    margin-bottom: 3rem;
+}
+
+.aside .sales-analytics .item{
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+    padding: 1.4rem var(--card-padding);
+    border-radius: var(--border-radius-3);
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+.aside .sales-analytics .item:hover{
+    box-shadow: none;
+}
+
+.aside .sales-analytics .item .right{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+
+.aside .sales-analytics .item .icon{
+    padding: 0.6rem;
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    background: var(--color-primary);
+}
+
+.aside .sales-analytics .item.offline .icon{
+    background: var(--color-danger);
+}
+
+.aside .sales-analytics .item.customers .icon{
+    background: var(--color-success);
+}
+
+.aside .sales-analytics .add-product{
+    background: transparent;
+    border:  2px dashed var(--color-primary);
+    display: flex;
+    color: var(--color-primary);
+    align-items: center;
+    justify-content: center;
+}
+
+.aside .sales-analytics .add-product .div{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.aside .sales-analytics .add-product .div h3{
+    font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+    .aside .a-top{
+        position: fixed;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        background: var(--color-white);
+        padding: 0 0.8rem;
+        height: 4.6rem;
+        margin: 0;
+        z-index: 6;
+        box-shadow: 0 1rem 1rem var(--color-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .aside .menu{
+        display: block;
+        cursor: pointer;
+    }
+
+    .aside .menu .menuIcon{
+        font-size: 40px;
+    }
+
+    .aside .recentUpdates,
+    .aside .sales-analytics{
+        display: none;
+    }
+}

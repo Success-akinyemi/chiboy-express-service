@@ -1,0 +1,102 @@
+.newVehicleForm{
+    width: 60vw;
+    margin-top: 20px;
+    height: 80vh;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.newVehicleForm .top{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.newVehicleForm .inputGroup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.newVehicleForm .inputClass{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.newVehicleForm .inputClass .inputGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.newVehicleForm label{
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.newVehicleForm input,
+.newVehicleForm select{
+    width: 100%;
+    border: none;
+    outline: navajowhite;
+    border-bottom: 3px solid var(--color-dark);
+    transition: all 300ms ease-in;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.newVehicleForm input:focus,
+.newVehicleForm select:focus{
+    border-bottom: 3px solid var(--color-primary-variant);
+}
+
+.newVehicleForm .opt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.newVehicleForm .vehicle{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newVehicleForm .payment{
+    width: 20%;
+}
+
+.newVehicleForm hr{
+    margin-top: 30px;
+    border: 2px solid var(--color-dark);
+}
+
+.newVehicleForm .btn{
+    display: flex;
+    width: 100%;
+}
+
+.newVehicleForm .btn button{
+    padding: 15px 25px;
+    background: var(--color-primary);
+    transition: all 300ms ease;
+    margin-left: auto;
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+}
+
+.newVehicleForm .btn button:hover{
+    background: var(--color-primary-opa);
+}

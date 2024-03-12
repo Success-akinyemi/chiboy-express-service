@@ -1,0 +1,20 @@
+.booking{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.booking .addBtn{
+    margin-left: auto;
+    background: var(--color-primary);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: var(--border-radius-2);
+    padding: 10px 20px;
+    font-weight: 700;
+    transition: all 300ms ease;
+}
+
+.booking .addBtn:hover{
+    background: var(--color-primary-opa);
+}

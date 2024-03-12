@@ -1,0 +1,60 @@
+.vehicles{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicles .btn{
+    display: flex;
+    margin-left: auto;
+    gap: 20px;
+}
+
+.vehicles .addBtn{
+    background: var(--color-primary);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: var(--border-radius-2);
+    padding: 10px 20px;
+    font-weight: 700;
+    transition: all 300ms ease;
+}
+
+.vehicles .addBtn:hover{
+    background: var(--color-primary-opa);
+}
+
+.vehicles .addBtn.bg{
+    background: var(--color-danger);
+}
+
+.vehicles .addBtn span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vehicles .addBtn span .icon{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.vehicles .content{
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.vehicles .content .cardContent{
+    display: flex;
+    gap: 1rem;
+}
+
+.vehicles .cardContent .card{
+    padding: var(--card-padding);
+    background: var(--color-white);
+    box-shadow: var(--box-shadow);
+    flex: 1;
+    border-radius: var(--card-border-radius);
+}
