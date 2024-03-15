@@ -1,0 +1,106 @@
+.bookingInfo{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.loader{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bookingInfo .actions{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.bookingInfo .actions .printBtn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    background: var(--color-primary-variant);
+    color: var(--color-white);
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.bookingInfo .receiptCard{
+    width: 96%;
+    padding: 20px;
+    background: var(--color-white);
+    margin-top: 1rem;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+}
+
+.bookingInfo .receiptCard .top{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bookingInfo .receiptCard > div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bookingInfo .receiptCard .top h1{
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+.bookingInfo .receiptCard .top span{
+    text-align: right;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.bookingInfo .receiptCard .customerInfo,
+.bookingInfo .receiptCard .bookingInfo,
+.bookingInfo .receiptCard .nextOfKinInfo,
+.bookingInfo .receiptCard .paymentStatus{
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.bookingInfo .receiptCard .customerInfo span,
+.bookingInfo .receiptCard .bookingInfo span,
+.bookingInfo .receiptCard .nextOfKinInfo span,
+.bookingInfo .receiptCard .paymentStatus span{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bookingInfo .receiptCard .customerInfo span p,
+.bookingInfo .receiptCard .bookingInfo span p,
+.bookingInfo .receiptCard .nextOfKinInfo span p,
+.bookingInfo .receiptCard .paymentStatus span p{
+    font-size: 17px;
+    font-weight: 500;
+    width: 100%;
+    border-bottom: 1px solid var(--color-dark);
+}
+
+.bookingInfo .receiptCard .minGroup{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.bookingInfo .receiptCard .minGroup > span{
+    flex: 1;
+}

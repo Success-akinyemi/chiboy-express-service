@@ -4,6 +4,8 @@ import { vehicleType } from '../../data/vehicle'
 import './BookingForm.css'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
+import { createBooking } from '../../helper/api'
+//import { saveAs } from 'file-saver';
 
 function BookingForm() {
     const [formData, setFormData] = useState({})
@@ -15,9 +17,8 @@ function BookingForm() {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-    console.log('DATA', formData)
 
-    const createBooking = async (e) => {
+    const handleBooking = async (e) => {
         e.preventDefault()
         setFormData({...formData, preparedby: user?.name})
         if(!formData.travelingfrom){
@@ -44,9 +45,16 @@ function BookingForm() {
             toast.error('Select a departure date')
             return;
         }
+        if(formData.travelingfrom === formData.travelingto){
+            toast.error('Departure and Arrival cannot be the same')
+            return
+        }
         try {
             setIsLoading(true)
-            const res = await ''
+            const res = await createBooking(formData)
+            if(res?.data.success){
+                console.log(res)
+            }
         } catch (error) {
             console.log('ERROR CREATING BOOKING', error)
         } finally {
@@ -56,6 +64,7 @@ function BookingForm() {
 
   return (
     <form className='bookingForm'>
+        <small>Being Prepared By: {user.name}</small>
         <div className="top">
             <h1>CHI-BOY Express Services Booking Form</h1>
             <span>Receipt: <small></small></span>
@@ -78,29 +87,32 @@ function BookingForm() {
                 <input required type="number" onChange={handleChange} id='numberofseat' />
             </div>
         </div>
-        <div className="inputClass">
-            <div className="inputGroup">
-                <label htmlFor="">Traveling From</label>
-                <select onChange={handleChange} id='travelingfrom'>
-                    <option value=''>Departure Terminal</option>
-                    {
-                        travelLocations.map((item, idx) => (
-                            <option key={idx} value={item.location}>{item.location}</option>
-                        ))
-                    }
-                </select>
+        <div className="inputClass travel">
+            <div className="traveldiv">
+                <div className="inputGroup">
+                    <label htmlFor="">Traveling From</label>
+                    <select onChange={handleChange} id='travelingfrom'>
+                        <option value=''>Departure Terminal</option>
+                        {
+                            travelLocations.map((item, idx) => (
+                                <option key={idx} value={item.location}>{item.location}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+                <div className="inputGroup">
+                    <label htmlFor="">Traveling To:</label>
+                    <select onChange={handleChange} id='travelingto'>
+                        <option value=''>Arrival Terminal</option>
+                        {
+                            travelLocations.map((item, idx) => (
+                                <option key={idx} value={item.location}>{item.location}</option>
+                            ))
+                        }
+                    </select>
+                </div>
             </div>
-            <div className="inputGroup">
-                <label htmlFor="">Traveling To:</label>
-                <select onChange={handleChange} id='travelingto'>
-                    <option value=''>Arrival Terminal</option>
-                    {
-                        travelLocations.map((item, idx) => (
-                            <option key={idx} value={item.location}>{item.location}</option>
-                        ))
-                    }
-                </select>
-            </div>
+            <p className='danger errorText'>{formData.travelingfrom === formData.travelingto ? 'Departure and Arrival cannot be the same' : ''}</p>
         </div>
         <div className="inputGroup">
             <label htmlFor="">Vehicle Type:</label>
@@ -168,7 +180,7 @@ function BookingForm() {
         </div>
 
         <div className="btn">
-            <button onClick={createBooking}>Save and Print</button>
+            <button onClick={handleBooking} disabled={isLoading} >{isLoading ? 'Saving...' : 'Save and Print'}</button>
         </div>
     </form>
   )

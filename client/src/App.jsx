@@ -11,6 +11,8 @@ import DepartureForm from './Components/DepartureForm/DepartureForm'
 import NewVehicleForm from './Components/NewVehicleForm/NewVehicleForm'
 import VehicleCategory from './Components/VehicleCategory/VehicleCategory'
 import Finance from './Pages/Finance/Finance'
+import Login from './Pages/Login/Login'
+import BookingInfo from './Pages/BookingInfo/BookingInfo'
 
 
 
@@ -82,6 +84,8 @@ function App() {
       <Toaster position='top-center'></Toaster>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Login />} />
+
           <Route path='/dashboard' element={<Dashboard menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
 
           <Route path='/bookings' element={<Booking menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
@@ -95,6 +99,7 @@ function App() {
 
           <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
 
+          <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
         </Routes>
       </BrowserRouter>
     </div>

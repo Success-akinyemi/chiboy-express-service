@@ -28,6 +28,23 @@
     gap: 20px;
 }
 
+.bookingForm .travel{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: -20px;
+}
+
+.bookingForm .travel .traveldiv{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.bookingForm .travel p{
+    margin-top: -25px;
+}
+
 .bookingForm .inputClass .inputGroup {
     flex: 1;
     display: flex;

@@ -26,11 +26,11 @@ function Aside({toggleMenu}) {
             </div>
             <div className="a-profile">
                 <div className="info">
-                    <p>Hey, <b className="bold">{user?.username}</b></p>
-                    <small className="small text-muted">Admin</small>
+                    <p>Hey, <b className="bold">{user?.name}</b></p>
+                    <small className="small text-muted">{user?.role} | ID: {user?.staffId}</small>
                 </div>
                 <div className="admin-profile">
-                    <img className='adminImg' src={user?.profilePicture} alt='profile' />
+                    <img className='adminImg' src={user?.profileImage} alt='profile' />
                 </div>
             </div>
         </div>
