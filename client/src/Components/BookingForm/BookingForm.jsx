@@ -5,6 +5,7 @@ import './BookingForm.css'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import { createBooking } from '../../helper/api'
+import { useFetchVehicle } from '../../hooks/fetch.hooks'
 //import { saveAs } from 'file-saver';
 
 function BookingForm() {
@@ -12,7 +13,9 @@ function BookingForm() {
     const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
-
+    const {isLoadingVehicle, vehicleData} = useFetchVehicle()
+    const vehicleCat = vehicleData?.data
+    
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
@@ -120,8 +123,8 @@ function BookingForm() {
                 <select className='vehicle' onChange={handleChange} id='vechicletype' >
                         <option value=''>Select Vehicle Type</option>
                         {
-                            vehicleType.map((item, idx) => (
-                                <option key={idx} value={item.vehicle}>{item.vehicle}</option>
+                            vehicleCat?.map((item, idx) => (
+                                <option key={idx} value={item?.category}>{item?.category}</option>
                             ))
                         }
                 </select>

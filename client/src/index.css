@@ -176,28 +176,25 @@
 /*END OF POPUP*/
 
 @media screen and (max-width: 1200px) {
-  .admin{
+  .container{
       grid-template-columns: 7rem auto 23rem;
       width: 100%;
       gap: 1rem;
       overflow-x: hidden;
   }
 
-  .adminContainer{
-      width: 100%;
-      overflow-x: hidden;
-  }
 }
 
 @media screen and (max-width: 768px) {
-  .adminContainer{
-      width: 100vw;
-      padding-left: 2rem;
+  .mainContainer{
+      width: 94vw;
+      
       padding-right: 2rem;
       margin-top: 4rem;
+      overflow-x: hidden;
   }
 
-  .adminSidebar{
+  .menubarContainer{
       position: absolute;
   }
 

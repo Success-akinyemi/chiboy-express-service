@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const VehicleSchema = new mongoose.Schema({
-    vehicleType: {
+    vechicletype: {
         type: String,
         required: [true, 'Provide the type of vehicle']
         //-sieana -hiace buse -luxurious
@@ -18,6 +18,9 @@ const VehicleSchema = new mongoose.Schema({
     },
     numberofseat: {
         type: Number
+    },
+    preparedby:{
+        type: String
     }
 },
 {timestamps: true}

@@ -42,7 +42,7 @@ export function useFetchBooking(query) {
                 setBooking({ isLoadingBooking: false, bookingData: data, bookingStatus: status, bookingError: null })
             } else {
                 setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: status.response, bookingError: null })
-                console.log('CLG', setBooking)
+                //console.log('CLG', setBooking)
             }
         } catch (error) {
             setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: error.response.status, bookingError: error.response?.data?.data ? error.response?.data?.data : error })
@@ -55,4 +55,31 @@ export function useFetchBooking(query) {
     }, [fetchBookingData]);
 
     return booking;
+}
+
+//fetch Vehicles
+export function useFetchVehicle(query) {
+    const [vehicle, setVehicle] = useState({ isLoadingVehicle: true, vehicleData: null, vehicleStatus: null, vehicleError: null})
+
+    const fetchVehicleData = useCallback(async () => {
+        try {
+            const { data, status } = !query ? await axios.get(`/vehicleCategory/getCategories`, { withCredentials: true }) : await axios.get(`/vehicleCategory/getCategories/${query}`, { withCredentials: true })
+
+            if (status === 200) {
+                setVehicle({ isLoadingVehicle: false, vehicleData: data, vehicleStatus: status, vehicleError: null })
+            } else {
+                setVehicle({ isLoadingVehicle: false, vehicleData: null, vehicleStatus: status.response, vehicleError: null })
+                console.log('CLG', setVehicle)
+            }
+        } catch (error) {
+            setVehicle({ isLoadingVehicle: false, vehicleData: null, vehicleStatus: error?.response?.status, vehicleError: error.response?.data?.data ? error.response?.data?.data : error })
+            console.log('CLG2', error)
+        }
+    }, [query]);
+
+    useEffect(() => {
+        fetchVehicleData();
+    }, [fetchVehicleData]);
+
+    return vehicle;
 }

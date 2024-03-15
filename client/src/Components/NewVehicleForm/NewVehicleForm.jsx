@@ -2,23 +2,32 @@ import { useState } from 'react'
 import './NewVehicleForm.css'
 import { useSelector } from 'react-redux'
 import { vehicleType } from '../../data/vehicle'
+import { useFetchVehicle } from '../../hooks/fetch.hooks'
+import toast from 'react-hot-toast'
 
 function NewVehicleForm() {
     const [formData, setFormData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
+    const {isLoadingVehicle, vehicleData} = useFetchVehicle()
+    const vehicleCat = vehicleData?.data
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-    console.log('DATA', formData)
+    //console.log('DATA', formData)
     const createVehicle = async (e) => {
         e.preventDefault()
         setFormData({...formData, preparedby: user?.name})
+        if(!registrationnumber || !vechicletype || !vehiclename || !drivername || !numberofseat || !preparedby){
+            toast.error('All inputs are required')
+            return
+        }
         try {
             setIsLoading(true)
+            console.log('FINA', formData)
         } catch (error) {
             console.log('ERROR CREATING NEW VECHILE', error)
         } finally {
@@ -38,8 +47,8 @@ function NewVehicleForm() {
                 <select className='vehicle' onChange={handleChange} id='vechicletype' >
                         <option value=''>Select Vehicle Type</option>
                         {
-                            vehicleType.map((item, idx) => (
-                                <option key={idx} value={item.vehicle}>{item.vehicle}</option>
+                            vehicleCat?.map((item, idx) => (
+                                <option key={idx} value={item?.category}>{item?.category}</option>
                             ))
                         }
                 </select>
@@ -64,7 +73,7 @@ function NewVehicleForm() {
             <input required type="text" onChange={handleChange} id='drivername' />
         </div>
         <div className="btn">
-            <button onClick={createVehicle}>Save</button>
+            <button disabled={isLoading} onClick={createVehicle}>{isLoading ? 'Saving...' : 'Save'}</button>
         </div>
     </form>
   )
