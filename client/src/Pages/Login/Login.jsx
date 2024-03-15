@@ -26,8 +26,8 @@ function Login() {
       dispatch(signInStart())
       const res = await LoginUser(formData)
       console.log('SERVER RES>', res)
-      if(res?.data.success){
-        dispatch(signInSuccess(res.data))
+      if(res?.success){
+        dispatch(signInSuccess(res))
         navigate('/dashboard')
       } else{
         dispatch(signInFailure(res))

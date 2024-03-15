@@ -7,7 +7,10 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 export async function LoginUser(formData){
     try {
         const res = await axios.post('/auth/login', formData,  { withCredentials: true })
-        return res
+        console.log('RES API', res)
+        if(res?.data.success){
+            return res.data
+        }
     } catch (error) {
         console.log('ERROR LOGGING', error)
         const res = error.response.data.data
