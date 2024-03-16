@@ -32,6 +32,7 @@
 .booking .bookingCard{
     width: 100%;
     margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .booking .bookingCard .searchBar{
@@ -123,6 +124,10 @@
 
 .booking .bookingItems .bookingItem:last-child{
     border-bottom: none;
+}
+
+.booking .content{
+    z-index: 100;
 }
 
 @media screen and (max-width: 500px) {

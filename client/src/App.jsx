@@ -13,12 +13,14 @@ import VehicleCategory from './Components/VehicleCategory/VehicleCategory'
 import Finance from './Pages/Finance/Finance'
 import Login from './Pages/Login/Login'
 import BookingInfo from './Pages/BookingInfo/BookingInfo'
+import EditVehicleCategory from './Components/EditVehicleCategory/EditVehicleCategory'
 
 
 
 function App() {
   const [ menuOpen, setMenuOpen ] = useState(false)
   const [ selectedCard, setSelectedCard ] = useState(null)
+  const [ vehicleCatId, setVehicleCatId ] = useState('')
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev)
@@ -41,6 +43,10 @@ function App() {
       case 'vehicleCategory':
         return (
           <VehicleCategory />
+        )
+      case 'editVehicleCat':
+        return(
+          <EditVehicleCategory vehicleCatId={vehicleCatId} />
         )
     }
   }
@@ -91,7 +97,7 @@ function App() {
           <Route path='/bookings' element={<Booking menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
 
 
-          <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard}  />} />
+          <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} />} />
 
 
           <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />

@@ -70,8 +70,56 @@
     border-radius: var(--card-border-radius);
 }
 
+.vehicles .cardContent .vevicleTypes .card .qty{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.vehicles .cardContent .vevicleTypes .card .qty p{
+    font-weight: 500;
+}
+
+.vehicles .vehicleCat{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.vehicles .vehicleCat .cat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+    border-radius: 15px;
+    gap: 10px;
+    background: #41f1b6;
+    color: var(--color-dark);
+}
+
+.vehicles .vehicleCat .edit{
+    margin-left: auto;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    cursor: pointer;
+    color: var(--color-success);
+}
+
 @media screen and (max-width: 1300px) {
     .vehicles .cardContent .vevicleTypes{
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .vehicles .addBtn{
+        padding: 10px 10px;
     }
 }
