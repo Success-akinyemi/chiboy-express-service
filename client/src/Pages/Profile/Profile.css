@@ -1,0 +1,93 @@
+.profile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile .top{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile .top .h2{
+    width: 100%;
+}
+
+.profile .top span{
+    margin-left: auto;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.profile .profileCard{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile .profileCard .accountCard{
+    width: 100%;
+}
+
+.profile .profileCard .accountCard .img{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.profile .profileCard .accountCard img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profile .profileCard .inputGroup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.profile .profileCard label{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.profile .profileCard .inputGroup input{
+    border: none;
+    outline: none;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: rgb(226 232 240 / 1);
+    font-size: 17px;
+}
+
+.profile .profileCard .updateBtn{
+    color: var(--color-white);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    background-color: rgb(51 65 85 / 1);
+    width: 100%;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 678px) {
+    .profile .profileCard{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile .profileCard{
+        width: 90%;
+    }
+}

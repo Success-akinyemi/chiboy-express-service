@@ -82,12 +82,28 @@ export async function updateStaff(req, res){
     const {id} = req.params
     try {
         const admin = await StaffModel.findById({ _id: id })
-        if(req.user.id !== req.params.id || !admin.isAdmin ){
+        if(!(req.user.id === req.params.id || admin.isAdmin)){
             return res.status(401).json({ success: false, data: 'You can only update you Account'})
         }
         
-        if(req.body.password){
-            req.body.password = bcryptjs.hashSync(req.body.password, 10)
+        if(req.body.newpassword || req.body.newpassword){
+            if( admin.isAdmin || !admin.role.toLocaleLowerCase() === 'staff'){
+                req.body.password = bcryptjs.hashSync(req.body.newpassword, 10)
+            }
+
+            if(!req.body.oldpassword){
+                return res.status(404).json({ success: false, data: 'Old Password is neeeded'})
+            }
+            if(!req.body.newpassword){
+                return res.status(404).json({ success: false, data: 'New Password is neeeded'})
+            }
+
+            const validPassword = bcryptjs.compareSync(req.body.oldpassword, admin.password)
+            if(!validPassword){
+                return res.status(401).json({ success: false, data: 'Invalid credentials'})
+            }
+
+            req.body.password = bcryptjs.hashSync(req.body.newpassword, 10)
         }
 
         const updatedStaff = await StaffModel.findByIdAndUpdate(
@@ -96,10 +112,15 @@ export async function updateStaff(req, res){
                 $set: {
                     email: req.body.email,
                     password: req.body.password,
+                    name: req.body.name,
+                    active: req.body.active,
+                    role: req.body.role,
+                    phoneNumber: req.body.phonenumber
                 }
             },
             { new: true }
         );
+        await updatedStaff.save()
 
         const { password, ...staffData} = updatedStaff._doc
         console.log('UPDATED', staffData)

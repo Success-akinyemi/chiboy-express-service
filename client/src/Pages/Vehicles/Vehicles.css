@@ -92,7 +92,7 @@
 .vehicles .vehicleCat .cat{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 0px 20px;
     border-radius: 15px;
     gap: 10px;
@@ -100,7 +100,15 @@
     color: var(--color-dark);
 }
 
-.vehicles .vehicleCat .edit{
+.vehicle .vehicleCat .cat .Vicons{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.vehicles .vehicleCat .edit,
+.vehicles .vehicleCat .delete{
     margin-left: auto;
     padding: 8px;
     border-radius: 50%;
@@ -112,9 +120,76 @@
     color: var(--color-success);
 }
 
+.vehicles .vehicleCat .delete{
+    background: var(--color-danger);
+    color: var(--color-white);
+}
+
+.vehicles .vehicle{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.vehicle .top{
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicle .top h2{
+    width: 100%;
+}
+
+.vehicle .top span{
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.vehicles .vehicle .head{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--color-dark);
+    margin-bottom: 1rem;
+    gap: 2px;
+}
+
+.vehicles .vehicle .head h4{
+    flex: 1;
+    text-align: center;
+}
+
+.vehicles .vehicle .body{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.vehicles .vehicle .body .bodyInfo{
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-dark);
+    text-align: center;
+}
+
+.vehicles .vehicle .body .bodyInfo p{
+    flex: 1;
+    text-align: center;
+}
+
 @media screen and (max-width: 1300px) {
     .vehicles .cardContent .vevicleTypes{
         flex-direction: column;
+    }
+
+    .vehicles .vehicle .head h4:nth-child(3){
+        display: none;
+    }
+
+    .vehicles .vehicle .body .bodyInfo p:nth-child(3){
+        display: none;
     }
 }
 

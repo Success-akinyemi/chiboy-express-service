@@ -1,0 +1,16 @@
+.editVehicle{
+    width: 60vw;
+    margin-top: 20px;
+    height: 80vh;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media screen and (max-width: 500px) {
+    .editVehicle{
+        width: 85vw;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}

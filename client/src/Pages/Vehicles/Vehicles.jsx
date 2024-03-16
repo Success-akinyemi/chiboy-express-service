@@ -4,13 +4,14 @@ import { useFetchVehicle, usefetchVehicleType } from '../../hooks/fetch.hooks';
 import './Vehicles.css'
 import AddIcon from '@mui/icons-material/Add';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
-function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId}) {
+function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVehicleId}) {
   const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
   const vehicleCat = vehiclecCatData?.data
-  //console.log('HO',vehicleCat)
   const { isLoadingVehicle, vehicleData } = useFetchVehicle()
   const vehicle = vehicleData?.data
+  //console.log('HO',vehicle)
 
   /**For get the vehicle type */
   // Create a map to store the count of each vehicle type
@@ -29,11 +30,27 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId}) {
   // Extract the counts from the map
   const vehicleTypeCounts = Array.from(vehicleCountMap.entries());
 
-  console.log(vehicleTypeCounts);
+  //console.log(vehicleTypeCounts);
 
   const handleCat = (id) => {
     setSelectedCard('editVehicleCat')
     setVehicleCatId(id)
+  }
+
+  const handleVehicle = (id) => {
+    setSelectedCard('editVehicle')
+    setVehicleId(id)
+  }
+
+  const handleDeleteCat = async () => {
+    const confirm = window.confirm('Are you sure you want to delete this Vehicle Category')
+    if(confirm){
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
   }
 
   return (
@@ -79,10 +96,41 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId}) {
                     vehicleCat?.map((item) => (
                     <div className="cat" key={item?._id}>
                       <h4 className="h-4">{item?.category}</h4>
-                      <div onClick={() => handleCat(item?._id)} className='edit'> <ModeEditOutlineIcon clasName='icon' /> </div>
+                      <div className='Vicons' style={{display: 'flex', gap: '15px'}} >
+                        <div onClick={() => handleCat(item?._id)} className='edit'> <ModeEditOutlineIcon clasName='icon' /> </div>
+                        <div onClick={handleDeleteCat} className='delete'> <DeleteRoundedIcon clasName='icon' /> </div>
+                      </div>
                     </div>
                     ))
                   }
+                </div>
+
+                <div className="vehicle">
+                  <div className="top">
+                    <h2 className="h-2">All Vehicles</h2>
+                    <span>total: {vehicle?.length}</span>
+                  </div>
+                  <div className="head">
+                    <h4 className="h-4">Reg Number</h4>
+                    <h4 className="h-4">Driver</h4>
+                    <h4 className="h-4">Vehicle</h4>
+                    <h4 className="h-4"></h4>
+                  </div>
+
+                  <div className="body">
+                    {
+                      vehicle?.map((item) => (
+                      <div className="bodyInfo" key={item?._id}>
+                        <p>{item?.registrationnumber}</p>
+                        <p>{item?.drivername}</p>
+                        <p>{item?.vehiclename}</p>
+                        <p onClick={() => handleVehicle(item?._id)} >
+                          <div className="edit"><ModeEditOutlineIcon /></div>
+                        </p>
+                      </div>
+                      ))
+                    }
+                  </div>
                 </div>
 
               </div>

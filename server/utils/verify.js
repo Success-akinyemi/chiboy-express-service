@@ -15,8 +15,7 @@ export const verifyToken = (req, res, next) => {
 }
 
 
-/**
- * 
+
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if(req.user.isAdmin){
@@ -51,4 +50,4 @@ export const verifyTokenAndAdmin = (req, res, next) => {
         }
     })
 }
- */
+

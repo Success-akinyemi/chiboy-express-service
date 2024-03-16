@@ -8,6 +8,7 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import PaidIcon from '@mui/icons-material/Paid';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 function Sidebar({toggleMenu, menuOpen}) {
     const location = useLocation();
@@ -60,6 +61,11 @@ function Sidebar({toggleMenu, menuOpen}) {
           <Link onClick={toggleMenu}  to='/finance' className={`link h-2 menuLinks ${isActive('/finance') ? 'active' : ''} `}>
             <PaidIcon className='menuLinks-icon' />
             <Link to='/finance' className='link menuLink'>Finance</Link>
+          </Link>
+
+          <Link onClick={toggleMenu}  to='/profile' className={`link h-2 menuLinks ${isActive('/profile') ? 'active' : ''} `}>
+            <AccountCircleRoundedIcon className='menuLinks-icon' />
+            <Link to='/profile' className='link menuLink'>Profile</Link>
           </Link>
 
         </div>

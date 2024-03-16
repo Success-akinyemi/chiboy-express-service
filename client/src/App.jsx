@@ -14,6 +14,8 @@ import Finance from './Pages/Finance/Finance'
 import Login from './Pages/Login/Login'
 import BookingInfo from './Pages/BookingInfo/BookingInfo'
 import EditVehicleCategory from './Components/EditVehicleCategory/EditVehicleCategory'
+import Profile from './Pages/Profile/Profile'
+import EditVehicle from './Components/EditVehicle/EditVehicle'
 
 
 
@@ -21,6 +23,8 @@ function App() {
   const [ menuOpen, setMenuOpen ] = useState(false)
   const [ selectedCard, setSelectedCard ] = useState(null)
   const [ vehicleCatId, setVehicleCatId ] = useState('')
+  const [ vehicleId, setVehicleId ] = useState('')
+
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev)
@@ -45,8 +49,12 @@ function App() {
           <VehicleCategory />
         )
       case 'editVehicleCat':
-        return(
+        return (
           <EditVehicleCategory vehicleCatId={vehicleCatId} />
+        )
+      case 'editVehicle':
+        return (
+          <EditVehicle vehicleId={vehicleId} />
         )
     }
   }
@@ -97,7 +105,7 @@ function App() {
           <Route path='/bookings' element={<Booking menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
 
 
-          <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} />} />
+          <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
 
 
           <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
@@ -106,6 +114,9 @@ function App() {
           <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
 
           <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+
+          <Route path='/profile' element={<Profile menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+
         </Routes>
       </BrowserRouter>
     </div>
