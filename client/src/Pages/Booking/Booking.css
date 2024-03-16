@@ -14,6 +14,7 @@
     padding: 10px 20px;
     font-weight: 700;
     transition: all 300ms ease;
+    z-index: 100;
 }
 
 .booking .addBtn:hover{
@@ -122,4 +123,20 @@
 
 .booking .bookingItems .bookingItem:last-child{
     border-bottom: none;
+}
+
+@media screen and (max-width: 500px) {
+    .booking .bookingItems .bookingItem .departDate{
+        display: none;
+    }
+
+    .booking .bookingItems .bookingItem .id{
+        font-weight: 700;
+        font-size: 13px;
+    }
+    
+    .booking .bookingItems .bookingItem .name{
+        font-size: 16px;
+        font-weight: 500;
+    }
 }

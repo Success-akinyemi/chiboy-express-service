@@ -20,6 +20,10 @@
     transition: all 300ms ease;
 }
 
+.vehicles .addBtn{
+    z-index: 100;
+}
+
 .vehicles .addBtn:hover{
     background: var(--color-primary-opa);
 }
@@ -49,12 +53,25 @@
 .vehicles .content .cardContent{
     display: flex;
     gap: 1rem;
+    flex-direction: column;
 }
 
-.vehicles .cardContent .card{
+.vehicles .cardContent .vevicleTypes{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.vehicles .cardContent .vevicleTypes .card{
     padding: var(--card-padding);
     background: var(--color-white);
     box-shadow: var(--box-shadow);
     flex: 1;
     border-radius: var(--card-border-radius);
+}
+
+@media screen and (max-width: 1300px) {
+    .vehicles .cardContent .vevicleTypes{
+        flex-direction: column;
+    }
 }

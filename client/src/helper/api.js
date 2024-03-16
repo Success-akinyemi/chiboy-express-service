@@ -42,7 +42,6 @@ export async function createBooking(formData){
     }
 }
 
-
 //generate receipt (Download and Pring)
 export async function generateReceipt({id}){
     try {
@@ -63,6 +62,36 @@ export async function generateReceipt({id}){
         console.log('ERROR CREATING BOOKING', error)
         const errorMsg = error.response.data.data || `Could Not create receipt.`
         console.log('MSG', errorMsg)
+        toast.error(errorMsg)
+    }
+}
+
+//create new vechile
+export async function newVehicle(formData){
+    try {
+        const res = await axios.post('/vehicle/create', formData, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//create new vechile category
+export async function newVehicleCategory(cat){
+    try {
+        const res = await axios.post('/vehicle/create', cat, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
         toast.error(errorMsg)
     }
 }

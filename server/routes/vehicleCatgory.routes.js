@@ -9,6 +9,8 @@ router.route('/create').post(controller.createCategory) //create vehicle categor
 
 
 router.route('/getCategories').get(controller.getAllCategories) //fetch vehicle category
+router.route('/getCategory/:id').get(controller.getAllCategories) //fetch vehicle category
+
 
 
 export default router

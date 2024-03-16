@@ -5,21 +5,22 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 
 //fetch vehicle types/category
-export function usefetchVehicleType(){
+export function usefetchVehicleType(query){
     const [data, setData] = useState({isloaidngVehicleCat: true, vehiclecCatData: null, vehiclecvehiclecCatStatus: null, vehiclecCatError: null})
 
     const fetchVehicleCatData = useCallback(async () => {
         try {
  
-            const { data, status } = !query ? await axios.get(`/vehicleCategory/getCategories`, { withCredentials: true }) : await axios.get(`/vehicleCategory/${query}`, { withCredentials: true })
-
+            const { data, status } = !query ? await axios.get(`/vehicleCategory/getCategories`, { withCredentials: true }) : await axios.get(`/vehicleCategory/getCategory/${query}`, { withCredentials: true })
             if (status === 200) {
                 setData({ isloaidngVehicleCat: false, vehiclecCatData: data, vehiclecCatStatus: status, vehiclecCatError: null })
             } else {
                 setData({ isloaidngVehicleCat: false, vehiclecCatData: null, vehiclecCatStatus: status, vehiclecCatError: null })
+                console.log('SECOND')
             }
         } catch (error) {
             setData({ isloaidngVehicleCat: false, vehiclecCatData: null, vehiclecCatStatus: null, vehiclecCatError: error })
+            console.log(error)
         }
     }, [query]);
 
@@ -63,7 +64,7 @@ export function useFetchVehicle(query) {
 
     const fetchVehicleData = useCallback(async () => {
         try {
-            const { data, status } = !query ? await axios.get(`/vehicleCategory/getCategories`, { withCredentials: true }) : await axios.get(`/vehicleCategory/getCategories/${query}`, { withCredentials: true })
+            const { data, status } = !query ? await axios.get(`/vehicle/getAll`, { withCredentials: true }) : await axios.get(`/vehicle/getOne/${query}`, { withCredentials: true })
 
             if (status === 200) {
                 setVehicle({ isLoadingVehicle: false, vehicleData: data, vehicleStatus: status, vehicleError: null })

@@ -2,14 +2,14 @@ import VehicleModel from "../models/Vehicle.js"
 
 
 export async function create(req, res){
-    const {registrationnumber, vechicletype, vehiclename, drivername, numberofseat} = req.body
+    const {registrationnumber, vechicletype, vehiclename, drivername, numberofseat, preparedby} = req.body
     try {
 
         if(!registrationnumber || !vechicletype || !vehiclename || !drivername || !numberofseat || !preparedby){
             return res.status(400).json({ success: false, data: 'All inputs are required'})
         }
 
-        regNumberExist = await VehicleModel.findOne({registrationnumber: registrationnumber})
+        const regNumberExist = await VehicleModel.findOne({registrationnumber: registrationnumber})
         if(regNumberExist){
             return res.status(400).json({ success: false, data: 'Vehicle with this registration number already exist' })
         }
@@ -19,6 +19,7 @@ export async function create(req, res){
         })
         await newVehicle.save()
 
+        console.log(newVehicle)
         res.status(201).json({ success: true, data: 'New Vehicle created'})
     } catch (error) {
         console.log('COULD NOT CREATE NEW VEHICLE', error)

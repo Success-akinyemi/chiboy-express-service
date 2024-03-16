@@ -45,3 +45,9 @@
 .vehicleCategory button:hover{
     transform: scale(0.95);
 }
+
+@media screen and (max-width: 500px) {
+    .vehicleCategory{
+        width: 80vw;
+    }
+}

@@ -17,6 +17,10 @@ function Booking({toggleMenu, menuOpen, setSelectedCard}){
   const sortedData = data?.sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt));
 
   const filteredData = sortedData?.filter(item => item?.receiptId?.includes(searchQuery))
+  
+  const handleBooking = () => {
+    setSelectedCard('bookingForm')
+  } 
   return (
     <div className='container'>
         <div className="menubarContainer">
@@ -26,7 +30,7 @@ function Booking({toggleMenu, menuOpen, setSelectedCard}){
         <div className="mainContainer">
             <div className="booking">
               <h1 className="h-1">Booking</h1>
-              <div className="addBtn" onClick={() => setSelectedCard('bookingForm')}>
+              <div className="addBtn" onClick={handleBooking}>
                 <span>New Booking</span>
               </div>
 

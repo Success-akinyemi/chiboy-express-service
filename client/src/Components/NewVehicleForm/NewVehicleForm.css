@@ -100,3 +100,50 @@
 .newVehicleForm .btn button:hover{
     background: var(--color-primary-opa);
 }
+
+@media screen and (max-width: 800px) {
+    .newVehicleForm{
+        width: 75vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .newVehicleForm{
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 85vw;
+    }
+
+    .newVehicleForm .top{
+        flex-direction: column;
+    }
+
+    .newVehicleForm .top h1{
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .newVehicleForm .top span{
+        text-align: right;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .newVehicleForm .inputClass{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .newVehicleForm .travel .traveldiv{
+        flex-direction: column;
+    }
+
+    .newVehicleForm .vehicle{
+        width: 100%;
+    }
+
+    .newVehicleForm .payment{
+        width: 50%;
+    }
+}

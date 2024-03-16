@@ -37,27 +37,27 @@ function Sidebar({toggleMenu, menuOpen}) {
         </div>
 
         <div className="menuList">
-          <Link to='/dashboard' className={`link h-2 menuLinks ${isActive('/dashboard') ? 'active' : ''}`}>
+          <Link onClick={toggleMenu} to='/dashboard' className={`link h-2 menuLinks ${isActive('/dashboard') ? 'active' : ''}`}>
             <DashboardIcon className='menuLinks-icon' />
             <Link to='/dashboard' className='link menuLink'>Dashboard</Link>
           </Link>
 
-          <Link to='/bookings' className={`link h-2 menuLinks ${isActive('/bookings') ? 'active' : ''}`}>
+          <Link onClick={toggleMenu}  to='/bookings' className={`link h-2 menuLinks ${isActive('/bookings') ? 'active' : ''}`}>
             <EventSeatIcon className='menuLinks-icon' />
             <Link to='/bookings' className='link menuLink'>Bookings</Link>
           </Link>
 
-          <Link to='/vehicles' className={`link h-2 menuLinks ${isActive('/vehicles') ? 'active' : ''} `}>
+          <Link onClick={toggleMenu}  to='/vehicles' className={`link h-2 menuLinks ${isActive('/vehicles') ? 'active' : ''} `}>
             <AirportShuttleIcon className='menuLinks-icon' />
             <Link to='/vehicles' className='link menuLink'>Vehicles</Link>
           </Link>
 
-          <Link to='/departures' className={`link h-2 menuLinks ${isActive('/departures') ? 'active' : ''} `}>
+          <Link onClick={toggleMenu}  to='/departures' className={`link h-2 menuLinks ${isActive('/departures') ? 'active' : ''} `}>
             <DepartureBoardIcon className='menuLinks-icon' />
             <Link to='/departures' className='link menuLink'>Departures</Link>
           </Link>
 
-          <Link to='/finance' className={`link h-2 menuLinks ${isActive('/finance') ? 'active' : ''} `}>
+          <Link onClick={toggleMenu}  to='/finance' className={`link h-2 menuLinks ${isActive('/finance') ? 'active' : ''} `}>
             <PaidIcon className='menuLinks-icon' />
             <Link to='/finance' className='link menuLink'>Finance</Link>
           </Link>

@@ -44,3 +44,28 @@
     color: var(--color-danger);
     text-align: center;
 }
+
+
+@media screen and (max-width: 650px) {
+    .login h1{
+        width: 80%;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .login form{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .login h1{
+        width: 90%;
+        text-align: center;
+        font-size: 19px;
+    }
+
+    .login form{
+        width: 90%;
+    }
+}

@@ -131,6 +131,7 @@
 
     .sidebar.show{
         animation: showMenu 400ms ease forwards;
+        z-index: 110;
     }
 
     @keyframes showMenu {

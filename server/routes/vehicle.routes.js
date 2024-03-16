@@ -7,8 +7,8 @@ router.route('/create').post(verifyToken, controller.create) //create a new vehi
 router.route('/update').post(verifyToken, controller.update) //update a vehicle
 
 
-router.route('/getAll').post(verifyToken, controller.getAll) //get all vehicle
-router.route('/getOne').post(verifyToken, controller.getOne) //get a vehicle
+router.route('/getAll').get(verifyToken, controller.getAll) //get all vehicle
+router.route('/getOne/:id').get(verifyToken, controller.getOne) //get a vehicle
 
 
 export default router

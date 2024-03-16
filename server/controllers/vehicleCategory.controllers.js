@@ -33,3 +33,17 @@ export async function getAllCategories(req, res){
         res.status(500).json({ success: false, data: 'Could not get all categories'})
     }
 }
+
+export async function getACategories(req, res){
+    try {
+        const category = await VehicleCategoryModel.findById({ _id: id})
+        if(!category){
+            return res.status(404).json({ success: true, data: 'category does not exist'})
+        }
+        
+        res.status(200).json({ success: true, data: category})
+    } catch (error) {
+        console.log('COULD NOT GET ALL CATEGORIES', error)
+        res.status(500).json({ success: false, data: 'Could not get category'})
+    }
+}
