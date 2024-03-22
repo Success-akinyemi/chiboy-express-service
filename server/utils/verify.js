@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken"
+import StaffModel from "../models/Staff.js"
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.accessToken
     console.log('TOKEN>>', token)
 
-    if(!token) return res.status(401).json({ success: false, data: 'Not Allowed Please Login again6'})
+    if(!token) return res.status(401).json({ success: false, data: 'Not Allowed Please Login again'})
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if(err) return res.status(403).json({ success: false, data: 'User Forbidden Please Login'})
@@ -14,7 +15,16 @@ export const verifyToken = (req, res, next) => {
     });
 }
 
-
+export const verifyManager = async (req, res, next) => {
+    verifyToken(req, res, async () => {
+        const isManager = await StaffModel.findById({ _id: req.user.id})
+        if(user?.role.toLocaleLowerCase() === 'manager' || user?.role.toLocaleLowerCase() === 'admin'){
+            next()
+        } else {
+            return res.status(413).json({ success: false, data: 'NOT ALLOWED'})
+        }
+    })
+}
 
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {

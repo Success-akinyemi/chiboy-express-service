@@ -10,7 +10,7 @@ import { updateUserFailure, updateUserStart, updateUserSuccess } from '../../red
 function Profile({toggleMenu, menuOpen}) {
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
-    const [ formData, setFormData] = useState({})
+    const [ formData, setFormData] = useState({ id: ''})
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 

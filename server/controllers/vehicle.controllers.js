@@ -29,12 +29,14 @@ export async function create(req, res){
 
 export async function update(req, res){
     const { id } = req.params
+    console.log('ID', id)
     try {
-        isExist = await VehicleModel.findById({ _id: id})
+        const isExist = await VehicleModel.findById({ _id: id})
         if(!isExist){
             return res.status(404).json({ success: false, data: 'Vehicle not Found'})
         }
-        const updateVehicle = await VehicleModel.findByIdAndDelete(
+        console.log('OLD',isExist)
+        const updateVehicle = await VehicleModel.findByIdAndUpdate(
             id,
             {
                $set: {
@@ -47,11 +49,26 @@ export async function update(req, res){
             },
             {new: true}
         )
+        await updateVehicle.save()
+        console.log('NEW',updateVehicle)
 
         res.status(200).json({ success: true, data: 'Vehicle updated successfully'})
     } catch (error) {
         console.log('UNABLE TO UPDATE VEHICLE', error)
         res.status(500).json({ success: false, data: 'Unable to update vehicle'})
+    }
+}
+
+export async function deleteVehicle(req, res){
+    const { id } = req.params
+    console.log('ID', id)
+    try {
+        const isExist = await VehicleModel.findByIdAndDelete({ _id: id})
+
+        res.status(200).json({ success: true, data: 'Vehicle deleted successfully'})
+    } catch (error) {
+        console.log('UNABLE TO DELETE VEHICLE', error)
+        res.status(500).json({ success: false, data: 'Unable to delete vehicle'})
     }
 }
 

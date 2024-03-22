@@ -4,7 +4,9 @@ import { verifyToken } from '../utils/verify.js'
 const router = express.Router()
 
 router.route('/create').post(verifyToken, controller.create) //create a new vehicle
-router.route('/update').post(verifyToken, controller.update) //update a vehicle
+router.route('/update/:id').post(verifyToken, controller.update) //update a vehicle
+router.route('/remove/:id').post(verifyToken, controller.deleteVehicle) //delete a vehicle
+
 
 
 router.route('/getAll').get(verifyToken, controller.getAll) //get all vehicle

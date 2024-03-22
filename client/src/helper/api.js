@@ -95,10 +95,100 @@ export async function newVehicle(formData){
     }
 }
 
-//create new vechile category
-export async function newVehicleCategory(cat){
+//update vechile
+export async function updateVehicle(formData, {vehicleId}){
     try {
-        const res = await axios.post('/vehicle/create', cat, {withCredentials: true})
+        const res = await axios.post(`/vehicle/update/${vehicleId}`, formData, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//update vechile
+export async function deleteVehicle({id}){
+    try {
+        const res = await axios.post(`/vehicle/remove/${id}`, {id}, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//create new vechile category
+export async function newVehicleCategory({category}){
+    try {
+        const res = await axios.post('/vehicleCategory/create', {category}, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//update vehicle category
+export async function updateVehicleCategory({ vehicleCatId, newCategory }){
+    try {
+        const res = await axios.post(`/vehicleCategory/update/${vehicleCatId}`, {newCategory}, {withCredentials: true} )
+        if(res?.data.success){
+            toast.success(res.data?.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data || 'Unable to Update'
+        toast.error(errorMsg)
+    }
+}
+
+//delete vehicle category
+export async function deleteVehicleCategory({id}){
+    try {
+        const res = await axios.post(`/vehicleCategory/delete/${id}`, {id}, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//create new departure
+export async function createDeparture(formData){
+    try {
+        const res = await axios.post('/departure/create', formData, {withCredentials: true})
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            window.location.reload()
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//update departure
+export async function updateDeparture(formData){
+    try {
+        const res = await axios.post('/departure/update', formData, {withCredentials: true})
         if(res?.data.success){
             toast.success(res?.data.data)
             window.location.reload()

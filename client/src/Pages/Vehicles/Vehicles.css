@@ -118,11 +118,16 @@
     background: var(--color-white);
     cursor: pointer;
     color: var(--color-success);
+    cursor: pointer;
 }
 
 .vehicles .vehicleCat .delete{
     background: var(--color-danger);
     color: var(--color-white);
+}
+
+.vehicles .vehicleCat .delete.null{
+    display: none;
 }
 
 .vehicles .vehicle{
@@ -177,6 +182,26 @@
 .vehicles .vehicle .body .bodyInfo p{
     flex: 1;
     text-align: center;
+}
+
+.vehicles .vehicle .body .bodyInfo p .edit{
+    cursor: pointer;
+}
+
+.vehicles .vehicle .body .bodyInfo p .delete{
+    cursor: pointer;
+    background: var(--color-dark);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-white);
+}
+
+.vehicles .vehicle .body .bodyInfo p .delete.null{
+    display: none;
 }
 
 @media screen and (max-width: 1300px) {

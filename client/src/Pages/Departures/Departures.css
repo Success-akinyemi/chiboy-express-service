@@ -18,3 +18,69 @@
 .departures .addBtn:hover{
     background: var(--color-primary-opa);
 }
+
+.departures .head{
+    display: flex;
+    width: 100%;
+    border-bottom: 3px solid var(--color-dark);
+}
+
+.departures .head h4{
+    flex: 1;
+    text-align: center;
+}
+
+.departures .bodyInfo{
+    display: flex;
+    align-items: center;
+}
+
+.departures .bodyInfo p{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.departures .bodyInfo p .edit{
+    cursor: pointer;
+    background: var(--color-light);
+    padding: 5px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+    .departures .head{
+        font-size: 15px;
+    }
+    .departures .head h4:first-child{
+        text-align: left;
+    }
+
+    .departures .head h4:nth-child(4){
+        display: none;
+    }
+
+    .departures .bodyInfo p:nth-child(4){
+        display: none;
+    }
+    
+    .departures .bodyInfo p:last-child{
+        justify-content: right;
+    }
+    
+    .departures .bodyInfo p .edit{
+        width: 30px;
+        height: 30px;
+    }
+
+    .departures .bodyInfo p:first-child{
+        text-align: left;
+        justify-content: left;
+    }
+}

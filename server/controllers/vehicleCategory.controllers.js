@@ -1,3 +1,6 @@
+import BookingModel from "../models/Booking.js"
+import Departuremodel from "../models/Departures.js"
+import VehicleModel from "../models/Vehicle.js"
 import VehicleCategoryModel from "../models/VehicleCategory.js"
 
 
@@ -34,7 +37,8 @@ export async function getAllCategories(req, res){
     }
 }
 
-export async function getACategories(req, res){
+export async function getACategory(req, res){
+    const { id } = req.params
     try {
         const category = await VehicleCategoryModel.findById({ _id: id})
         if(!category){
@@ -45,5 +49,68 @@ export async function getACategories(req, res){
     } catch (error) {
         console.log('COULD NOT GET ALL CATEGORIES', error)
         res.status(500).json({ success: false, data: 'Could not get category'})
+    }
+}
+
+export async function updateCategory(req, res){
+    const { id } = req.params
+    const { newCategory } = req.body
+    try {
+        const findVehicleCat = await VehicleCategoryModel.findById({ _id:id})
+        if(!findVehicleCat){
+            return res.status(404).json({ success: false, data: 'No vehicle category found'})
+        }
+
+        if(findVehicleCat.category === newCategory){
+            return res.status(400).json({ success: false, data: 'No changes made'})
+        }
+
+        console.log('newCategory', findVehicleCat.category)
+
+         //get all bookings with particular category and update it to newCategory
+         const bookings = await BookingModel.find({ vechicletype: findVehicleCat.category })
+         if(bookings){
+             await BookingModel.updateMany({ vechicletype: findVehicleCat.category }, { $set: { vechicletype: newCategory } }, { $new: true })
+         }
+         //get all vehicle with particular category and update it to newCategory
+         const vechiles = await VehicleModel.find({ vechicletype: findVehicleCat.category })
+         if(vechiles){
+             console.log(vechiles)
+             await VehicleModel.updateMany({ vechicletype: findVehicleCat.category }, { $set: { vechicletype: newCategory } }, { $new: true })
+         }
+         //get all departures with particular category and update it to newCategory
+         const departure = await Departuremodel.find({ vechicletype: findVehicleCat.category })
+         if(departure){
+             console.log(vechiles)
+             await Departuremodel.updateMany({ vechicletype: findVehicleCat.category }, { $set: { vechicletype: newCategory } }, { $new: true })
+         }
+
+         console.log('VEHICLE', vechiles)
+         console.log('BOOKING', bookings)
+         console.log('DEPARTURE', departure)
+
+        //update vehicle category
+        findVehicleCat.category = newCategory
+        await findVehicleCat.save()
+        console.log('first', findVehicleCat.category)
+
+
+        res.status(201).json({ success: true, data: 'Vehicle category updated' })
+    } catch (error) {
+        console.log('UNABLE TO UPDATE VEHICLE CATEGORY', error)
+        res.status(500).json({ success: false, data: 'Failed to update vehicle category' })
+    }
+}
+
+export async function deleteVehicleCategory(req, res){
+    const { id } = req.params
+    console.log('ID', id)
+    try {
+        const isExist = await VehicleCategoryModel.findByIdAndDelete({ _id: id})
+
+        res.status(200).json({ success: true, data: 'Vehicle deleted successfully'})
+    } catch (error) {
+        console.log('UNABLE TO DELETE VEHICLE', error)
+        res.status(500).json({ success: false, data: 'Unable to delete vehicle'})
     }
 }

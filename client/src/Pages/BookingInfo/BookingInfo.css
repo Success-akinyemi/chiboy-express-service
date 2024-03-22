@@ -106,3 +106,14 @@
 .bookingInfo .receiptCard .minGroup > span{
     flex: 1;
 }
+
+@media screen and (max-width: 450px) {
+    .bookingInfo .receiptCard .minGroup{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .bookingInfo .receiptCard .minGroup > span{
+        width: 100%;
+    }
+}

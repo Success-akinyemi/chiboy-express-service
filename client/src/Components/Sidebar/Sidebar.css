@@ -128,10 +128,10 @@
         padding-right: var(--card-padding);
         box-shadow: 1rem 3rem 4rem var(--color-light);
     }
-
+    
     .sidebar.show{
         animation: showMenu 400ms ease forwards;
-        z-index: 110;
+        z-index: 900;
     }
 
     @keyframes showMenu {

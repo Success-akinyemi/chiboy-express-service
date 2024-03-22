@@ -1,4 +1,4 @@
-.editVehicle{
+.editDepartures{
     width: 60vw;
     margin-top: 20px;
     height: 80vh;
@@ -7,48 +7,51 @@
     padding-right: 10px;
 }
 
-.editVehicle .top{
+.editDepartures .top{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     margin-bottom: 1rem;
 }
 
-.editVehicle .top > div{
-    display: flex;
-    align-items: center;
+.editDepartures .top h1{
     width: 100%;
 }
 
-.editVehicle .inputGroup{
+.editDepartures .top span{
+    width: 100%;
+}
+
+.editDepartures .inputGroup{
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
 }
 
-.editVehicle .inputClass{
+.editDepartures .inputClass{
     display: flex;
     align-items: center;
     width: 100%;
     gap: 20px;
 }
 
-.editVehicle .inputClass .inputGroup {
+.editDepartures .inputClass .inputGroup {
     flex: 1;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
 }
 
-.editVehicle label{
+.editDepartures label{
     margin-bottom: 10px;
     font-size: 19px;
 }
 
-.editVehicle input,
-.editVehicle select{
+.editDepartures input,
+.editDepartures select{
     width: 100%;
     border: none;
     outline: navajowhite;
@@ -58,45 +61,40 @@
     font-size: 18px;
 }
 
-.editVehicle input:focus,
-.editVehicle select:focus{
+.editDepartures input:focus,
+.editDepartures select:focus{
     border-bottom: 3px solid var(--color-primary-variant);
 }
 
-.editVehicle .opt{
+.editDepartures .opt{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    flex-direction: column;
 }
 
-.editVehicle .opt .current{
-    width: 100%;
-}
-
-.editVehicle .vehicle{
+.editDepartures .vehicle{
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.editVehicle .payment{
+.editDepartures .payment{
     width: 20%;
 }
 
-.editVehicle hr{
+.editDepartures hr{
     margin-top: 30px;
     border: 2px solid var(--color-dark);
 }
 
-.editVehicle .btn{
+.editDepartures .btn{
     display: flex;
     width: 100%;
 }
 
-.editVehicle .btn button{
+.editDepartures .btn button{
     padding: 15px 25px;
     background: var(--color-primary);
     transition: all 300ms ease;
@@ -109,53 +107,46 @@
     border-radius: 16px;
 }
 
-.editVehicle .btn button:hover{
+.editDepartures .btn button:hover{
     background: var(--color-primary-opa);
 }
 
-@media screen and (max-width: 800px) {
-    .editVehicle{
-        width: 75vw;
+@media screen and (max-width: 700px) {
+    .editDepartures h1{
+        font-size: 20px;
+    }
+
+    .editDepartures{
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 80vw;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .editVehicle{
+    .editDepartures{
         padding-left: 5px;
         padding-right: 5px;
         width: 85vw;
     }
 
-    .editVehicle .top{
+    .editDepartures .payment{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .editDepartures .vehicle{
+        width: 100%;
+    }
+
+    .editDepartures .inputClass{
         flex-direction: column;
-    }
-
-    .editVehicle .top h1{
-        font-size: 18px;
-        width: 100%;
-    }
-
-    .editVehicle .top span{
-        text-align: right;
-        width: 100%;
     }
 }
 
 @media screen and (max-width: 450px) {
-    .editVehicle .inputClass{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .editVehicle .travel .traveldiv{
-        flex-direction: column;
-    }
-
-    .editVehicle .vehicle{
-        width: 100%;
-    }
-
-    .editVehicle .payment{
-        width: 50%;
+    .editDepartures .top h1{
+        font-size: 17px;
     }
 }

@@ -5,12 +5,17 @@ import './Vehicles.css'
 import AddIcon from '@mui/icons-material/Add';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { useState } from 'react';
+import { deleteVehicle, deleteVehicleCategory } from '../../helper/api';
 
 function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVehicleId}) {
   const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
   const vehicleCat = vehiclecCatData?.data
   const { isLoadingVehicle, vehicleData } = useFetchVehicle()
   const vehicle = vehicleData?.data
+  const [ deletingVehicle, setDeletingVehicle ] = useState(false)
+  const [ deletingVehicleCat, setDeletingVehicleCat ] = useState(false)
+
   //console.log('HO',vehicle)
 
   /**For get the vehicle type */
@@ -42,13 +47,31 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVe
     setVehicleId(id)
   }
 
-  const handleDeleteCat = async () => {
+  const handleDeleteCat = async (id) => {
     const confirm = window.confirm('Are you sure you want to delete this Vehicle Category')
     if(confirm){
       try {
-        
+        setDeletingVehicleCat(true)
+        const res = await deleteVehicleCategory({id})
       } catch (error) {
-        
+        console.log('UNABLE TO DELETE VEHICLE', error)
+      } finally {
+        setDeletingVehicleCat(false)
+      }
+    }
+  }
+
+  const handleVehicleDelete = async (id) => {
+    const confirm = window.confirm('Are you sure you want to delete this vehicle')
+
+    if(confirm){
+      try {
+        setDeletingVehicle(true)
+        const res = await deleteVehicle({id})
+      } catch (error) {
+        console.log('UNABLE TO DELETE VEHICLE', error)
+      } finally {
+        setDeletingVehicle(false)
       }
     }
   }
@@ -98,7 +121,7 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVe
                       <h4 className="h-4">{item?.category}</h4>
                       <div className='Vicons' style={{display: 'flex', gap: '15px'}} >
                         <div onClick={() => handleCat(item?._id)} className='edit'> <ModeEditOutlineIcon clasName='icon' /> </div>
-                        <div onClick={handleDeleteCat} className='delete'> <DeleteRoundedIcon clasName='icon' /> </div>
+                        <div onClick={() => handleDeleteCat(item?._id)} className={`delete ${deletingVehicleCat ? 'null' : ''}`}> <DeleteRoundedIcon clasName='icon' /> </div>
                       </div>
                     </div>
                     ))
@@ -115,6 +138,7 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVe
                     <h4 className="h-4">Driver</h4>
                     <h4 className="h-4">Vehicle</h4>
                     <h4 className="h-4"></h4>
+                    <h4 className="h-4"></h4>
                   </div>
 
                   <div className="body">
@@ -126,6 +150,9 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVe
                         <p>{item?.vehiclename}</p>
                         <p onClick={() => handleVehicle(item?._id)} >
                           <div className="edit"><ModeEditOutlineIcon /></div>
+                        </p>
+                        <p onClick={() => handleVehicleDelete(item?._id)} >
+                          <div className={`delete ${deletingVehicle ? 'null' : ''}`}><DeleteRoundedIcon /></div>
                         </p>
                       </div>
                       ))

@@ -57,7 +57,7 @@ function NewVehicleForm() {
         </div>
         <div className="inputGroup">
             <label htmlFor="">Registration Number:</label>
-            <input required type="text" onChange={handleChange} id='registrationnumber' />
+            <input placeholder='can only be made once' required type="text" onChange={handleChange} id='registrationnumber' />
         </div>
         <div className="inputClass">
             <div className="inputGroup">

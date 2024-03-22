@@ -129,7 +129,7 @@ function generateRandomSixDigitId() {
 export async function getBooking(req, res){
     try {
         const bookings = await BookingModel.find()
-
+        console.log('success')
         res.status(200).json({ success: true, data: bookings })
     } catch (error) {
         console.log('FAILD TO GET ALL BOOKINGS', error)

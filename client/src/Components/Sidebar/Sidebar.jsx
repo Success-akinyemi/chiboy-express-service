@@ -1,11 +1,11 @@
 import './Sidebar.css'
 import { useDispatch, } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
-import EventSeatIcon from '@mui/icons-material/EventSeat';
 import CloseIcon from '@mui/icons-material/Close';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
+import EventSeatIcon from '@mui/icons-material/EventSeat';
 import PaidIcon from '@mui/icons-material/Paid';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';

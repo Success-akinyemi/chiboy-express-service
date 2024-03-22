@@ -16,6 +16,7 @@ import BookingInfo from './Pages/BookingInfo/BookingInfo'
 import EditVehicleCategory from './Components/EditVehicleCategory/EditVehicleCategory'
 import Profile from './Pages/Profile/Profile'
 import EditVehicle from './Components/EditVehicle/EditVehicle'
+import EditDepartures from './Components/EditDepartures/EditDepartures'
 
 
 
@@ -24,6 +25,7 @@ function App() {
   const [ selectedCard, setSelectedCard ] = useState(null)
   const [ vehicleCatId, setVehicleCatId ] = useState('')
   const [ vehicleId, setVehicleId ] = useState('')
+  const [ departureId, setDepartureId ] = useState('')
 
 
   const toggleMenu = () => {
@@ -55,6 +57,10 @@ function App() {
       case 'editVehicle':
         return (
           <EditVehicle vehicleId={vehicleId} />
+        )
+      case 'editDepartureForm':
+        return (
+          <EditDepartures departureId={departureId} />
         )
     }
   }
@@ -108,7 +114,7 @@ function App() {
           <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
 
 
-          <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
+          <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setDepartureId={setDepartureId} />} />
 
 
           <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
