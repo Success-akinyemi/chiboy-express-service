@@ -1,0 +1,147 @@
+.staffs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.staffs .addBtn{
+    margin-left: auto;
+    background: var(--color-primary);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: var(--border-radius-2);
+    padding: 10px 20px;
+    font-weight: 700;
+    transition: all 300ms ease;
+    z-index: 100;
+}
+
+.staffs .addBtn:hover{
+    background: var(--color-primary-opa);
+}
+
+.staffs .loader{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staffs .staffsCard{
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.staffs .staffsCard .searchBar{
+    width: 100%;
+}
+
+.staffs .staffsCard input{
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--color-dark);
+    background: transparent;
+    outline: none;
+    font-size: 18px;
+    padding: 5px;
+    transition: all 300ms ease;
+}
+
+.staffs .staffsCard input::placeholder{
+    color: var(--color-dark);
+    opacity: 0.6;
+}
+
+.staffs .staffsCard input:focus{
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.staffs .staffsCard .staffsItems{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    margin-top: 10px;
+    overflow-y: auto;
+}
+
+.staffs .staffsItems .staffsItem{
+    display: flex;
+    border-bottom: 1px solid var(--color-dark-variant);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.staffs .staffsItems .staffsItem > div{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.staffs .staffsItems .staffsItem .id{
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.staffs .staffsItems .staffsItem .name{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.staffs .staffsItems .staffsItem .departDate{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.staffs .staffsItems .staffsItem .departDate span{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.staffs .staffsItems .staffsItem .departDate span.future{
+    background: var(--color-success);
+}
+
+.staffs .staffsItems .staffsItem .departDate span.past{
+    background: var(--color-danger);
+}
+
+.staffs .staffsItems .staffsItem .link{
+    padding: 5px 20px;
+    border-radius: 15px;
+    color: var(--color-white);
+    margin-right: 10px;
+    cursor: pointer;
+    background: var(--color-info-dark);
+
+}
+
+.staffs .staffsItems .staffsItem:last-child{
+    border-bottom: none;
+}
+
+.staffs .content{
+    z-index: 100;
+}
+
+@media screen and (max-width: 500px) {
+    .staffs .staffsItems .staffsItem .departDate{
+        display: none;
+    }
+
+    .staffs .staffsItems .staffsItem .id{
+        font-weight: 700;
+        font-size: 13px;
+    }
+    
+    .staffs .staffsItems .staffsItem .name{
+        font-size: 16px;
+        font-weight: 500;
+    }
+}

@@ -17,6 +17,8 @@ import EditVehicleCategory from './Components/EditVehicleCategory/EditVehicleCat
 import Profile from './Pages/Profile/Profile'
 import EditVehicle from './Components/EditVehicle/EditVehicle'
 import EditDepartures from './Components/EditDepartures/EditDepartures'
+import Staffs from './Pages/Staffs/Staffs'
+import NewStaffForm from './Components/NewStaffForm/NewStaffForm'
 
 
 
@@ -26,6 +28,7 @@ function App() {
   const [ vehicleCatId, setVehicleCatId ] = useState('')
   const [ vehicleId, setVehicleId ] = useState('')
   const [ departureId, setDepartureId ] = useState('')
+  const [ staffId, setStaffId ] = useState('')
 
 
   const toggleMenu = () => {
@@ -61,6 +64,10 @@ function App() {
       case 'editDepartureForm':
         return (
           <EditDepartures departureId={departureId} />
+        )
+      case 'newStaff':
+        return (
+          <NewStaffForm departureId={departureId} staffId={staffId} />
         )
     }
   }
@@ -122,6 +129,9 @@ function App() {
           <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
 
           <Route path='/profile' element={<Profile menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+
+          <Route path='/staffs' element={<Staffs menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setStaffId={setStaffId} />} />
+
 
         </Routes>
       </BrowserRouter>

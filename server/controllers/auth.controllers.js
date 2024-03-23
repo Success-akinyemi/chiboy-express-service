@@ -132,3 +132,29 @@ export async function updateStaff(req, res){
         res.status(500).json({ success: false, data: 'Unable to update staff'})
     }
 }
+
+export async function getAllStaffs (req, res){
+    try {
+        const staffs = await StaffModel.find()
+
+        res.status(200).json({ success: true, data: staffs })
+    } catch (error) {
+        console.log('COULD NOT GET ALL STAFF', error)
+        res.status(500).json({ success: false, data: 'Failed to get all staffs' })
+    }
+}
+
+export async function getAStaff(req, res){
+    const { id } = req.body
+    try {
+        const staff = await StaffModel.findById({ _id: id })
+        if(!staff){
+            res.status(404).json({ success: false, data: 'Staff not found '})
+        }
+
+        res.status(200).json({ success: true, data: staff })
+    } catch (error) {
+        console.log('COULD NOT GET STAFF', error)
+        res.status(500).json({ success: false, data: 'Failed to get data of staff.' })
+    }
+}

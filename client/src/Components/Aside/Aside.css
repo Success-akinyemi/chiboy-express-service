@@ -171,6 +171,10 @@
         font-size: 40px;
     }
 
+    .admin-profile{
+        margin-right: 1rem;
+    }
+
     .aside .recentUpdates,
     .aside .sales-analytics{
         display: none;

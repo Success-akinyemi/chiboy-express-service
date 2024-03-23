@@ -9,7 +9,7 @@ import { usefetchVehicleType } from '../../hooks/fetch.hooks'
 //import { saveAs } from 'file-saver';
 
 function BookingForm() {
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({ preparedby: '' })
     const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
@@ -137,7 +137,7 @@ function BookingForm() {
         <div className="inputGroup">
             <label htmlFor="">Full Payment?:</label>
             <select className='payment' onChange={handleChange} id='fullpayment'>
-                <option value="">Payment type</option>
+                <option value="">Full Payment</option>
                 <option value="YES">YES</option>
                 <option value="NO">NO</option>
             </select>

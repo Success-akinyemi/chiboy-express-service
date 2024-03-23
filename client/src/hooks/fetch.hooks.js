@@ -41,14 +41,14 @@ export function useFetchBooking(query) {
 
             if (status === 200) {
                 setBooking({ isLoadingBooking: false, bookingData: data, bookingStatus: status, bookingError: null })
-                console.log('1', bookingData)
+                console.log('1', booking)
             } else {
                 setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: status.response, bookingError: null })
-                console.log('CLG', setBooking)
+                console.log('CLG', booking)
             }
         } catch (error) {
-            setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: error.response.status, bookingError: error.response?.data?.data ? error.response?.data?.data : error })
-            console.log('CLG2', error)
+            setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: error.response?.status, bookingError: error.response?.data?.data ? error.response?.data?.data : error })
+            console.log('CLG2', booking)
         }
     }, [query]);
 
@@ -111,4 +111,33 @@ export function useFetchDeparture(query) {
     }, [fetchDepartureData]);
 
     return departure;
+}
+
+//fetch staffs
+//fetch Bookings
+export function useFetchStaffs(query) {
+    const [staff, setStaff] = useState({ isLoadingStaff: true, staffData: null, staffStatus: null, staffError: null})
+
+    const fetchStaffData = useCallback(async () => {
+        try {
+            const { data, status } = !query ? await axios.get(`/auth/getAllstaffs/`, { withCredentials: true }) : await axios.get(`/auth/getAStaff/${query}`, { withCredentials: true })
+
+            if (status === 200) {
+                setStaff({ isLoadingStaff: false, staffData: data, staffStatus: status, staffError: null })
+                //console.log('1', booking)
+            } else {
+                setStaff({ isLoadingStaff: false, staffData: null, staffStatus: status.response, staffError: null })
+                //console.log('CLG', booking)
+            }
+        } catch (error) {
+            setStaff({ isLoadingStaff: false, staffData: null, staffStatus: error.response?.status, staffError: error.response?.data?.data ? error.response?.data?.data : error })
+            //console.log('CLG2', booking)
+        }
+    }, [query]);
+
+    useEffect(() => {
+        fetchStaffData();
+    }, [fetchStaffData]);
+
+    return staff;
 }

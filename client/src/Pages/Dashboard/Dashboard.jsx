@@ -15,15 +15,15 @@ function Dashboard({toggleMenu, menuOpen}) {
   const { bookingData, isLoadingBooking } = useFetchBooking()
   const { departureData, isLoadingDeparture } = useFetchDeparture()
   const { isLoadingVehicle, vehicleData } = useFetchVehicle()
-  
-  //const booking = bookingData
-  //const departure = departureData
-  //const vehicle = vehicleData
+
+  const booking = bookingData?.data || []
+  const departure = departureData?.data || []
+  const vehicle = vehicleData?.data || []
   //console.log('first', booking, 'second', departure, 'thrid', vehicle)
 
-  const booking = dateData
-  const departure = dateData
-  const vehicle = dateData
+  //const booking = dateData
+  //const departure = dateData
+  //const vehicle = dateData
   
   useEffect(() => {
     console.log('CODE', dateInput, 'TEXT', dateText)
@@ -97,10 +97,13 @@ function Dashboard({toggleMenu, menuOpen}) {
     });
  
     filteredData = [...filteredDataInRange, ...filteredDataPreviousRange];
+    //filteredData = [...filteredDataInRange];
+
+
   }
  
   setData(filteredData);
-  console.log('first', filteredData)
+  //console.log('first', filteredData)
  }
 
 

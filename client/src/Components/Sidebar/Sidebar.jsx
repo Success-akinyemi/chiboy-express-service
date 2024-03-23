@@ -9,6 +9,7 @@ import EventSeatIcon from '@mui/icons-material/EventSeat';
 import PaidIcon from '@mui/icons-material/Paid';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 function Sidebar({toggleMenu, menuOpen}) {
     const location = useLocation();
@@ -66,6 +67,11 @@ function Sidebar({toggleMenu, menuOpen}) {
           <Link onClick={toggleMenu}  to='/profile' className={`link h-2 menuLinks ${isActive('/profile') ? 'active' : ''} `}>
             <AccountCircleRoundedIcon className='menuLinks-icon' />
             <Link to='/profile' className='link menuLink'>Profile</Link>
+          </Link>
+
+          <Link onClick={toggleMenu}  to='/staffs' className={`link h-2 menuLinks ${isActive('/staffs') ? 'active' : ''} `}>
+            <PeopleAltIcon className='menuLinks-icon' />
+            <Link to='/staffs' className='link menuLink'>Staffs</Link>
           </Link>
 
         </div>
