@@ -7,6 +7,105 @@
     padding-right: 10px;
 }
 
+.newStaffForm .spinner{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newStaffForm .formA,
+.newStaffForm .formB{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.newStaffForm .formA small{
+    font-size: 15px;
+}
+
+.newStaffForm .formA .top{
+    display: flex;
+    flex-direction: column;
+}
+
+.newStaffForm .formA h1{
+    width: 100%;
+}
+
+.newStaffForm .formA .active{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.newStaffForm .formA .active .right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.newStaffForm .formA .active .right span{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.newStaffForm .formA .active .right span.activeBox{
+    background: var(--color-success);
+}
+
+.newStaffForm .formA .active .right span.inActiveBox{
+    background: var(--color-danger);
+}
+
+
+.newStaffForm .inputGroup{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+}
+
+.newStaffForm .inputGroup label{
+    font-size: 17px;
+    color: var(--color-dark);
+}
+
+.newStaffForm .inputGroup input,
+.newStaffForm .inputGroup select{
+    padding: 5px;
+    font-size: 17px;
+    border: none;
+    border-bottom: 3px solid var(--color-dark);
+    outline: none;
+}
+
+.newStaffForm .btn{
+    margin-top: 1rem;
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+}
+
+.newStaffForm .btn button{
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    color: var(--color-white);
+    background: var(--color-primary-opa);
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: all 300ms ease;
+}
+
+.newStaffForm .btn button:hover,
+.newStaffForm .btn button.loading{
+    background: var(--color-primary);
+}
 
 @media screen and (max-width: 800px) {
     .newStaffForm{

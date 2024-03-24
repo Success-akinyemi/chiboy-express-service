@@ -145,7 +145,7 @@ export async function getAllStaffs (req, res){
 }
 
 export async function getAStaff(req, res){
-    const { id } = req.body
+    const { id } = req.params
     try {
         const staff = await StaffModel.findById({ _id: id })
         if(!staff){

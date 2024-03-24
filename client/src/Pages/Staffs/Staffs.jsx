@@ -15,7 +15,7 @@ function Staffs({toggleMenu, menuOpen, setSelectedCard, setStaffId}) {
     const sortedData = data?.sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt));
     
     const filteredData = sortedData?.filter(item => item?.staffId?.includes(searchQuery))
-    console.log('DATA', sortedData)
+
 
     const handleNewStaff = (id) => {
         setSelectedCard('newStaff')
