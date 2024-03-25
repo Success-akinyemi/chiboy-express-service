@@ -56,7 +56,7 @@ export async function createBooking(formData){
     }
 }
 
-//generate receipt (Download and Pring)
+//generate receipt (Download and Printing)
 export async function generateReceipt({id}){
     try {
         const res = await axios.post('/booking/getReceipt', {id}, { responseType: 'blob', withCredentials: true })
@@ -64,7 +64,7 @@ export async function generateReceipt({id}){
         if(res?.data){
             // Create a Blob directly from the response data
             const blob = new Blob([res.data], { type: 'application/pdf' });
-            window.location.reload()
+            //window.location.reload()
             // Use window.open to open a new window with the PDF content
             const url = URL.createObjectURL(blob);
             window.open(url, '_blank');
@@ -196,6 +196,43 @@ export async function updateDeparture(formData){
     } catch (error) {
         console.log('ERR', error)   
         const errorMsg = error?.response.data.data
+        toast.error(errorMsg)
+    }
+}
+
+export async function generateReport({dataType, dateType}){
+    try {
+        const res = await axios.post('/finance/generateReport', {dataType, dateType}, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//generate receipt (Download and Pring)
+export async function generateReportPDF({dataInfo, date}){
+    try {
+        const res = await axios.post('/finance/getReport', {dataInfo, date}, { responseType: 'blob', withCredentials: true })
+        console.log('first', res)
+        if(res?.data){
+            // Create a Blob directly from the response data
+            const blob = new Blob([res.data], { type: 'application/pdf' });
+            //window.location.reload()
+            // Use window.open to open a new window with the PDF content
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+      } else {
+        console.error('PDF data not received from the server');
+        // Handle the case where the server did not provide the PDF data
+      }
+    } catch (error) {
+        console.log('ERROR CREATING BOOKING', error)
+        const errorMsg = error.response.data.data || `Could Not create receipt.`
+        console.log('MSG', errorMsg)
         toast.error(errorMsg)
     }
 }

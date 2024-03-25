@@ -7,8 +7,21 @@ import './Finance.css'
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 import Loading from '../../Components/Loading/Loading'
+import { generateReport, generateReportPDF } from '../../helper/api'
+import Spinner from '../../Components/Spinner/Spinner'
+import PrintIcon from '@mui/icons-material/Print';
 
 function Finance({toggleMenu, menuOpen}) {
+  const [ dataType, setDataType ] = useState()
+  const [ dateType, setDateType ] = useState()
+  const [ isLoading, setIsLoading ] = useState(false)
+  const [ financeRecord, setFinanceRecord ] = useState()
+  const [ error, setError ] = useState(null)
+  const [ errorMsg, setErrorMsg ] = useState(null)
+  const [ isDownLoading, setIsDownloading ] = useState(false)
+
+
+
   const [ dateInput, setDateInput ] = useState(date[0].value)
   const [ dateText, setDateText ] = useState(date[0].text)
   const { bookingData, isLoadingBooking } = useFetchBooking()
@@ -143,7 +156,56 @@ function Finance({toggleMenu, menuOpen}) {
       return acc;
     }, 0);
     
+    const handleGenerateReport = async () => {
+      if(!dataType){
+        setError('Please Select Data type,')
+        setTimeout(() => setError(null), 3000)
+        return
+      }
+      if(!dateType){
+        setError('Please Select Date type,')
+        setTimeout(() => setError(null), 3000)
+        return
+      }
+      try {
+        setIsLoading(true)
+        console.log('FETCH DATA', dataType, dateType)
+        const res = await generateReport({dataType, dateType}) 
+        if(res?.success){
+          setFinanceRecord(res?.data)
+          console.log('DATA', financeRecord, 'RAW DATA', res?.data)
+        }
+      } catch (error) {
+        console.log('Failed to fetch report', error)
+      } finally {
+        setIsLoading(false)
+      }
+    } 
   
+  const handleDownloadReport = async (data) => {
+    if(data.dataType === ''){
+      setErrorMsg('select data type')
+      setTimeout(() => setErrorMsg(null), 3000);
+      return;
+    }
+    if(data.dateType === ''){
+      setErrorMsg('select data type') 
+      setTimeout(() => setErrorMsg(null), 3000);
+      return;
+    }
+    const dataInfo = data.dataType
+    const date = data.dateType
+    try {
+      setIsDownloading(true)
+      //console.log(dataInfo, date)
+      const res = await generateReportPDF({dataInfo, date})
+    } catch (error) {
+      console.log('Error generating report', error)
+    } finally{
+      setIsDownloading(false)
+    }
+  }
+
   return (
     <div className='container'>
         <div className="menubarContainer">
@@ -152,7 +214,7 @@ function Finance({toggleMenu, menuOpen}) {
 
         <div className="mainContainer">
             <div className="finance">
-            <div className="top">
+              <div className="top">
                   <div className="sort">
                     <label>Sort:</label>
                     <select id="" value={dateInput} onChange={handleDateChange}>
@@ -233,6 +295,109 @@ function Finance({toggleMenu, menuOpen}) {
 
                   </div>
                 </div>
+
+
+              <span className='line'></span>
+
+              <div className="middle">
+                <h1 className="h-1">Generate Report</h1>
+                <p>Generate Report for a time range</p>
+
+                <div className="sortCard">
+                  <div className="sort">
+                          <label>Select Date:</label>
+                          <select id="" value={dateType} onChange={(e) => setDateType(e.target.value)}>
+                            <option value="">SELERCT DATE</option>
+                            {
+                              date.map((item, idx) => (
+                                <option key={idx} value={item.value}>{item.text}</option>
+                              ))
+                            }
+                          </select>
+                  </div>
+                </div>
+
+                <div className="sortCard">
+                  <div className="sort">
+                          <label>Select Type:</label>
+                          <select id="" value={dataType} onChange={(e) => setDataType(e.target.value)}>
+                            <option value="">Select Type</option>
+                            <option value='booking'>Booking</option>
+                            <option value='departure'>Departure</option>    
+                          </select>
+                  </div>
+                </div>
+                { error && (
+                  <p className='danger'>{error}</p>
+                )}
+                
+                <div className="btn">
+                  <button disabled={isLoading} className={`${isLoading ? 'active' : ''}`} onClick={handleGenerateReport}>
+                    {isLoading ? 'Loading...' : 'Load Data'}
+                  </button>
+                </div>
+
+                <div className="dataCard">
+                  { isLoading ? (
+                      <div className="loader">
+                        <Spinner />
+                      </div>
+                    ) : financeRecord ? (
+                      <div className="dataContent">
+                        <div className="head">
+                          <h2 className="h-2">{dataType} report for the past {dateType}</h2>
+
+                          <div className="btn">
+                            <button disabled={isDownLoading} className={`${isDownLoading ? 'active' : ''}`} onClick={() => handleDownloadReport({dataType, dateType})}>
+                              <PrintIcon className='icon' />
+                              {isDownLoading ? 'Downloading' : 'Download and Print'}
+                            </button>
+                          </div>
+                          { errorMsg && (
+                            <p className='danger'>{errorMsg}</p>
+                          )}
+                        </div>
+                          
+                          <div className="dataInfoCard">
+                            {
+                                financeRecord?.map((item) => (
+                                    dataType === 'booking' ? (
+                                      <div className="dataInfo">
+                                        <div className='one'>
+                                          <p>{item?.receiptId}</p>
+                                          <p>{item?.name}</p>
+                                        </div>
+
+                                        <div className='two'>
+                                          <p className="departDate"><span className={` ${new Date(item?.departuretdate) > new Date() ? 'future' : 'past'}`}></span> {item?.departuretdate}</p>
+                                          <p>NGN {item?.amount}</p>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <div className="dataInfo">
+                                        <div className='one'>
+                                          <p>{item?.receiptId}</p>
+                                          <p>{item?.vechicletype}</p>
+                                        </div>
+
+                                        <div className='two'>
+                                          <p>{item?.numberofpassengers}</p>
+                                          <p>NGN {item?.totalamount}</p>
+                                        </div>
+                                      </div>
+                                    )
+                                ))
+                            }
+                          </div>
+                      </div>
+                    ) : (
+                      ''
+                    )
+                }
+                </div>
+
+              </div>
+            
             </div>
         </div>
 

@@ -105,9 +105,99 @@
     font-weight: 500;
 }
 
+.finance .sortCard{
+    margin-bottom: 0.7rem;
+}
+
+.finance .sortCard .sort{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.finance .line{
+    width: 100%;
+    height: 3px;
+    background: var(--color-dark); 
+    margin-top: 3rem;
+}
+
+.finance .middle .btn{
+    margin-top: 1rem;
+}
+
+.finance .middle button{
+    padding: 10px 20px;
+    background: var(--color-primary-opa);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.finance .middle button:hover
+.finance .middle button.active{
+    background: var(--color-primary);
+}
+
+.finance .loader{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 4rem;
+    min-height: 40px;
+    margin-bottom: 4rem;
+}
+
+.finance .dataContent button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.finance .dataInfoCard{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.finance .dataInfoCard .dataInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid var(--color-dark);
+}
+
+.finance .dataInfoCard .dataInfo > div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.finance .dataInfoCard .dataInfo > div p{
+    font-size: 17px;
+}
+
+.finance .dataInfoCard .dataInfo .one p:first-child{
+    font-size: 15px;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 1200px) {
     .finance .top .cards{
         grid-template-columns: 1fr;
         gap: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .finance .dataInfoCard .dataInfo .two p:first-child{
+        display: none;
     }
 }

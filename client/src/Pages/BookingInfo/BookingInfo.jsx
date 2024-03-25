@@ -53,7 +53,10 @@ function BookingInfo({toggleMenu, menuOpen}) {
                         <div className="receiptCard">
                             <div className="top">
                                 <h1>CHI-BOY Express Services Booking Form</h1>
-                                <span>Receipt: {data?.receiptId}</span>
+                                <div className="sub">
+                                    <span>Prepared By: {data?.recpreparedbyeiptId}</span>
+                                    <span>Receipt: {data?.receiptId}</span>
+                                </div>
                             </div>
         
                             <div className='customerInfo'>

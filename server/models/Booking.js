@@ -41,11 +41,17 @@ const BookingSchema = new mongoose.Schema({
         type: String
     },
     nextofkinnumber: {
-        type: Number
+        type: String
     },
     receiptId: {
         type: String
-    }
+    },
+    preparedby: {
+        type: String
+    },
+    updatedby: {
+        type: String
+    },
 },
 {timestamps: true}
 )
