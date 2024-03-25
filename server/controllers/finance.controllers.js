@@ -123,8 +123,19 @@ export async function getReportPDF(req, res) {
             data = await model.find({ createdAt: { $lte: endDate } });
         }
 
+        let pdfBuffer
         // Generate PDF
-        const pdfBuffer = await generatePDF(data);
+        console.log('DATA 1', data)
+        data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+        console.log('DATA 2',data)
+        if (dataType === 'booking') {
+            pdfBuffer = await generateBookingPDF(data);
+        } else if (dataType === 'departure') {
+            pdfBuffer = await generateDeparturePDF(data);
+        } else {
+            return res.status(400).json({ success: false, data: 'Invalid data type' });
+        }
 
         // Send the PDF buffer as response
         res.set({
@@ -138,7 +149,59 @@ export async function getReportPDF(req, res) {
     }
 }
 
-export function generatePDF(data) {
+/**
+ export function generatePDF(data) {
+     return new Promise((resolve, reject) => {
+         const doc = new PDFDocument({ size: 'A4' }); 
+         const buffers = [];
+ 
+         // Buffer the PDF data
+         doc.on('data', buffers.push.bind(buffers));
+ 
+         
+         doc.on('end', () => {
+             const pdfBuffer = Buffer.concat(buffers);
+             resolve(pdfBuffer);
+         });
+ 
+         // Adding PDF content
+         doc.font('Times-Roman')
+            .fontSize(24)
+            .text('CHI-BOY Express Services Finance Sheet', { align: 'center' });
+ 
+         doc.fontSize(14)
+            .text(`Printed: ${moment().format('DD MMMM YYYY HH:mm')}`, { align: 'right' }); // Format date using moment.js
+         doc.moveDown();
+ 
+         doc.font('Helvetica-Bold').text('ID', 50, 150);
+         doc.text('Name', 150, 150);
+         doc.text('Amount', 300, 150);
+         doc.text('Full Payment', 450, 150);
+         doc.text('Balance', 600, 150);
+         doc.text('Date', 600, 150);
+ 
+ 
+         // Adding table rows
+         let y = 180;
+         for (const item of data) {
+             doc.font('Helvetica').text(item.receiptId, 50, y);
+             doc.text(item.name, 150, y);
+             doc.text(`${item.amount}`, 300, y);
+             doc.text(item.fullpayment, 450, y);
+             doc.text(`${item.balancepayment ? item.balancepayment : 0}`, 600, y);
+             doc.text(`${item.createdAt}`, 600, y);
+             // Adding border bottom line for each row
+             doc.moveTo(50, y + 20).lineTo(600, y + 20).stroke();
+             y += 30;
+         }
+ 
+         // finish PDF
+         doc.end();
+     });
+ }
+ */
+
+ export function generateBookingPDF(data) {
     return new Promise((resolve, reject) => {
         const doc = new PDFDocument({ size: 'A4' }); 
         const buffers = [];
@@ -146,7 +209,6 @@ export function generatePDF(data) {
         // Buffer the PDF data
         doc.on('data', buffers.push.bind(buffers));
 
-        
         doc.on('end', () => {
             const pdfBuffer = Buffer.concat(buffers);
             resolve(pdfBuffer);
@@ -155,38 +217,88 @@ export function generatePDF(data) {
         // Adding PDF content
         doc.font('Times-Roman')
            .fontSize(24)
-           .text('CHI-BOY Express Services Finance Sheet', { align: 'center' });
+           .text('CHI-BOY Express Services Booking Finance Sheet', { align: 'center' });
 
         doc.fontSize(14)
            .text(`Printed: ${moment().format('DD MMMM YYYY HH:mm')}`, { align: 'right' }); // Format date using moment.js
         doc.moveDown();
 
-        doc.font('Helvetica-Bold').text('ID', 50, 150);
-        doc.text('Name', 150, 150);
-        doc.text('Amount', 300, 150);
-        doc.text('Full Payment', 450, 150);
-        doc.text('Balance', 600, 150);
-        doc.text('Date', 600, 150);
-
+        doc.font('Helvetica-Bold').text('ID', 10, 150);
+        doc.text('Name', 90, 150);
+        doc.text('Amount', 200, 150); // Adjusted position for Amount column
+        doc.text('Full Payment', 285, 150); // Adjusted position for Full Payment column
+        doc.text('Balance', 385, 150); // Adjusted position for Balance column
+        doc.fontSize(10).text('Date', 450, 150); // Adjusted position for Date column
 
         // Adding table rows
         let y = 180;
         for (const item of data) {
-            doc.font('Helvetica').text(item.receiptId, 50, y);
-            doc.text(item.name, 150, y);
-            doc.text(`${item.amount}`, 300, y);
-            doc.text(item.fullpayment, 450, y);
-            doc.text(`${item.balancepayment ? item.balancepayment : 0}`, 600, y);
-            doc.text(`${item.createdAt}`, 600, y);
+            doc.font('Helvetica').text(item.receiptId, 10, y);
+            doc.text(item.name, 90, y);
+            doc.text(`${item.amount}`, 200, y); // Adjusted position for Amount column
+            doc.text(item.fullpayment, 285, y); // Adjusted position for Full Payment column
+            doc.text(`${item.balancepayment ? item.balancepayment : 0}`, 385, y); // Adjusted position for Balance column
+            doc.fontSize(10).text(`${moment(item.createdAt).format('ddd MMMM D YYYY')}`, 450, y); // Adjusted position for Date column
             // Adding border bottom line for each row
-            doc.moveTo(50, y + 20).lineTo(600, y + 20).stroke();
-            y += 30;
+            doc.moveTo(10, y + 20).lineTo(600, y + 20).stroke();
+            y += 35; // Reduced spacing between rows
         }
 
-        // finish PDF
+        // Finish PDF
         doc.end();
     });
 }
+
+export function generateDeparturePDF(data) {
+    return new Promise((resolve, reject) => {
+        const doc = new PDFDocument({ size: 'A4', layout: 'landscape' }); // Set layout to landscape
+        const buffers = [];
+
+        // Buffer the PDF data
+        doc.on('data', buffers.push.bind(buffers));
+
+        doc.on('end', () => {
+            const pdfBuffer = Buffer.concat(buffers);
+            resolve(pdfBuffer);
+        });
+
+        // Adding PDF content
+        doc.font('Times-Roman')
+           .fontSize(24)
+           .text('CHI-BOY Express Services Departures Finance Sheet', { align: 'center' });
+
+        doc.fontSize(14)
+           .text(`Printed: ${moment().format('DD MMMM YYYY HH:mm')}`, { align: 'right' }); // Format date using moment.js
+        doc.moveDown();
+
+        doc.font('Helvetica-Bold').text('ID', 10, 150);
+        doc.text('Driver', 90, 150);
+        doc.text('Amount', 200, 150); 
+        doc.text('Full Payment', 285, 150); 
+        doc.text('Balance', 385, 150);
+        doc.text('Passengers Carried', 450, 150);
+        doc.fontSize(10).text('Date', 600, 150); 
+
+        // Adding table rows
+        let y = 180;
+        for (const item of data) {
+            doc.font('Helvetica').text(item.receiptId, 10, y);
+            doc.text(item.drivername, 90, y);
+            doc.text(`${item.totalamount}`, 200, y); 
+            doc.text(item.totalamount, 285, y); 
+            doc.text(`${item.balancepayment ? item.balancepayment : 0}`, 385, y); 
+            doc.text(`${item.numberofpassengers}`, 450, y); 
+            doc.fontSize(10).text(`${moment(item.createdAt).format('ddd MMMM D YYYY')}`, 600, y); 
+            // Adding border bottom line for each row
+            doc.moveTo(10, y + 20).lineTo(800, y + 20).stroke(); // Adjusted width to fit landscape orientation
+            y += 35; // Reduced spacing between rows
+        }
+
+        // Finish PDF
+        doc.end();
+    });
+}
+
 
 
 //arrange data from new to late on th pdf

@@ -10,6 +10,7 @@ import Loading from '../../Components/Loading/Loading'
 import { generateReport, generateReportPDF } from '../../helper/api'
 import Spinner from '../../Components/Spinner/Spinner'
 import PrintIcon from '@mui/icons-material/Print';
+import { Link } from 'react-router-dom'
 
 function Finance({toggleMenu, menuOpen}) {
   const [ dataType, setDataType ] = useState()
@@ -370,7 +371,7 @@ function Finance({toggleMenu, menuOpen}) {
 
                                         <div className='two'>
                                           <p className="departDate"><span className={` ${new Date(item?.departuretdate) > new Date() ? 'future' : 'past'}`}></span> {item?.departuretdate}</p>
-                                          <p>NGN {item?.amount}</p>
+                                          <p className="btn"><Link to={`/booking/${item?._id}`} className='link' >View</Link></p>
                                         </div>
                                       </div>
                                     ) : (
