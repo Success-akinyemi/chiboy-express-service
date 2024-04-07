@@ -20,7 +20,7 @@ function BookingForm() {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-
+    console.log(formData)
     const handleBooking = async (e) => {
         e.preventDefault()
         setFormData({...formData, preparedby: user?.name})
@@ -36,10 +36,13 @@ function BookingForm() {
             toast.error('Select Vehicle type')
             return;
         }
+        {/**
+        
         if(!formData.fullpayment){
             toast.error('Confirm if Full payment or not')
             return;
         }
+        */}
         if(!formData.departuretime){
             toast.error('Select a departure time')
             return;
@@ -48,12 +51,17 @@ function BookingForm() {
             toast.error('Select a departure date')
             return;
         }
+        if(!formData.numberofseat){
+            toast.error('Enter Number of seat')
+            return;
+        }
         if(formData.travelingfrom === formData.travelingto){
             toast.error('Departure and Arrival cannot be the same')
             return
         }
         try {
             setIsLoading(true)
+            console.log('BEFORE',formData)
             const res = await createBooking(formData)
             if(res?.data.success){
                 console.log(res)
@@ -134,6 +142,8 @@ function BookingForm() {
             <label htmlFor="">Amount:</label>
             <input type="number" required onChange={handleChange} id='amount' />
         </div>
+        {/**
+         * 
         <div className="inputGroup">
             <label htmlFor="">Full Payment?:</label>
             <select className='payment' onChange={handleChange} id='fullpayment'>
@@ -150,6 +160,7 @@ function BookingForm() {
                 </div>
             )
         }
+         */}
 
         <div className="inputClass">
             <div className="inputGroup">

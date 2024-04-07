@@ -19,6 +19,8 @@ import EditVehicle from './Components/EditVehicle/EditVehicle'
 import EditDepartures from './Components/EditDepartures/EditDepartures'
 import Staffs from './Pages/Staffs/Staffs'
 import NewStaffForm from './Components/NewStaffForm/NewStaffForm'
+import { AuthorizeUser } from './auth/ProtectRoute'
+import VehicleExpenseForm from './Components/VehicleExpenseForm/VehicleExpenseForm'
 
 
 
@@ -69,6 +71,10 @@ function App() {
         return (
           <NewStaffForm departureId={departureId} staffId={staffId} />
         )
+      case 'vehicleExpenseForm':
+        return (
+          <VehicleExpenseForm  />
+        )
     }
   }
 
@@ -113,24 +119,38 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
 
-          <Route path='/dashboard' element={<Dashboard menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
 
-          <Route path='/bookings' element={<Booking menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
+          <Route element={<AuthorizeUser />}>
+            <Route path='/dashboard' element={<Dashboard menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+          </Route>
 
+          <Route element={<AuthorizeUser />}>
+            <Route path='/bookings' element={<Booking menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
+          </Route>
 
-          <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
+          <Route element={<AuthorizeUser />}>
+            <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
+          </Route>
 
+          <Route element={<AuthorizeUser />}>
+            <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setDepartureId={setDepartureId} />} />
+          </Route>
 
-          <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setDepartureId={setDepartureId} />} />
+          <Route element={<AuthorizeUser />}>
+            <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+          </Route>
 
+          <Route element={<AuthorizeUser />}>
+            <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+          </Route>
 
-          <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+          <Route element={<AuthorizeUser />}>
+            <Route path='/profile' element={<Profile menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+          </Route>
 
-          <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
-
-          <Route path='/profile' element={<Profile menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
-
-          <Route path='/staffs' element={<Staffs menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setStaffId={setStaffId} />} />
+          <Route element={<AuthorizeUser />}>
+            <Route path='/staffs' element={<Staffs menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setStaffId={setStaffId} />} />
+          </Route>
 
 
         </Routes>

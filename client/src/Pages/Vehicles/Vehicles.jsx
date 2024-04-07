@@ -7,6 +7,7 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { useState } from 'react';
 import { deleteVehicle, deleteVehicleCategory } from '../../helper/api';
+import BuildIcon from '@mui/icons-material/Build';
 
 function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVehicleId}) {
   const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
@@ -91,6 +92,9 @@ function Vehicles({toggleMenu, menuOpen, setSelectedCard, setVehicleCatId, setVe
                 </div>
                 <div className="addBtn bg" onClick={() => setSelectedCard('vehicleCategory')}>
                   <span><AddIcon className='icon' /> New Category</span>
+                </div>
+                <div className="addBtn expense" onClick={() => setSelectedCard('vehicleExpenseForm')}>
+                  <span><BuildIcon className='icon' /> New Expense</span>
                 </div>
               </div>
 

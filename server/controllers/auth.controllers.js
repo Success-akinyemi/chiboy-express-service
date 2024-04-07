@@ -67,11 +67,12 @@ export async function login(req, res){
             return res.status(401).json({ success: false, data: 'Invalid credentials'})
         }
 
+        const authToken = staff.getSignedToken();
         const token = jwt.sign({ id: staff._id, isAdmin: staff.isAdmin}, process.env.JWT_SECRET)
         const expiryDate = new Date(Date.now() + 12 * 60 * 60 * 1000);
         const { password: staffPassword, ...staffData } = staff._doc 
 
-        res.cookie('accessToken', token, {httpOnly: true,expires: expiryDate, sameSite: 'None', secure: true }).status(200).json({ success: true, data: staffData })
+        res.cookie('accessToken', token, {httpOnly: true,expires: expiryDate, sameSite: 'None', secure: true }).status(200).json({ success: true, token: authToken, data: {success: true, data: staffData } })
     } catch (error) {
         console.log('FAILED TO LOGIN USER', error)
         res.status(500).json({ success: false, data:'Could not login'})

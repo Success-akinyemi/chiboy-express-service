@@ -13,7 +13,7 @@ function BookingInfo({toggleMenu, menuOpen}) {
     const loc = useLocation()
     const path = loc.pathname.split('/')[2]
     const {bookingData, isLoadingBooking} = useFetchBooking(path)
-    //console.log('DTA', bookingData?.data)
+    console.log('DTA', bookingData?.data)
     
     const data = bookingData?.data
 
@@ -54,7 +54,7 @@ function BookingInfo({toggleMenu, menuOpen}) {
                             <div className="top">
                                 <h1>CHI-BOY Express Services Booking Form</h1>
                                 <div className="sub">
-                                    <span>Prepared By: {data?.recpreparedbyeiptId}</span>
+                                    <span>Prepared By: {data?.preparedby}</span>
                                     <span>Receipt: {data?.receiptId}</span>
                                 </div>
                             </div>

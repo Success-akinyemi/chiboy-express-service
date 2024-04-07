@@ -85,7 +85,7 @@ export async function createBooking(req, res){
 
         doc.moveDown();
         doc.text('Payment:')
-        doc.text(`${fullpayment === 'YES' ? 'PAID' : 'PART PAYMENT'}`)
+        doc.text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`)
         // Finalize the PDF
         doc.end();
 
@@ -207,7 +207,7 @@ export async function generateReceipt(req, res){
         
                 doc.moveDown();
                 doc.text('Payment:')
-                doc.text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PART PAYMENT'}`)
+                doc.text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PAID'}`)
                 // Finalize the PDF
                 doc.end();
         

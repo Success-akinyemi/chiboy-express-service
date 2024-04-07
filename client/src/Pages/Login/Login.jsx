@@ -27,7 +27,8 @@ function Login() {
       const res = await LoginUser(formData)
       console.log('SERVER RES>', res)
       if(res?.success){
-        dispatch(signInSuccess(res))
+        dispatch(signInSuccess(res?.data))
+        localStorage.setItem('token', res?.token)
         navigate('/dashboard')
       } else{
         dispatch(signInFailure(res))

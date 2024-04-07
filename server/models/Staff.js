@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jsonwebtoken from 'jsonwebtoken'
 
 const StafSchema = new mongoose.Schema({
     name: {
@@ -38,7 +39,11 @@ const StafSchema = new mongoose.Schema({
     }
 },
 {timestamps: true}
-)
+);
+
+StafSchema.methods.getSignedToken = function(){
+    return jsonwebtoken.sign({ id: this._id, isAdmin: this.isAdmin}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE})
+}
 
 const StaffModel = mongoose.model('chiboyStaff', StafSchema)
 export default StaffModel

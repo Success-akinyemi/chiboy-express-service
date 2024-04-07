@@ -32,6 +32,10 @@
     background: var(--color-danger);
 }
 
+.vehicles .addBtn.expense{
+    background: var(--color-warning);
+}
+
 .vehicles .addBtn span{
     display: flex;
     align-items: center;
