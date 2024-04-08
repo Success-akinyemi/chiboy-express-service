@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import {jwtDecode} from 'jwt-decode';
+//import { jwtDecode } from "jwt-decode";
+import jwtDecode from 'jwt-decode';
 import { useEffect } from "react";
 
 function AuthorizeUser() {
