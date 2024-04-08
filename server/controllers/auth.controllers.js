@@ -159,3 +159,7 @@ export async function getAStaff(req, res){
         res.status(500).json({ success: false, data: 'Failed to get data of staff.' })
     }
 }
+
+export async function signout(req, res){
+    res.clearCookie('accessToken').status(200).json({success: true, data: 'Signout success'})
+}

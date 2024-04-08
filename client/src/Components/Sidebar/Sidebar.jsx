@@ -1,6 +1,6 @@
 import './Sidebar.css'
 import { useDispatch, } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import CloseIcon from '@mui/icons-material/Close';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
@@ -10,10 +10,13 @@ import PaidIcon from '@mui/icons-material/Paid';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { signOut } from '../../redux/user.js/userSlice';
+import { apiUrl } from '../../utils/api';
 
 function Sidebar({toggleMenu, menuOpen}) {
     const location = useLocation();
     const dispatch = useDispatch()
+    const navigate = useNavigate()
   
     const isActive = (path) => {
       return location.pathname === path;
@@ -21,11 +24,13 @@ function Sidebar({toggleMenu, menuOpen}) {
   
     const handleSignOut = async () => {
       try {
-
+          await fetch(apiUrl('/auth/signout'))
+          dispatch(signOut())
+          navigate('/')
       } catch (error) {
           console.log(error)
       }
-    }
+  }
 
   return (
     <div className={`sidebar ${menuOpen ? 'show' : 'hide'}`}>

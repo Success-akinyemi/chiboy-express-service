@@ -139,7 +139,13 @@
     font-weight: 600;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1500px) {
+    .aside .hide{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 950px) {
     .aside{
         z-index: 200;
         height: 3.4rem;
@@ -172,7 +178,7 @@
     }
 
     .admin-profile{
-        margin-right: 1rem;
+        margin-right: 2rem;
     }
 
     .aside .recentUpdates,
