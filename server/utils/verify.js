@@ -17,8 +17,9 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyManager = async (req, res, next) => {
     verifyToken(req, res, async () => {
-        const isManager = await StaffModel.findById({ _id: req.user.id})
-        if(user?.role.toLocaleLowerCase() === 'manager' || user?.role.toLocaleLowerCase() === 'admin'){
+        const user = await StaffModel.findById({ _id: req.user.id})
+        if(user?.role.toLocaleLowerCase() === 'manager' || user?.role.toLocaleLowerCase() === 'admin' || user?.isAdmin){
+            req.user = user;
             next()
         } else {
             return res.status(413).json({ success: false, data: 'NOT ALLOWED'})

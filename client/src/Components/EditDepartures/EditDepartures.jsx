@@ -9,10 +9,10 @@ import { updateDeparture } from '../../helper/api'
 import { formatDistanceToNow } from 'date-fns'
 
 function EditDepartures({departureId}){
-    const [formData, setFormData] = useState({ updatedby: '', id: departureId })
     const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
+    const [formData, setFormData] = useState({ updatedby: user.name, id: departureId })
     const { departureData, isLoadingDeparture } = useFetchDeparture(departureId)
     const data = departureData?.data
     console.log('DATAS', data)
@@ -37,7 +37,6 @@ function EditDepartures({departureId}){
             }
             try {
                 setIsLoading(true)
-                setFormData({...formData, updatedby: user?.name })
                 console.log('Data', formData)
                 const res = await updateDeparture(formData)
             } catch (error) {
@@ -81,7 +80,7 @@ function EditDepartures({departureId}){
             </div>
             <div className="inputGroup">
                 <label htmlFor="">Number of Passengers carried:</label>
-                <input type="number" disabled defaultValue={data?.numberofpassengers} onChange={handleChange} id='numberofpassengers' />
+                <input type="number" defaultValue={data?.numberofpassengers} onChange={handleChange} id='numberofpassengers' />
             </div>
             <div className="inputGroup">
                 <label htmlFor="">Total Amount:</label>
@@ -118,9 +117,13 @@ function EditDepartures({departureId}){
                 <label htmlFor="">Driver Name:</label>
                 <input disabled defaultValue={data?.drivername} required type="text" onChange={handleChange} id='drivername' />
             </div>
-            <div className="btn">
-                <button disabled={isLoading} >{isLoading ? 'Updating...' : 'Update'}</button>
-            </div>
+            {
+                user?.role.toLocaleLowerCase() === 'manager' || user?.role.toLocaleLowerCase() === 'admin' || user?.isAdmin && (
+                    <div className="btn">
+                        <button disabled={isLoading || isLoadingDeparture} >{isLoading ? 'Updating...' : 'Update'}</button>
+                    </div>
+                )
+            }
     </form>
   )
 }

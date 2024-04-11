@@ -1,3 +1,4 @@
+import { vehicleId } from "../../client/src/data/vehicle.js"
 import VehicleModel from "../models/Vehicle.js"
 import VehicleExpenseModel from "../models/vehicleExpense.js"
 
@@ -143,7 +144,6 @@ function generateRandomSixDigitId() {
     return Math.floor(1000000 + Math.random() * 9000000); // Generate a number between 100000 and 999999
 }
 
-
 export async function getAllexpense(req, res){
     try {
         const getAllexpense = await VehicleExpenseModel.find()
@@ -152,6 +152,41 @@ export async function getAllexpense(req, res){
     } catch (error) {
         console.log('COULD NOT GET ALL EXPENSES', error)
         res.status(500).json({ success: false, data: 'Failed to get all vehicle expenses'})
+    }
+}
+
+export async function updateExpense(req, res){
+    try {
+        console.log('INCOMING', req.body)
+
+        const isExist = await VehicleExpenseModel.findOne({ expenseid: req.body.formData.expenseid})
+        if(!isExist){
+            return res.status(404).json({ success: false, data: 'Expense with this id does not exist'})
+        }
+        console.log('OLD', isExist)
+        const id = isExist._id
+        
+        const updateExpense = await VehicleExpenseModel.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    vehicletype: req.body.formData.vehicletype ? req.body.formData.vehicletype : isExist.vehicletype,
+                    vehicle: req.body.formData.vehicle ? req.body.formData.vehicle : isExist.vehicle,
+                    vehicleid: req.body.formData.vehicleid ? req.body.formData.vehicleid : isExist.vehicleid,
+                    amount: req.body.formData.amount ? req.body.formData.amount : isExist.amount,
+                    description: req.body.formData.description ? req.body.formData.description : isExist.description,
+                    updatedby: req.body.formData.updatedby ? req.body.formData.updatedby : isExist.updatedby,
+                }
+            },
+            { new: true }
+        );
+        await updateExpense.save()
+        console.log('NEW', updateExpense)
+
+        res.status(200).json({ success: true, data: 'Updated successful'})
+    } catch (error) {
+        console.log('ERROr UPDATING VEHICLE EXPENSE', error)
+        rs.status(500).json({ success: false, data: 'Could not update expense'})
     }
 }
 
@@ -171,5 +206,20 @@ export async function getOneExpense(req, res){
     } catch (error) {
         console.log('COULD NOT GET EXPENSES', error)
         res.status(500).json({ success: false, data: 'Failed to get vehicle expense'})
+    }
+}
+
+export async function deleteExpense(req, res){
+    const { path } = req.body
+    //console.log(req.body)
+    try {
+        const data = await VehicleExpenseModel.find()
+        console.log('old', data.length)
+        const isExist = await VehicleExpenseModel.findOneAndDelete({ expenseid: path })
+        console.log('new', data.length)
+        res.status(200).json({ success: true, data: 'Deleted Successful' })
+    } catch (error) {
+        console.log('UNABLE TO DELETE EXPENSE', error)
+        res.status(500).json({ success: false, data: 'unable to delete expense'})
     }
 }

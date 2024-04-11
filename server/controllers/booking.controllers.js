@@ -3,6 +3,7 @@ import BookingModel from "../models/Booking.js"
 //import pdf from 'html-pdf'
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
+import StaffModel from "../models/Staff.js";
 
 //create new booking
 export async function createBooking(req, res){
@@ -252,5 +253,32 @@ export async function generateReceipt(req, res){
     } catch (error) {
         console.log('UNABLE TO GET RECEIPT', error)
         res.status(500).json({ success: false, data: 'Unable to get receipt'})
+    }
+}
+
+//update booking info
+export async function updateBooking(req, res){
+    try {
+
+        const { amount, ...updateDataInfo} = req.body
+
+        const userId = req.user.id
+        if(amount){
+            const user = await StaffModel.findById({ _id: userId })
+            if(user?.role.toLocaleLowerCase() !== 'manager' || user?.role.toLocaleLowerCase() !== 'admin' || !user?.isAdmin){
+                return res.status(403).json({ success: false, data: 'Amount can only be updated by Admin or Manager'})
+            }
+        }
+        const { id, ...updateData } = req.body;
+        const updatedBooking = await BookingModel.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!updatedBooking) {
+            return res.status(404).json({ success: false, data: 'Booking not found' });
+        }
+
+        res.status(200).json({ success: true, data: 'Booking Updated success'})
+    } catch (error) {
+        console.log('UNABLE TO UPDTAE BOOKING', error)
+        res.status(500).json({ success: false, data: 'Unable to create booking'})
     }
 }

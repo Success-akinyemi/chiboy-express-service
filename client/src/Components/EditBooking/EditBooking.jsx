@@ -1,105 +1,77 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { travelLocations } from '../../data/locations'
-import { vehicleType } from '../../data/vehicle'
-import './BookingForm.css'
+import './EditBooking.css'
 import { useSelector } from 'react-redux'
-import toast from 'react-hot-toast'
-import { createBooking } from '../../helper/api'
-import { usefetchVehicleType } from '../../hooks/fetch.hooks'
-//import { saveAs } from 'file-saver';
+import { useFetchBooking, usefetchVehicleType } from '../../hooks/fetch.hooks'
+import { updateBooking } from '../../helper/api'
 
-function BookingForm() {
+function EditBooking({bookingId}) {
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
-    const [formData, setFormData] = useState({ preparedby: user?.name })
+    const [formData, setFormData] = useState({ updatedby: user?.name, id: bookingId })
     const [isLoading, setIsLoading] = useState(false)
     const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
     const vehicleCat = vehiclecCatData?.data
+    const { bookingData, isLoadingBooking } = useFetchBooking(bookingId);
+    const data = bookingData?.data
+    console.log('AAA', data)
     
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
-
-    const handleBooking = async (e) => {
+    
+    useEffect(() => {console.log(formData)}, [formData])
+    const handleBookingUpdate = async (e) => {
         e.preventDefault()
-        if(!formData.travelingfrom){
-            toast.error('Select Departure Point')
-            return;
-        }
-        if(!formData.travelingto){
-            toast.error('Select Arivial Point')
-            return;
-        }
-        if(!formData.vechicletype){
-            toast.error('Select Vehicle type')
-            return;
-        }
-        {/**
-        
-        if(!formData.fullpayment){
-            toast.error('Confirm if Full payment or not')
-            return;
-        }
-        */}
-        if(!formData.departuretime){
-            toast.error('Select a departure time')
-            return;
-        }
-        if(!formData.departuretdate){
-            toast.error('Select a departure date')
-            return;
-        }
-        if(!formData.numberofseat){
-            toast.error('Enter Number of seat')
-            return;
-        }
-        if(formData.travelingfrom === formData.travelingto){
-            toast.error('Departure and Arrival cannot be the same')
-            return
-        }
         try {
             setIsLoading(true)
-            console.log('BEFORE',formData)
-            const res = await createBooking(formData)
-            if(res?.data.success){
-                console.log(res)
-            }
+            console.log(formData)
+            const res = await updateBooking(formData)
         } catch (error) {
-            console.log('ERROR CREATING BOOKING', error)
+            console.log('ERROR UPDATING BOOKING FORM', error)            
         } finally {
             setIsLoading(false)
         }
     }
 
   return (
-    <form className='bookingForm'>
-        <small>Being Prepared By: {user.name}</small>
+    <form className='editBooking'>
+        <small>Prepared By: {data?.preparedby}</small> <br />
+        <small>Date Prepared: {new Date(data?.createdAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}</small><br />
+        {
+            data?.updatedby && (
+                <>
+                    <small>Updated By: {data?.updatedby}</small> <br />
+                    <small>Date Prepared: {new Date(data?.updatedAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}</small>
+                </>
+            )
+        }
         <div className="top">
             <h1>CHI-BOY Express Services Booking Form</h1>
-            <span>Receipt: <small></small></span>
+            <span>Receipt: <small>{data?.receiptId}</small></span>
         </div>
         <div className="inputGroup">
             <label htmlFor="">Name:</label>
-            <input required type="text" onChange={handleChange} id='name' />
+            <input defaultValue={data?.name} type="text" onChange={handleChange} id='name' />
         </div>
         <div className="inputGroup">
             <label htmlFor="">Email:</label>
-            <input type="email" onChange={handleChange} id='email' />
+            <input defaultValue={data?.email} type="email" onChange={handleChange} id='email' />
         </div>
         <div className="inputClass">
             <div className="inputGroup">
                 <label htmlFor="">Phone Number:</label>
-                <input required type="number" onChange={handleChange} id='phonenumber' />
+                <input defaultValue={data?.phonenumber} type="number" onChange={handleChange} id='phonenumber' />
             </div>
             <div className="inputGroup">
                 <label htmlFor="">Number of Seat(s):</label>
-                <input required type="number" onChange={handleChange} id='numberofseat' />
+                <input defaultValue={data?.numberofseat} type="number" onChange={handleChange} id='numberofseat' />
             </div>
         </div>
         <div className="inputClass travel">
             <div className="traveldiv">
                 <div className="inputGroup">
-                    <label htmlFor="">Traveling From</label>
+                    <label htmlFor="">Traveling From (<b>Current: {data?.travelingfrom}</b>)</label>
                     <select onChange={handleChange} id='travelingfrom'>
                         <option value=''>Departure Terminal</option>
                         {
@@ -110,7 +82,7 @@ function BookingForm() {
                     </select>
                 </div>
                 <div className="inputGroup">
-                    <label htmlFor="">Traveling To:</label>
+                    <label htmlFor="">Traveling To: (<b>Current: {data?.travelingto}</b>)</label>
                     <select onChange={handleChange} id='travelingto'>
                         <option value=''>Arrival Terminal</option>
                         {
@@ -124,7 +96,7 @@ function BookingForm() {
             <p className='danger errorText'>{formData.travelingfrom === formData.travelingto ? 'Departure and Arrival cannot be the same' : ''}</p>
         </div>
         <div className="inputGroup">
-            <label htmlFor="">Vehicle Type:</label>
+            <label htmlFor="">Vehicle Type: (<b>Current: {data?.vechicletype}</b>)</label>
             <div className="opt">
                 <select className='vehicle' onChange={handleChange} id='vechicletype' >
                         <option value=''>Select Vehicle Type</option>
@@ -138,12 +110,12 @@ function BookingForm() {
         </div>
         <div className="inputGroup">
             <label htmlFor="">Amount:</label>
-            <input type="number" required onChange={handleChange} id='amount' />
+            <input type="number" disabled={user?.role.toLocaleLowerCase() !== 'manager' || user?.role.toLocaleLowerCase() !== 'admin' || !user?.isAdmin} defaultValue={data?.amount} onChange={handleChange} id='amount' />
         </div>
 
         <div className="inputClass">
             <div className="inputGroup">
-                <label htmlFor="">Departure time:</label>
+                <label htmlFor="">Departure time: (<b>Current: {data?.departuretime}</b>)</label>
                 <select onChange={handleChange} id='departuretime'>
                     <option value="">Departure time</option>
                     <option value="5:00am (Morning Time)">5:00am (Morning Time)</option>
@@ -151,7 +123,7 @@ function BookingForm() {
                 </select>
             </div>
             <div className="inputGroup">
-                <label htmlFor="">Date:</label>
+                <label htmlFor="">Date: (<b>Current; {data?.departuretdate}</b>)</label>
                 <input type="date" id='departuretdate' onChange={handleChange} min={new Date().toISOString().split('T')[0]} />
             </div>
         </div>
@@ -164,19 +136,19 @@ function BookingForm() {
 
         <div className="inputGroup">
             <label htmlFor="">Next of Kin Name:</label>
-            <input type="text" required onChange={handleChange} id='nextofkin' />
+            <input type="text" defaultValue={data?.nextofkin} onChange={handleChange} id='nextofkin' />
         </div>
 
         <div className="inputGroup">
             <label htmlFor="">Next of Kin Phone Number:</label>
-            <input type="number" required onChange={handleChange} id='nextofkinnumber' />
+            <input type="number" defaultValue={data?.nextofkinnumber} onChange={handleChange} id='nextofkinnumber' />
         </div>
 
         <div className="btn">
-            <button onClick={handleBooking} disabled={isLoading} >{isLoading ? 'Saving...' : 'Save and Print'}</button>
+            <button onClick={handleBookingUpdate} disabled={isLoading || isLoadingBooking} >{isLoading ? 'Updating...' : 'Update'}</button>
         </div>
     </form>
   )
 }
 
-export default BookingForm
+export default EditBooking

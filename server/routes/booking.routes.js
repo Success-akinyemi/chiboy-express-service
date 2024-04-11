@@ -5,6 +5,8 @@ const router = express.Router()
 
 router.route('/createBooking').post(verifyToken, controller.createBooking)
 router.route('/getReceipt').post(verifyToken, controller.generateReceipt)
+router.route('/updateBooking').post(verifyToken, controller.updateBooking)
+
 
 router.route('/getBooking').get(verifyToken, controller.getBooking)
 router.route('/getBooking/:id').get(verifyToken, controller.getABooking)

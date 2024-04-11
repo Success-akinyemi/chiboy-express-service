@@ -56,6 +56,20 @@ export async function createBooking(formData){
     }
 }
 
+//update booking
+export async function updateBooking(formData){
+    try {
+        const res = await axios.post('/booking/updateBooking', formData, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)
+    }
+}
+
 //generate receipt (Download and Printing)
 export async function generateReceipt({id}){
     try {
@@ -241,6 +255,34 @@ export async function generateReportPDF({dataInfo, date}){
 export async function createVehicleExpense(formData){
     try {
         const res = await axios.post('/vehicle/expense', {formData}, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//update vehicle expense
+export async function updateVehicleExpense(formData){
+    try {
+        const res = await axios.post('/vehicle/updateExpense', {formData}, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)
+    }
+}
+
+//delete vehicle expense
+export async function deleteVehicleExpense({path}){
+    try {
+        const res = await axios.post('/vehicle/deleteExpense', {path}, {withCredentials: true})
         if(res?.data.success){
             return res?.data
         }

@@ -23,6 +23,8 @@ import { AuthorizeUser } from './auth/ProtectRoute'
 import VehicleExpenseForm from './Components/VehicleExpenseForm/VehicleExpenseForm'
 import Expense from './Pages/Expense/Expense'
 import VehicleExpense from './Pages/VehicleExpense/VehicleExpense'
+import UpdateVehicleExpense from './Components/UpdateVehicleExpense/UpdateVehicleExpense'
+import EditBooking from './Components/EditBooking/EditBooking'
 
 
 
@@ -33,6 +35,8 @@ function App() {
   const [ vehicleId, setVehicleId ] = useState('')
   const [ departureId, setDepartureId ] = useState('')
   const [ staffId, setStaffId ] = useState('')
+  const [ vehicleExpenseId, setVehicleExpenseId ] = useState('')
+  const [ bookingId, setBookingId ] = useState('')
 
 
   const toggleMenu = () => {
@@ -45,6 +49,10 @@ function App() {
         return (
             <BookingForm />
         );
+      case 'editBooking':
+        return (
+          <EditBooking bookingId={bookingId} />
+        )
       case 'departureForm':
         return (
           <DepartureForm />
@@ -76,6 +84,10 @@ function App() {
       case 'vehicleExpenseForm':
         return (
           <VehicleExpenseForm  />
+        )
+      case 'vehicleExpense':
+        return (
+          <UpdateVehicleExpense vehicleExpenseId={vehicleExpenseId} />
         )
     }
   }
@@ -139,7 +151,7 @@ function App() {
           </Route>
 
           <Route element={<AuthorizeUser />}>
-            <Route path='/vehicleExpense/:id' element={<VehicleExpense menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
+            <Route path='/vehicleExpense/:id' element={<VehicleExpense menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleExpenseId={setVehicleExpenseId} />} />
           </Route>
 
           <Route element={<AuthorizeUser />}>
@@ -151,7 +163,7 @@ function App() {
           </Route>
 
           <Route element={<AuthorizeUser />}>
-            <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} />} />
+            <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setBookingId={setBookingId} />} />
           </Route>
 
           <Route element={<AuthorizeUser />}>

@@ -1,12 +1,16 @@
 import express from 'express'
 import * as controller from '../controllers/vehicle.controllers.js'
-import { verifyToken } from '../utils/verify.js'
+import { verifyManager, verifyToken } from '../utils/verify.js'
 const router = express.Router()
 
 router.route('/create').post(verifyToken, controller.create) //create a new vehicle
 router.route('/update/:id').post(verifyToken, controller.update) //update a vehicle
 router.route('/remove/:id').post(verifyToken, controller.deleteVehicle) //delete a vehicle
 router.route('/expense').post(verifyToken, controller.expense) //create a new vehicle expense
+router.route('/updateExpense').post(verifyManager, controller.updateExpense) //update a vehicle expense
+router.route('/deleteExpense').post(verifyManager, controller.deleteExpense) //update a vehicle expense
+
+
 
 
 

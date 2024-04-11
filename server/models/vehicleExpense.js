@@ -21,7 +21,8 @@ const VehicleExpenseSchema = new mongoose.Schema({
         type: String
     },
     updatedby: {
-        type: String
+        type: String,
+        default: ''
     },
     expenseid: {
         type: String

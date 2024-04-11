@@ -125,11 +125,11 @@ export function useFetchDeparture(query) {
                 setDeparture({ isLoadingDeparture: false, departureData: data, departureStatus: status, departureError: null })
             } else {
                 setDeparture({ isLoadingDeparture: false, departureData: null, departureStatus: status.response, departureError: null })
-                //console.log('CLG', setBooking)
+                console.log('CLG', setBooking)
             }
         } catch (error) {
-            setDeparture({ isLoadingDeparture: false, departureData: null, departureStatus: error.response.status, departureError: error.response?.data?.data ? error.response?.data?.data : error })
-            //console.log('CLG2', error)
+            setDeparture({ isLoadingDeparture: false, departureData: null, departureStatus: error?.response?.status, departureError: error.response?.data?.data ? error.response?.data?.data : error })
+            console.log('CLG2', error)
         }
     }, [query]);
 

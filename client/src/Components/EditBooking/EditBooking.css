@@ -1,0 +1,171 @@
+.editBooking{
+    width: 60vw;
+    margin-top: 20px;
+    height: 80vh;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.editBooking .top{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.editBooking .top span{
+    width: 100%;
+    text-align: right;
+}
+
+.editBooking .inputGroup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.editBooking .inputClass{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.editBooking .travel{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: -20px;
+}
+
+.editBooking .travel .traveldiv{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.editBooking .travel p{
+    margin-top: -25px;
+}
+
+.editBooking .inputClass .inputGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.editBooking label{
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.editBooking input,
+.editBooking select{
+    width: 100%;
+    border: none;
+    outline: navajowhite;
+    border-bottom: 3px solid var(--color-dark);
+    transition: all 300ms ease-in;
+    padding: 5px;
+    font-size: 18px;
+}
+
+.editBooking input:focus,
+.editBooking select:focus{
+    border-bottom: 3px solid var(--color-primary-variant);
+}
+
+.editBooking .opt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.editBooking .vehicle{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editBooking .payment{
+    width: 20%;
+}
+
+.editBooking hr{
+    margin-top: 30px;
+    border: 2px solid var(--color-dark);
+}
+
+.editBooking .btn{
+    display: flex;
+    width: 100%;
+}
+
+.editBooking .btn button{
+    padding: 15px 25px;
+    background: var(--color-primary);
+    transition: all 300ms ease;
+    margin-left: auto;
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+}
+
+.editBooking .btn button:hover{
+    background: var(--color-primary-opa);
+}
+
+@media screen and (max-width: 800px) {
+    .editBooking{
+        width: 75vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .editBooking{
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 85vw;
+    }
+
+    .editBooking .top{
+        flex-direction: column;
+    }
+
+    .editBooking .top h1{
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .editBooking .top span{
+        text-align: right;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .editBooking .inputClass{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .editBooking .travel .traveldiv{
+        flex-direction: column;
+    }
+
+    .editBooking .vehicle{
+        width: 100%;
+    }
+
+    .editBooking .payment{
+        width: 50%;
+    }
+}
