@@ -51,7 +51,8 @@
 }
 
 .vehicleExpenseForm input,
-.vehicleExpenseForm select{
+.vehicleExpenseForm select,
+.vehicleExpenseForm textarea{
     width: 100%;
     border: none;
     outline: navajowhite;
@@ -64,6 +65,17 @@
 .vehicleExpenseForm input:focus,
 .vehicleExpenseForm select:focus{
     border-bottom: 3px solid var(--color-primary-variant);
+}
+
+.vehicleExpenseForm textarea{
+    border: 3px solid var(--color-dark);
+    width: 97%;
+    height: 120px;
+    resize: none;
+}
+
+.vehicleExpenseForm textarea:focus{
+    border: 3px solid var(--color-primary-variant);
 }
 
 .vehicleExpenseForm .opt{

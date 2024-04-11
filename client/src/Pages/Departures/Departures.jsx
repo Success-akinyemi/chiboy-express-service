@@ -53,7 +53,7 @@ function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
                                 <p>{item?.receiptId}</p>
                                 <p>{item?.vechicletype}</p>
                                 <p>{item?.totalamount}</p>
-                                <p>{formatDistanceToNow(new Date(item?.createdAt))}</p>
+                                <p>{formatDistanceToNow(new Date(item?.createdAt))} ago</p>
                                 <p><div onClick={() => handleEditDeparture(item?._id)} className="edit"><ModeEditOutlineIcon /></div></p>
                               </div>
                             ))

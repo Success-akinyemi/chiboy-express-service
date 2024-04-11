@@ -21,6 +21,8 @@ import Staffs from './Pages/Staffs/Staffs'
 import NewStaffForm from './Components/NewStaffForm/NewStaffForm'
 import { AuthorizeUser } from './auth/ProtectRoute'
 import VehicleExpenseForm from './Components/VehicleExpenseForm/VehicleExpenseForm'
+import Expense from './Pages/Expense/Expense'
+import VehicleExpense from './Pages/VehicleExpense/VehicleExpense'
 
 
 
@@ -130,6 +132,14 @@ function App() {
 
           <Route element={<AuthorizeUser />}>
             <Route path='/vehicles' element={<Vehicles menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
+          </Route>
+
+          <Route element={<AuthorizeUser />}>
+            <Route path='/expense' element={<Expense menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard}  />} />
+          </Route>
+
+          <Route element={<AuthorizeUser />}>
+            <Route path='/vehicleExpense/:id' element={<VehicleExpense menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setVehicleCatId={setVehicleCatId} setVehicleId={setVehicleId} />} />
           </Route>
 
           <Route element={<AuthorizeUser />}>

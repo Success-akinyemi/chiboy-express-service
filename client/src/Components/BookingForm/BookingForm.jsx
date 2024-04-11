@@ -9,10 +9,10 @@ import { usefetchVehicleType } from '../../hooks/fetch.hooks'
 //import { saveAs } from 'file-saver';
 
 function BookingForm() {
-    const [formData, setFormData] = useState({ preparedby: '' })
-    const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
+    const [formData, setFormData] = useState({ preparedby: user?.name })
+    const [isLoading, setIsLoading] = useState(false)
     const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
     const vehicleCat = vehiclecCatData?.data
     
@@ -20,10 +20,8 @@ function BookingForm() {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-    console.log(formData)
     const handleBooking = async (e) => {
         e.preventDefault()
-        setFormData({...formData, preparedby: user?.name})
         if(!formData.travelingfrom){
             toast.error('Select Departure Point')
             return;

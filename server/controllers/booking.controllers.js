@@ -45,48 +45,56 @@ export async function createBooking(req, res){
         const outputFilePath = `booking-${receiptId}.pdf`; // Define output file path
         const outputFileName = `booking_receipt_${receiptId}.pdf`;
 
-        const doc = new PDFDocument();
+        const doc = new PDFDocument({ size: 'A7', margin: 10 });
         const stream = fs.createWriteStream(outputFilePath);
         doc.pipe(stream);
 
         // Add content to the PDF
         doc.font('Times-Roman')
-            .fontSize(24)
-            .text('CHI-BOY Express Services Booking Form', { align: 'center' });
+            .fontSize(10)
+            .text('CHI-BOY Express Services Booking reciept', { align: 'center' });
 
-        doc.fontSize(12);
-        doc.text(`Receipt: ${receiptId}`, { align: 'right' });
+        doc.font('Times-Roman')
+            .fontSize(6) 
+            .text(`Receipt: ${receiptId}`, { align: 'center' })
+            .text(`Prepared by: ${preparedby}`, { align: 'center' });
 
-        doc.moveDown();
-        doc.text('Customer Information:');
-        doc.moveDown();
-        doc.text(`Name: ${name}`);
-        doc.text(`Email: ${email}`);
-        doc.text(`Phone Number: ${phonenumber}`);
-        doc.text(`Number of Seats: ${numberofseat}`);
-        doc.text(`Departure Date: ${departuretdate}`);
-        doc.text(`Departure Time: ${departuretime}`);
 
-        doc.moveDown();
-        doc.text('Booking Details:');
-        doc.moveDown();
-        doc.text(`Traveling From: ${travelingfrom}`);
-        doc.text(`Traveling To: ${travelingto}`);
-        doc.text(`Vehicle Type: ${vechicletype}`);
-        doc.text(`Amount: ${amount}`);
-        doc.text(`Full Payment: ${fullpayment}`);
-        doc.text(`Balance Payment: ${balancepayment ? balancepayment : 0}`);
+        doc.moveDown(1);
+        doc.font('Times-Roman')
+            .fontSize(8)
+            .text('Customer Information:', { align: 'left' })
+            .moveDown()
+            .text(`Name: ${name}`)
+            .text(`Phone Number: ${phonenumber}`)
+            .text(`Number of Seats: ${numberofseat}`)
+            .text(`Departure Date: ${departuretdate}`)
+            .text(`Departure Time: ${departuretime}`);
 
-        doc.moveDown();
-        doc.text('Next of kin Details:');
-        doc.moveDown();
-        doc.text(`Next of Kin Name: ${nextofkin}`);
-        doc.text(`Next of Kin Phone Number: ${nextofkinnumber}`);
+        doc.moveDown(1);
+        doc.font('Times-Roman')
+            .fontSize(8)
+            .text('Booking Details:', { align: 'left' })
+            .moveDown()
+            .text(`Traveling From: ${travelingfrom}`)
+            .text(`Traveling To: ${travelingto}`)
+            .text(`Vehicle Type: ${vechicletype}`)
+            .text(`Amount: ${amount}`);
 
-        doc.moveDown();
-        doc.text('Payment:')
-        doc.text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`)
-        // Finalize the PDF
+        doc.moveDown(1);
+        doc.font('Times-Roman')
+            .fontSize(8)
+            .text('Payment:', { align: 'left' })
+            .moveDown()
+            .text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
+        
+        doc.moveDown(2);
+        doc.font('Times-Roman')
+            .fontSize(8)
+            .text('Built and powered by:', { align: 'center' })
+            .text('success_hub technology', { align: 'center' })
+            .text('09059309831', { align: 'center' });
+       
         doc.end();
 
 
@@ -167,48 +175,55 @@ export async function generateReceipt(req, res){
                 const outputFilePath = `booking-${booking.receiptId}.pdf`; // Define output file path
                 const outputFileName = `booking_receipt_${booking.receiptId}.pdf`;
         
-                const doc = new PDFDocument();
+                const doc = new PDFDocument({ size: 'A7', margin: 10 });
                 const stream = fs.createWriteStream(outputFilePath);
                 doc.pipe(stream);
         
                 // Add content to the PDF
                 doc.font('Times-Roman')
-                    .fontSize(24)
-                    .text('CHI-BOY Express Services Booking Form', { align: 'center' });
+                    .fontSize(10)
+                    .text('CHI-BOY Express Services Booking reciept', { align: 'center' });
         
-                doc.fontSize(12);
-                doc.text(`Receipt: ${booking.receiptId}`, { align: 'right' });
+                doc.font('Times-Roman')
+                    .fontSize(6) 
+                    .text(`Receipt: ${booking.receiptId}`, { align: 'center' })
+                    .text(`Prepared by: ${booking.preparedby}`, { align: 'center' });
+                
+                doc.moveDown(1);
+                doc.font('Times-Roman')
+                    .fontSize(8)
+                    .text('Customer Information:', { align: 'left' })
+                    .moveDown()
+                    .text(`Name: ${booking.name}`)
+                    .text(`Phone Number: ${booking.phonenumber}`)
+                    .text(`Number of Seats: ${booking.numberofseat}`)
+                    .text(`Departure Date: ${booking.departuretdate}`)
+                    .text(`Departure Time: ${booking.departuretime}`);
         
-                doc.moveDown();
-                doc.text('Customer Information:');
-                doc.moveDown();
-                doc.text(`Name: ${booking.name}`);
-                doc.text(`Email: ${booking.email}`);
-                doc.text(`Phone Number: ${booking.phonenumber}`);
-                doc.text(`Number of Seats: ${booking.numberofseat}`);
-                doc.text(`Departure Date: ${booking.departuretdate}`);
-                doc.text(`Departure Time: ${booking.departuretime}`);
-        
-                doc.moveDown();
-                doc.text('Booking Details:');
-                doc.moveDown();
-                doc.text(`Traveling From: ${booking.travelingfrom}`);
-                doc.text(`Traveling To: ${booking.travelingto}`);
-                doc.text(`Vehicle Type: ${booking.vechicletype}`);
-                doc.text(`Amount: ${booking.amount}`);
-                doc.text(`Full Payment: ${booking.fullpayment}`);
-                doc.text(`Balance Payment: ${booking.balancepayment ? booking.balancepayment : 0}`);
-        
-                doc.moveDown();
-                doc.text('Next of kin Details:');
-                doc.moveDown();
-                doc.text(`Next of Kin Name: ${booking.nextofkin}`);
-                doc.text(`Next of Kin Phone Number: ${booking.nextofkinnumber}`);
-        
-                doc.moveDown();
-                doc.text('Payment:')
-                doc.text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PAID'}`)
-                // Finalize the PDF
+                doc.moveDown(1);
+                doc.font('Times-Roman')
+                    .fontSize(8)
+                    .text('Booking Details:', { align: 'left' })
+                    .moveDown()
+                    .text(`Traveling From: ${booking.travelingfrom}`)
+                    .text(`Traveling To: ${booking.travelingto}`)
+                    .text(`Vehicle Type: ${booking.vechicletype}`)
+                    .text(`Amount: ${booking.amount}`);
+
+                doc.moveDown(1);
+                doc.font('Times-Roman')
+                    .fontSize(8)
+                    .text('Payment:', { align: 'left' })
+                    .moveDown()
+                    .text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
+                    
+                doc.moveDown(2);
+                doc.font('Times-Roman')
+                    .fontSize(8)
+                    .text('Built and powered by:', { align: 'center' })
+                    .text('success_hub technology', { align: 'center' })
+                    .text('09059309831', { align: 'center' });
+
                 doc.end();
         
         

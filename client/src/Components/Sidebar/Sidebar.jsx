@@ -12,6 +12,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { signOut } from '../../redux/user.js/userSlice';
 import { apiUrl } from '../../utils/api';
+import BuildIcon from '@mui/icons-material/Build';
 
 function Sidebar({toggleMenu, menuOpen}) {
     const location = useLocation();
@@ -57,6 +58,11 @@ function Sidebar({toggleMenu, menuOpen}) {
           <Link onClick={toggleMenu}  to='/vehicles' className={`link h-2 menuLinks ${isActive('/vehicles') ? 'active' : ''} `}>
             <AirportShuttleIcon className='menuLinks-icon' />
             <Link to='/vehicles' className='link menuLink'>Vehicles</Link>
+          </Link>
+
+          <Link onClick={toggleMenu}  to='/expense' className={`link h-2 menuLinks ${isActive('/expense') ? 'active' : ''} `}>
+            <BuildIcon className='menuLinks-icon' />
+            <Link to='/expense' className='link menuLink'>Expense</Link>
           </Link>
 
           <Link onClick={toggleMenu}  to='/departures' className={`link h-2 menuLinks ${isActive('/departures') ? 'active' : ''} `}>

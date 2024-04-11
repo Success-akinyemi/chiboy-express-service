@@ -14,13 +14,16 @@ const VehicleExpenseSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    expense: {
+    description: {
         type: String
     },
     preparedby: {
         type: String
     },
     updatedby: {
+        type: String
+    },
+    expenseid: {
         type: String
     },
 },

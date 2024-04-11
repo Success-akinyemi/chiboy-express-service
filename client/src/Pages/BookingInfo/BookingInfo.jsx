@@ -13,7 +13,6 @@ function BookingInfo({toggleMenu, menuOpen}) {
     const loc = useLocation()
     const path = loc.pathname.split('/')[2]
     const {bookingData, isLoadingBooking} = useFetchBooking(path)
-    console.log('DTA', bookingData?.data)
     
     const data = bookingData?.data
 

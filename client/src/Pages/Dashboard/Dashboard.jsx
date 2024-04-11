@@ -200,11 +200,11 @@ function Dashboard({toggleMenu, menuOpen}) {
                             <div className="content">
                                 <div className="left">
                                   <h3 className="h-3">Total Vehicle:</h3>
-                                  <h1 className="h-1">{ filteredVehicleData?.length }</h1>
+                                  <h1 className="h-1">{ vehicleData?.data?.length }</h1>
                                 </div>
                                 <div className="right"></div>
                             </div>
-                            <small className='small text-muted' >{dateText}</small>
+                            <small className='small text-muted' >All vehicle</small>
                             </>
                           )
                         }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './NewVehicleForm.css'
 import { useSelector } from 'react-redux'
 import { vehicleType } from '../../data/vehicle'
@@ -7,10 +7,10 @@ import toast from 'react-hot-toast'
 import { newVehicle } from '../../helper/api'
 
 function NewVehicleForm() {
-    const [formData, setFormData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
+    const [formData, setFormData] = useState({preparedby: user?.name})
     const { isloaidngVehicleCat, vehiclecCatData } = usefetchVehicleType()
     const vehicleCat = vehiclecCatData?.data
 
@@ -18,10 +18,10 @@ function NewVehicleForm() {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-    //console.log('DATA', formData)
+
     const createVehicle = async (e) => {
         e.preventDefault()
-        setFormData({...formData, preparedby: user?.name})
+
         if(!formData.registrationnumber || !formData.vechicletype || !formData.vehiclename || !formData.drivername || !formData.numberofseat || !formData.preparedby){
             toast.error('All inputs are required')
             return

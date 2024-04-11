@@ -236,3 +236,17 @@ export async function generateReportPDF({dataInfo, date}){
         toast.error(errorMsg)
     }
 }
+
+//vehicle expense
+export async function createVehicleExpense(formData){
+    try {
+        const res = await axios.post('/vehicle/expense', {formData}, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)
+    }
+}

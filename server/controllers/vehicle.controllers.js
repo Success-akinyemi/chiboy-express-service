@@ -1,4 +1,5 @@
 import VehicleModel from "../models/Vehicle.js"
+import VehicleExpenseModel from "../models/vehicleExpense.js"
 
 
 export async function create(req, res){
@@ -95,5 +96,80 @@ export async function getOne(req, res){
     } catch (error) {
         console.log('COULD NOT GET ALL VEHICLE', error)
         res.status(500).json({ success: false, data: 'Unable to get data'})
+    }
+}
+
+export async function expense(req, res){
+    //console.log(req.body)
+    const { amount, description, preparedby, vehicleid, vehicletype } = req.body.formData
+    try {
+        if(!amount || !description || !preparedby || !vehicleid || !vehicletype){
+            return res.status(404).json({ success: false, data: 'Fill all inputs'})
+        }
+        console.log(vehicleid)
+        const vechicle = await VehicleModel.findOne({ registrationnumber: vehicleid })
+        if(!vechicle){
+            return res.status(404).json({ success: false, data: `Vehicle with registration number: ${vehicleid} not found`})
+        }
+        const vechiclename = vechicle.vehiclename
+
+        let expenseid
+        let isUnique = false
+
+        while (!isUnique){
+            expenseid = generateRandomSixDigitId();
+            const existingReceiptId = await VehicleExpenseModel.findOne({ expenseid: expenseid  })
+            if(!existingReceiptId){
+                isUnique = true
+            }
+        }
+
+        const newExpense = new VehicleExpenseModel({
+            vehicletype, vehicle: vechiclename, vehicleid: vehicleid, amount, description, preparedby, expenseid
+        })
+        await newExpense.save()
+
+        console.log(newExpense)
+
+        res.status(201).json({ success: true, data: 'Vehicle Expense created successful'})
+    } catch (error) {
+        console.log('UNABLE TO CREATE EXPENSE', error)
+        res.status(500).json({ success: false, data: 'Unable to create expense for vehicle'})
+    }
+}
+
+// Function to generate a random seven-digit number
+function generateRandomSixDigitId() {
+    return Math.floor(1000000 + Math.random() * 9000000); // Generate a number between 100000 and 999999
+}
+
+
+export async function getAllexpense(req, res){
+    try {
+        const getAllexpense = await VehicleExpenseModel.find()
+
+        res.status(200).json({ success: true, data: getAllexpense })
+    } catch (error) {
+        console.log('COULD NOT GET ALL EXPENSES', error)
+        res.status(500).json({ success: false, data: 'Failed to get all vehicle expenses'})
+    }
+}
+
+export async function getOneExpense(req, res){
+    const {id} = req.params
+    try {
+        const getExpense = await VehicleExpenseModel.findOne({ expenseid: id })
+
+        if(!getExpense){
+            return res.status(404).json({ success: false, data: 'Vehicle Expense not found' })
+        }
+        const idx = getExpense.vehicleid
+        console.log('IDX',idx)
+        const allExpenseOfVehicle = await VehicleExpenseModel.find({ vehicleid: idx })
+
+        res.status(200).json({ success: true, data: getExpense, allData: allExpenseOfVehicle })
+    } catch (error) {
+        console.log('COULD NOT GET EXPENSES', error)
+        res.status(500).json({ success: false, data: 'Failed to get vehicle expense'})
     }
 }
