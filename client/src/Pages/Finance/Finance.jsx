@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Aside from '../../Components/Aside/Aside'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import { date } from '../../data/date'
-import { useFetchBooking, useFetchDeparture } from '../../hooks/fetch.hooks'
+import { useFetchBooking, useFetchDeparture, useFetchVehicle, useFetchVehicleExpense } from '../../hooks/fetch.hooks'
 import './Finance.css'
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
@@ -21,18 +21,28 @@ function Finance({toggleMenu, menuOpen}) {
   const [ errorMsg, setErrorMsg ] = useState(null)
   const [ isDownLoading, setIsDownloading ] = useState(false)
 
+  const [searchQuery, setSearchquery] = useState("");
+  const { isLoadingVehicle, vehicleData } = useFetchVehicle()
+  const vehicle = vehicleData?.data
+
 
 
   const [ dateInput, setDateInput ] = useState(date[0].value)
   const [ dateText, setDateText ] = useState(date[0].text)
   const { bookingData, isLoadingBooking } = useFetchBooking()
   const { departureData, isLoadingDeparture } = useFetchDeparture()
+  const { expenseData, isLoadingExpense } = useFetchVehicleExpense();
 
   const [filteredBookingData, setFilteredBookingData] = useState([]);
   const [filteredDepartureData, setFilteredDepartureData] = useState([]);
+  const [filteredExpenseDate, setFilteredExpenseData] = useState([])
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const booking = bookingData?.data || []
   const departure = departureData?.data || []
+  const expense = expenseData?.data || []
 
   const handleDateChange = (e) => {
     const selectedIndex = e.target.selectedIndex;
@@ -43,7 +53,8 @@ function Finance({toggleMenu, menuOpen}) {
   useEffect(() => {
     filterDataByDateRange(booking, dateInput, setFilteredBookingData);
     filterDataByDateRange(departure, dateInput, setFilteredDepartureData);
-  }, [booking, departure, dateInput, setFilteredBookingData, setFilteredDepartureData]);
+    filterDataByDateRange(expense, dateInput, setFilteredExpenseData);
+  }, [booking, departure, expense, dateInput, setFilteredBookingData, setFilteredDepartureData, setFilteredExpenseData]);
 
   const filterDataByDateRange = (data, selectedDateInput, setData) => {
 
@@ -59,6 +70,10 @@ function Finance({toggleMenu, menuOpen}) {
       let endDate = new Date(currentDate);
    
       switch (selectedDateInput) {
+        case '24h':
+          startDate.setHours(startDate.getHours() - 24);
+          endDate.setHours(endDate.getHours() - 24);
+        break;
         case '7d':
           startDate.setDate(startDate.getDate() - 7);
           endDate.setDate(endDate.getDate() - 1);
@@ -156,6 +171,19 @@ function Finance({toggleMenu, menuOpen}) {
       }
       return acc;
     }, 0);
+
+    const totalExpenseSum = filteredExpenseDate?.reduce((acc, currentItem) => {
+      const totalAmount = currentItem?.amount;
+      if (typeof totalAmount === 'number' && !isNaN(totalAmount)) {
+        return acc + totalAmount;
+      } else if (typeof totalAmount === 'string') {
+        const totalAmountInt = parseInt(totalAmount);
+        if (!isNaN(totalAmountInt)) {
+          return acc + totalAmountInt;
+        }
+      }
+      return acc;
+    }, 0);
     
     const handleGenerateReport = async () => {
       if(!dataType){
@@ -170,7 +198,7 @@ function Finance({toggleMenu, menuOpen}) {
       }
       try {
         setIsLoading(true)
-        console.log('FETCH DATA', dataType, dateType)
+        //console.log('FETCH DATA', dataType, dateType)
         const res = await generateReport({dataType, dateType}) 
         if(res?.success){
           setFinanceRecord(res?.data)
@@ -206,6 +234,25 @@ function Finance({toggleMenu, menuOpen}) {
       setIsDownloading(false)
     }
   }
+
+  const filteredData = vehicle?.filter((item) => {
+    const vehicleId = item?.registrationnumber?.toLowerCase();
+    const query = searchQuery.toLowerCase();
+
+    return vehicleId.includes(query);
+  });
+
+
+    // Pagination
+    const totalItems = filteredData?.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = filteredData?.slice(startIndex, endIndex);
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
 
   return (
     <div className='container'>
@@ -293,10 +340,88 @@ function Finance({toggleMenu, menuOpen}) {
                         }
                       </div>
 
+                      <div className="card">
+                        {
+                          isLoadingExpense ? (
+                            <div className="main">
+                              <div className="loader">
+                                <Loading width={70} height={70} />
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                            <span>
+                              <DepartureBoardIcon className='icon departure' />
+                              Expenses
+                            </span>
+                            <div className="content">
+                                <div className="left">
+                                  <h3 className="h-3">Total Expense Amount:</h3>
+                                  <h1 className="h-1">{ totalExpenseSum.toLocaleString() }</h1>
+                                  <h3 className="h-3">Total Outstanding:</h3>
+                                  <h2 className="h-2">{0}</h2>
+                                </div>
+                                <div className="right">
+                                  <h3 className="h-3">Total Number</h3>
+                                  <h2 className="h-2">{filteredExpenseDate?.length}</h2>
+                                </div>
+                            </div>
+                            <small className='small text-muted' >{dateText}</small>
+                            </>
+                          )
+                        }
+                      </div>
+
 
                   </div>
                 </div>
 
+
+              <span className='line'></span>
+
+              <div className="vehicle">
+                <h1 className="h-1">Get Vehicle Report</h1>
+                <p>Generate Report for a vehicle</p>
+
+                <div className="searchBar">
+                  <input
+                    placeholder="Enter Vehicle Registration number to serach"
+                    value={searchQuery}
+                    onChange={(e) => setSearchquery(e.target.value)}
+                  />
+                </div>
+
+                <div className="allVehciles">
+                  {
+                    currentItems?.map((item) => (
+                      <div className="vehicleInfo">
+                        <div className="left">
+                          <p>{item?.registrationnumber}</p>
+                          <p>{item?.vehiclename}</p>
+                        </div>
+                        <p><Link className='link'>View Details</Link></p>
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <div className="pagination">
+                  <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </button>
+                    <span>{`Page ${currentPage} of ${totalPages}`}</span>
+                    <button
+                    className='next'
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                  </button>
+                </div>
+              </div>
 
               <span className='line'></span>
 

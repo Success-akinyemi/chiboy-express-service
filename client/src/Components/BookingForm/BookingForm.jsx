@@ -59,10 +59,10 @@ function BookingForm() {
         }
         try {
             setIsLoading(true)
-            console.log('BEFORE',formData)
+            //console.log('BEFORE',formData)
             const res = await createBooking(formData)
             if(res?.data.success){
-                console.log(res)
+                //console.log(res)
             }
         } catch (error) {
             console.log('ERROR CREATING BOOKING', error)

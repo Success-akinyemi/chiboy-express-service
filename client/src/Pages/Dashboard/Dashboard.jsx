@@ -60,6 +60,10 @@ function Dashboard({toggleMenu, menuOpen}) {
     let endDate = new Date(currentDate);
  
     switch (selectedDateInput) {
+      case '24h':
+        startDate.setHours(startDate.getHours() - 24);
+        endDate.setHours(endDate.getHours() - 24);
+        break;
       case '7d':
         startDate.setDate(startDate.getDate() - 7);
         endDate.setDate(endDate.getDate() - 1);

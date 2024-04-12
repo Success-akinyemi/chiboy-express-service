@@ -90,7 +90,7 @@ function Expense({ menuOpen, toggleMenu, setSelectedCard }) {
   };
 
   // Pagination
-  const totalItems = filteredData.length;
+  const totalItems = filteredData?.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -100,7 +100,7 @@ function Expense({ menuOpen, toggleMenu, setSelectedCard }) {
   const totalPagesDate = Math.ceil(totalItemsDate / itemsPerPage);
   const startIndexDate = (currentPage - 1) * itemsPerPage;
   const endIndexDate = startIndex + itemsPerPage;
-  const currentItemsDate = filteredDataWithDate.slice(
+  const currentItemsDate = filteredDataWithDate?.slice(
     startIndexDate,
     endIndexDate
   );
@@ -179,7 +179,7 @@ function Expense({ menuOpen, toggleMenu, setSelectedCard }) {
                         </div>
                       </div>
                     ))
-                  : currentItems?.map((item) => (
+                  : currentItemsDate?.map((item) => (
                       <div key={item?._id} className="expenseItem">
                         <div className="one">
                           <p className="id">{item?.expenseid}</p>

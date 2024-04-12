@@ -36,7 +36,7 @@ export async function updateAccount(formData){
 export async function createBooking(formData){
     try {
         const res = await axios.post('/booking/createBooking', formData, { responseType: 'blob', withCredentials: true })
-        console.log('first', res)
+        //console.log('first', res)
         if(res?.data){
             // Create a Blob directly from the response data
             const blob = new Blob([res.data], { type: 'application/pdf' });
