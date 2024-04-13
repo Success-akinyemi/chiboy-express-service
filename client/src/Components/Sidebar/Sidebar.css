@@ -9,6 +9,7 @@
     padding-left: 5px;
     padding-right: 5px;
     background: var(--color-white);
+    overflow-y: auto;
 }
 
 .sidebar .top{
@@ -21,7 +22,7 @@
 .sidebar .top .logo{
     font-family: cursive;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .sidebar .top .close{
@@ -79,6 +80,10 @@
 
 .sidebar .menuList .menuLinks .menuLink{
     font-weight: 500;
+}
+
+.sidebar .menuList .menuLinks:last-child{
+    margin-bottom: 6rem;
 }
 
 .sidebar .bottom{

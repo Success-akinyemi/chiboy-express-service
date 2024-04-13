@@ -10,7 +10,7 @@ import { updateUserFailure, updateUserStart, updateUserSuccess } from '../../red
 function Profile({toggleMenu, menuOpen}) {
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
-    const [ formData, setFormData] = useState({ id: ''})
+    const [ formData, setFormData] = useState({ id: user?._id})
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
@@ -28,13 +28,13 @@ function Profile({toggleMenu, menuOpen}) {
             toast.error('Add a old password')
             return;
         }
-        setFormData({...formData, id: user?._id})
         try {
             setIsLoading(true)
             dispatch(updateUserStart())
             const res = await updateAccount(formData)
             if(res?.success){
                 toast.success('Account Updated')
+
                 dispatch(updateUserSuccess(res))
             }
         } catch (error) {

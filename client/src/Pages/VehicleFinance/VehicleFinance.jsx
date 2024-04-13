@@ -33,7 +33,8 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
   const [filteredDepartureData, setFilteredDepartureData] = useState([]);
   const [filteredExpenseData, setFilteredExpenseData] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageE, setCurrentPageE] = useState(1);
+  const [currentPageD, setCurrentPageD] = useState(1);
   const itemsPerPage = 10;
 
   const departure = departureData?.data || [];
@@ -162,6 +163,26 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
     return acc;
   }, 0);
 
+      // Pagination
+      const eTotalItems = filteredExpenseData?.length;
+      const eTotalPages = Math.ceil(eTotalItems / itemsPerPage);
+      const eStartIndex = (currentPageE - 1) * itemsPerPage;
+      const eEndIndex = eStartIndex + itemsPerPage;
+      const eCurrentItems = filteredExpenseData?.slice(eStartIndex, eEndIndex);
+  
+      const dTotalItems = filteredDepartureData?.length;
+      const dTotalPages = Math.ceil(dTotalItems / itemsPerPage);
+      const dStartIndex = (currentPageD - 1) * itemsPerPage;
+      const dEndIndex = dStartIndex + itemsPerPage;
+      const dCurrentItems = filteredDepartureData?.slice(dStartIndex, dEndIndex);
+  
+      const handlePageChangeE = (page) => {
+        setCurrentPageE(page);
+      };
+      const handlePageChangeD = (page) => {
+        setCurrentPageD(page);
+      };
+
   return (
     <div className="container">
       <div className="menubarContainer">
@@ -269,7 +290,7 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
               <div className="expenses">
                 <h2 className="h-2">Expenses</h2>
                 {
-                    filteredExpenseData.map((item) => (
+                    eCurrentItems.map((item) => (
                         <div key={item?._id} className="expenseItem">
                         <div className="one">
                           <p className="id">{item?.expenseid}</p>
@@ -284,6 +305,22 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
                       </div>
                     ))
                 }
+                <div className="pagination">
+                  <button
+                      onClick={() => handlePageChangeE(currentPageE - 1)}
+                      disabled={currentPageE === 1}
+                    >
+                      Previous
+                    </button>
+                    <span>{`Page ${currentPageE} of ${eTotalPages}`}</span>
+                    <button
+                    className='next'
+                      onClick={() => handlePageChangeE(currentPageE + 1)}
+                      disabled={currentPageE === eTotalPages}
+                    >
+                      Next
+                  </button>
+                </div>
               </div>
               <div className="departures">
                 <h2 className="h-2">Departures</h2>
@@ -295,7 +332,7 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
                         </div>
                         <div className="body">
                           {
-                            filteredDepartureData?.map((item) => (
+                            dCurrentItems?.map((item) => (
                               <div key={item?._id} className="bodyInfo">
                                 <p>{item?.receiptId}</p>
                                 <p>{item?.totalamount}</p>
@@ -305,6 +342,22 @@ function VehicleFinance({ toggleMenu, menuOpen }) {
                             ))
                           }
                         </div>
+                <div className="pagination">
+                  <button
+                      onClick={() => handlePageChangeD(currentPageD - 1)}
+                      disabled={currentPageD === 1}
+                    >
+                      Previous
+                    </button>
+                    <span>{`Page ${currentPageD} of ${dTotalPages}`}</span>
+                    <button
+                    className='next'
+                      onClick={() => handlePageChangeD(currentPageD + 1)}
+                      disabled={currentPageD === dTotalPages}
+                    >
+                      Next
+                  </button>
+                </div>
               </div>
             </>
           )}

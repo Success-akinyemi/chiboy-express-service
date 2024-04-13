@@ -1,19 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFetchStaffs } from '../../hooks/fetch.hooks'
 import './NewStaffForm.css'
 import { formatDistanceToNow } from 'date-fns'
 import { activeStatus, staffRole } from '../../data/staff'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner/Spinner'
+import { updateAccount } from '../../helper/api'
 
 function NewStaffForm({ staffId }) {
     const [ formData, setFormData ] = useState({})
     const { isLoadingStaff, staffData } = useFetchStaffs(staffId)
-    console.log('DATA ONE', staffData)
+    //console.log('DATA ONE', staffData)
     const data = staffData?.data
     const {currentUser} = useSelector(state => state.user)
     const user = currentUser?.data
     const [ isLoading, setIsLoading ] = useState(false)
+
+    useEffect(() => {
+        if (user) {
+          setFormData({ ...formData, id: user._id });
+        }
+      }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value})
@@ -21,7 +28,7 @@ function NewStaffForm({ staffId }) {
 
     let createdDate = '';
     if (data?.createdAt) {
-        const createdAtDate = new Date(data.createdAt);
+        const createdAtDate = new Date(data?.createdAt);
         if (!isNaN(createdAtDate)) {
             createdDate = formatDistanceToNow(createdAtDate);
         }
@@ -32,6 +39,10 @@ function NewStaffForm({ staffId }) {
         try {
             setIsLoading(true)
             console.log(formData)
+            const res = await updateAccount(formData)
+            if(res?.success){
+                window.location.reload()
+            }
         } catch (error) {
             console.log('Failed to update user', error)
         } finally {
@@ -125,7 +136,7 @@ function NewStaffForm({ staffId }) {
                                     )
                                 }
                                 <div className="btn">
-                                    <button className={`${isLoading ? 'loading' : ''}`}>{isLoading ? 'Updating...' : 'Update'}</button>
+                                    <button disabled={isLoading} className={`${isLoading ? 'loading' : ''}`}>{isLoading ? 'Updating...' : 'Update'}</button>
                                 </div>
                         </form>
                     )

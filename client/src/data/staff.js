@@ -5,11 +5,11 @@ export const staffRole = [
     },
     {
         text: 'Manager',
-        value: 'staff'
+        value: 'manager'
     },
     {
         text: 'Admin',
-        value: 'staff'
+        value: 'admin'
     },
 ]
 

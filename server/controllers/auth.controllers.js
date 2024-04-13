@@ -82,6 +82,7 @@ export async function login(req, res){
 export async function updateStaff(req, res){
     const {id} = req.params
     console.log('DII', id)
+    console.log(req.user)
     try {
         const admin = await StaffModel.findById({ _id: id })
         if(!(req.user.id === req.params.id || admin.isAdmin)){

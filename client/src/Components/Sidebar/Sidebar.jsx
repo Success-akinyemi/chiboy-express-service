@@ -37,7 +37,7 @@ function Sidebar({toggleMenu, menuOpen}) {
     <div className={`sidebar ${menuOpen ? 'show' : 'hide'}`}>
         <div className="top">
           <div className="logo">
-                <Link className='link'>Chi-Boy Express</Link>
+                <Link className='link'>Chi-Boy Express Services</Link>
           </div>
           <div className="close" onClick={toggleMenu}>
             <CloseIcon className='closeIcon' />
