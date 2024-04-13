@@ -206,7 +206,7 @@
 @media screen and (max-width: 768px) {
   .mainContainer{
       width: 94vw;
-      margin-left: 1.5rem;
+      margin-left: 0;
       padding-right: 2rem;
       margin-top: 4rem;
       overflow-x: hidden;

@@ -1,0 +1,186 @@
+.vehicleFinance{
+    width: 100%;
+    min-height: 100vh;
+}
+
+.vehicleFinance .load{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vehicleFinance .top{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.vehicleFinance .top .sort{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.vehicleFinance .sort label{
+    font-size: 20px;
+    color: var(--color-dark);
+    font-weight: 600;
+}
+
+.vehicleFinance .sort select{
+    padding: 10px 20px;
+    border: none;
+    background: var(--color-info-light);
+    border-radius: 5px;
+    font-size: 18px;
+    color: var(--color-dark);
+    outline: none;
+    cursor: pointer;
+}
+
+.vehicleFinance .sort select option{
+    background: var(--color-white);
+    border: none;
+    outline: none;
+}
+
+.vehicleFinance .top .cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+    margin-top: 2rem;
+}
+
+.vehicleFinance .top .cards > div{
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top: 1rem;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicleFinance .top .cards > div{
+    box-shadow: none;
+}
+
+.vehicleFinance .top .cards > div span{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.vehicleFinance .top .cards > div span .icon{
+    background: coral;
+    padding: 0.5rem;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.vehicleFinance .top .cards > div span .icon.departure{
+    background: var(--color-success);
+}
+
+.vehicleFinance .top .cards > div span .icon.vehicle{
+    background: var(--color-danger);
+}
+
+.vehicleFinance .top .cards > div small{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.vehicleFinance .expenses{
+    width: 100%;
+}
+
+.vehicleFinance .expenseItem{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-dark-variant);;
+}
+
+.vehicleFinance .expenseItem:last-child{
+    border-bottom: none;
+}
+
+.vehicleFinance .expenseItem .one,
+.vehicleFinance .expenseItem .two{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.vehicleFinance .expenseItem .link{
+    padding: 5px 20px;
+    border-radius: 15px;
+    color: var(--color-white);
+    margin-right: 10px;
+    cursor: pointer;
+    background: var(--color-info-dark);
+}
+
+.vehicleFinance .bodyInfo{
+    display: flex;
+    align-items: center;
+}
+
+.vehicleFinance .bodyInfo p{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vehicleFinance .bodyInfo p .edit{
+    cursor: pointer;
+    background: var(--color-light);
+    padding: 5px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .vehicleFinance .top .cards{
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .vehicleFinance .bodyInfo p:nth-child(3){
+        display: none;
+    }
+
+    .vehicleFinance .bodyInfo p:last-child{
+        display: flex;
+    }
+
+    .vehicleFinance .departures .head h4:nth-child(3){
+        display: none;
+    }
+
+    .vehicleFinance .departures .head h4:last-child{
+        display: flex;
+    }
+}

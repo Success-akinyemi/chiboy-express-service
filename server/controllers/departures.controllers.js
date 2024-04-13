@@ -77,8 +77,8 @@ export async function getAllDeparture(req, res){
 
         res.status(200).json({ success: true, data: departure })
     } catch (error) {
-        console.log('COULD NOT GET ALL BOOKING', error)
-        res.status(500).json({ success: false, data: 'Unable to get all booking data'})
+        console.log('COULD NOT GET ALL DEPARTURE', error)
+        res.status(500).json({ success: false, data: 'Unable to get all departure data'})
     }
 }
 
@@ -89,8 +89,20 @@ export async function getADeparture(req, res){
 
         res.status(200).json({ success: true, data: departures })
     } catch (error) {
-        console.log('COULD NOT GET A BOOKING', error)
-        res.status(500).json({ success: false, data: 'Unable to get booking data'})
+        console.log('COULD NOT GET A DEPARTURW', error)
+        res.status(500).json({ success: false, data: 'Unable to get departure data'})
+    }
+}
+
+export async function getVehicleDepartures(req, res){
+    const {id} = req.params
+    try {
+        const departure = await Departuremodel.find({ vechicleid: id })
+
+        res.status(200).json({ success: true, data: departure })
+    } catch (error) {
+        console.log('COULD NOT GET ALL DEPARTURE FOR VEHCILE', error)
+        res.status(500).json({ success: false, data: 'Unable to get all departure for vehicle data'})
     }
 }
 

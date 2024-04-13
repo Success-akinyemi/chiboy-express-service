@@ -25,6 +25,7 @@ import Expense from './Pages/Expense/Expense'
 import VehicleExpense from './Pages/VehicleExpense/VehicleExpense'
 import UpdateVehicleExpense from './Components/UpdateVehicleExpense/UpdateVehicleExpense'
 import EditBooking from './Components/EditBooking/EditBooking'
+import VehicleFinance from './Pages/VehicleFinance/VehicleFinance'
 
 
 
@@ -164,6 +165,10 @@ function App() {
 
           <Route element={<AuthorizeUser />}>
             <Route path='/booking/:id' element={<BookingInfo menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setBookingId={setBookingId} />} />
+          </Route>
+
+          <Route element={<AuthorizeUser />}>
+            <Route path='/vehicleFinance/:id/:vId' element={<VehicleFinance menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard}  />} />
           </Route>
 
           <Route element={<AuthorizeUser />}>

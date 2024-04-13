@@ -6,6 +6,7 @@ import moment from 'moment';
 
 export async function generateReport(req, res){
     const { dataType, dateType } = req.body
+    console.log( dataType, dateType)
     try {
         if(!dataType || !dateType){
             res.status(404).json({ success: false, data: 'All inputs are required'})
@@ -24,6 +25,10 @@ export async function generateReport(req, res){
         let endDate = new Date()
 
         switch(dateType) {
+            case '24h':
+                startDate = new Date();
+                startDate.setHours(startDate.getHours() - 24);
+                break;
             case '7d':
                 startDate = new Date();
                 startDate.setDate(startDate.getDate() - 7);

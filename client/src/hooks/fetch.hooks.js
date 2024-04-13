@@ -113,6 +113,32 @@ export function useFetchVehicleExpense(query) {
     return vehicleExpense;
 }
 
+export function useFetchVehicleFinance(query) {
+    const [vehicleExpense, setVehicleExpense] = useState({ isLoadingExpense: true, expenseData: null, expenseStatus: null, expenseError: null})
+
+    const fetchVehicleData = useCallback(async () => {
+        try {
+            const { data, status } = !query ? await axios.get(`/vehicle/getVehicleExpense`, { withCredentials: true }) : await axios.get(`/vehicle/getVehicleExpenses/${query}`, { withCredentials: true })
+
+            if (status === 200) {
+                setVehicleExpense({ isLoadingExpense: false, expenseData: data, expenseStatus: status, expenseError: null })
+            } else {
+                setVehicleExpense({ isLoadingExpense: false, expenseData: null, expenseStatus: status.response, expenseError: null })
+                console.log('CLG', setVehicleExpense)
+            }
+        } catch (error) {
+            setVehicleExpense({ isLoadingExpense: false, expenseData: null, expenseStatus: error?.response?.status, expenseError: error.response?.data?.data ? error.response?.data?.data : error })
+            console.log('CLG2', error)
+        }
+    }, [query]);
+
+    useEffect(() => {
+        fetchVehicleData();
+    }, [fetchVehicleData]);
+
+    return vehicleExpense;
+}
+
 //fetch Bookings
 export function useFetchDeparture(query) {
     const [departure, setDeparture] = useState({ isLoadingDeparture: true, departureData: null, departureStatus: null, departureError: null})
@@ -120,6 +146,32 @@ export function useFetchDeparture(query) {
     const fetchDepartureData = useCallback(async () => {
         try {
             const { data, status } = !query ? await axios.get(`/departure/getAll`, { withCredentials: true }) : await axios.get(`/departure/getOne/${query}`, { withCredentials: true })
+
+            if (status === 200) {
+                setDeparture({ isLoadingDeparture: false, departureData: data, departureStatus: status, departureError: null })
+            } else {
+                setDeparture({ isLoadingDeparture: false, departureData: null, departureStatus: status.response, departureError: null })
+                console.log('CLG', setBooking)
+            }
+        } catch (error) {
+            setDeparture({ isLoadingDeparture: false, departureData: null, departureStatus: error?.response?.status, departureError: error.response?.data?.data ? error.response?.data?.data : error })
+            console.log('CLG2', error)
+        }
+    }, [query]);
+
+    useEffect(() => {
+        fetchDepartureData();
+    }, [fetchDepartureData]);
+
+    return departure;
+}
+
+export function useFetchVehicleDeparture(query) {
+    const [departure, setDeparture] = useState({ isLoadingDeparture: true, departureData: null, departureStatus: null, departureError: null})
+
+    const fetchDepartureData = useCallback(async () => {
+        try {
+            const { data, status } = !query ? await axios.get(`/departure/getAllVehicle`, { withCredentials: true }) : await axios.get(`/departure/getOneVehicle/${query}`, { withCredentials: true })
 
             if (status === 200) {
                 setDeparture({ isLoadingDeparture: false, departureData: data, departureStatus: status, departureError: null })

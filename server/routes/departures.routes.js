@@ -9,5 +9,7 @@ router.route('/update').post(verifyManager, controller.update) //update departur
 
 router.route('/getAll').get(verifyToken, controller.getAllDeparture) //get all departure
 router.route('/getOne/:id').get(verifyToken, controller.getADeparture) //get a departure
+router.route('/getOneVehicle/:id').get(verifyToken, controller.getVehicleDepartures) //get a departure
+
 
 export default router

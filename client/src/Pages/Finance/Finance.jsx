@@ -5,12 +5,14 @@ import { date } from '../../data/date'
 import { useFetchBooking, useFetchDeparture, useFetchVehicle, useFetchVehicleExpense } from '../../hooks/fetch.hooks'
 import './Finance.css'
 import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
+import BuildIcon from '@mui/icons-material/Build';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 import Loading from '../../Components/Loading/Loading'
 import { generateReport, generateReportPDF } from '../../helper/api'
 import Spinner from '../../Components/Spinner/Spinner'
 import PrintIcon from '@mui/icons-material/Print';
 import { Link } from 'react-router-dom'
+
 
 function Finance({toggleMenu, menuOpen}) {
   const [ dataType, setDataType ] = useState()
@@ -43,6 +45,7 @@ function Finance({toggleMenu, menuOpen}) {
   const booking = bookingData?.data || []
   const departure = departureData?.data || []
   const expense = expenseData?.data || []
+  
 
   const handleDateChange = (e) => {
     const selectedIndex = e.target.selectedIndex;
@@ -202,7 +205,7 @@ function Finance({toggleMenu, menuOpen}) {
         const res = await generateReport({dataType, dateType}) 
         if(res?.success){
           setFinanceRecord(res?.data)
-          console.log('DATA', financeRecord, 'RAW DATA', res?.data)
+          //console.log('DATA', financeRecord, 'RAW DATA', res?.data)
         }
       } catch (error) {
         console.log('Failed to fetch report', error)
@@ -351,7 +354,7 @@ function Finance({toggleMenu, menuOpen}) {
                           ) : (
                             <>
                             <span>
-                              <DepartureBoardIcon className='icon departure' />
+                              <BuildIcon className='icon departure' />
                               Expenses
                             </span>
                             <div className="content">
@@ -399,7 +402,7 @@ function Finance({toggleMenu, menuOpen}) {
                           <p>{item?.registrationnumber}</p>
                           <p>{item?.vehiclename}</p>
                         </div>
-                        <p><Link className='link'>View Details</Link></p>
+                        <p><Link to={`/vehicleFinance/${item?._id}/${item?.registrationnumber}`} className='link'>View Details</Link></p>
                       </div>
                     ))
                   }

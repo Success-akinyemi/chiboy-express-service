@@ -19,6 +19,9 @@ router.route('/getOne/:id').get(verifyToken, controller.getOne) //get a vehicle
 router.route('/getAllexpense').get(verifyToken, controller.getAllexpense) //get all vehicle expenses
 router.route('/getOneExpense/:id').get(verifyToken, controller.getOneExpense) //get one vehicle expenses
 
+router.route('/getVehicleExpenses/:id').get(verifyToken, controller.getVehicleExpenses) //get one vehicle expenses
+
+
 
 
 export default router

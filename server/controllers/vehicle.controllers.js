@@ -1,4 +1,3 @@
-import { vehicleId } from "../../client/src/data/vehicle.js"
 import VehicleModel from "../models/Vehicle.js"
 import VehicleExpenseModel from "../models/vehicleExpense.js"
 
@@ -192,6 +191,7 @@ export async function updateExpense(req, res){
 
 export async function getOneExpense(req, res){
     const {id} = req.params
+    
     try {
         const getExpense = await VehicleExpenseModel.findOne({ expenseid: id })
 
@@ -221,5 +221,23 @@ export async function deleteExpense(req, res){
     } catch (error) {
         console.log('UNABLE TO DELETE EXPENSE', error)
         res.status(500).json({ success: false, data: 'unable to delete expense'})
+    }
+}
+
+export async function getVehicleExpenses(req, res){
+    const {id} = req.params
+    console.log('first', id)
+    try {
+        const getExpense = await VehicleExpenseModel.find({ vehicleid: id })
+
+        if(!getExpense){
+            return res.status(404).json({ success: false, data: 'Vehicle Expenses not found' })
+        }
+        console.log(getExpense)
+
+        res.status(200).json({ success: true, data: getExpense })
+    } catch (error) {
+        console.log('COULD NOT GET EXPENSES', error)
+        res.status(500).json({ success: false, data: 'Failed to get vehicle expense'})
     }
 }
