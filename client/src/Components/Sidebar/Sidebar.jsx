@@ -13,17 +13,21 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { signOut } from '../../redux/user.js/userSlice';
 import { apiUrl } from '../../utils/api';
 import BuildIcon from '@mui/icons-material/Build';
+import { useSelector } from 'react-redux';
 
 function Sidebar({toggleMenu, menuOpen}) {
     const location = useLocation();
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {currentUser} = useSelector(state => state.user)
+    const user = currentUser?.data
   
     const isActive = (path) => {
       return location.pathname === path;
     };
   
     const handleSignOut = async () => {
+      console.log('KO')
       try {
           await fetch(apiUrl('/auth/signout'))
           dispatch(signOut())
@@ -70,26 +74,35 @@ function Sidebar({toggleMenu, menuOpen}) {
             <Link to='/departures' className='link menuLink'>Departures</Link>
           </Link>
 
-          <Link onClick={toggleMenu}  to='/finance' className={`link h-2 menuLinks ${isActive('/finance') ? 'active' : ''} `}>
-            <PaidIcon className='menuLinks-icon' />
-            <Link to='/finance' className='link menuLink'>Finance</Link>
-          </Link>
+          {
+            user.isAdmin && (
+              <Link onClick={toggleMenu}  to='/finance' className={`link h-2 menuLinks ${isActive('/finance') ? 'active' : ''} `}>
+                <PaidIcon className='menuLinks-icon' />
+                <Link to='/finance' className='link menuLink'>Finance</Link>
+              </Link>
+            )
+          }
 
           <Link onClick={toggleMenu}  to='/profile' className={`link h-2 menuLinks ${isActive('/profile') ? 'active' : ''} `}>
             <AccountCircleRoundedIcon className='menuLinks-icon' />
             <Link to='/profile' className='link menuLink'>Profile</Link>
           </Link>
 
-          <Link onClick={toggleMenu}  to='/staffs' className={`link h-2 menuLinks ${isActive('/staffs') ? 'active' : ''} `}>
-            <PeopleAltIcon className='menuLinks-icon' />
-            <Link to='/staffs' className='link menuLink'>Staffs</Link>
-          </Link>
+          {
+            user.isAdmin && (
+              <Link onClick={toggleMenu}  to='/staffs' className={`link h-2 menuLinks ${isActive('/staffs') ? 'active' : ''} `}>
+                <PeopleAltIcon className='menuLinks-icon' />
+                <Link to='/staffs' className='link menuLink'>Staffs</Link>
+              </Link>
+            )
+          }
 
         </div>
 
-        <div className="bottom">
-          <span onClick={handleSignOut} className='h-2'><LogoutIcon className='logoutIcon' /> Logout</span>
+        <div onClick={handleSignOut} className="bottom">
+          <span className='h-2'><LogoutIcon className='logoutIcon' /> Logout</span>
         </div>
+
     </div>
   )
 }

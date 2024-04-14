@@ -19,6 +19,31 @@
     background: var(--color-primary-opa);
 }
 
+.departures .searchBar{
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.departures input{
+    width: 100%;
+    border: none;
+    border-bottom: 3px solid var(--color-dark);
+    background: transparent;
+    outline: none;
+    font-size: 18px;
+    padding: 5px;
+    transition: all 300ms ease;
+}
+
+.departures input::placeholder{
+    color: var(--color-dark);
+    opacity: 0.6;
+}
+
+.departures input:focus{
+    border-bottom: 3px solid var(--color-primary);
+}
+
 .departures .head{
     display: flex;
     width: 100%;

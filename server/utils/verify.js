@@ -28,8 +28,10 @@ export const verifyManager = async (req, res, next) => {
 }
 
 export const verifyAdmin = (req, res, next) => {
-    verifyToken(req, res, () => {
-        if(req.user.isAdmin){
+    verifyToken(req, res, async () => {
+        const user = await StaffModel.findById({ _id: req.user.id})
+        console.log('first', user.isAdmin)
+        if(user.isAdmin){
             next()
         } else {
             return res.status(413).json({ success: false, data: 'You are Forbidden'})

@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken'
 import StaffModel from '../models/Staff.js'
 
 export async function newStaff(req, res){
-    const { name, phoneNumber, role, email } = req.body
+    const { id, name, phoneNumber, role, email } = req.body
+    console.log(req.body)
     try {
         const hashedPassword = bcryptjs.hashSync(`${process.env.DEFAULT_ADMIN_PASSWORD}`, 10)
         let staffId

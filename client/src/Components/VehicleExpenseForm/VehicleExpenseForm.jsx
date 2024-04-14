@@ -65,7 +65,7 @@ function VehicleExpenseForm() {
     return (
     <form className='vehicleExpenseForm' onSubmit={newVehicleExpenseForm}>
             <div className="top">
-                <h1>CHI-BOY Express Services (Departure Form)</h1>
+                <h1>CHI-BOY Express Services (Vehicle Expense Form)</h1>
                 <span><small>Prepared by: {user?.name}</small></span>
             </div>
             <div className="inputGroup">

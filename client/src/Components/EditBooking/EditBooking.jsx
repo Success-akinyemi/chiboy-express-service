@@ -27,6 +27,9 @@ function EditBooking({bookingId}) {
             setIsLoading(true)
             console.log(formData)
             const res = await updateBooking(formData)
+            if(res?.success){
+                window.location.reload()
+            }
         } catch (error) {
             console.log('ERROR UPDATING BOOKING FORM', error)            
         } finally {

@@ -82,14 +82,10 @@
     font-weight: 500;
 }
 
-.sidebar .menuList .menuLinks:last-child{
-    margin-bottom: 6rem;
-}
-
 .sidebar .bottom{
     margin-top: auto;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
 }
 
 .sidebar .bottom span{
@@ -171,6 +167,10 @@
 
     .sidebar .top .close .closeIcon{
         font-size: 40px;
+    }
+
+    .sidebar .menuList .menuLinks:last-child{
+        margin-bottom: 4rem;
     }
 }
 

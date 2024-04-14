@@ -3,7 +3,23 @@ import toast from 'react-hot-toast'
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
+//create User
+export async function createUser(formData){
+    try {
+        const res = await axios.post('/auth/newStaff', formData,  { withCredentials: true })
+        console.log('RES API', res)
+        if(res?.data.success){
+            toast.success(res?.data.data)
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERROR LOGGING', error)
+        const res = error.response.data.data
+        toast.error(res)
+    }
+}
 
+//login user
 export async function LoginUser(formData){
     try {
         const res = await axios.post('/auth/login', formData,  { withCredentials: true })
@@ -61,6 +77,7 @@ export async function updateBooking(formData){
     try {
         const res = await axios.post('/booking/updateBooking', formData, {withCredentials: true})
         if(res?.data.success){
+            toast.success(res?.data.data)
             return res?.data
         }
     } catch (error) {

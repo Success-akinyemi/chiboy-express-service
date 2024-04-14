@@ -20,7 +20,7 @@ function EditDepartures({departureId}){
         setFormData({...formData, [e.target.id]: e.target.value})
     }
 
-    console.log('DATA', formData)
+    //console.log('DATA', formData)
 
     const handleEditDeparture = async (e) => {
         e.preventDefault()
@@ -84,7 +84,7 @@ function EditDepartures({departureId}){
             </div>
             <div className="inputGroup">
                 <label htmlFor="">Total Amount:</label>
-                <input type="number" required defaultValue={data?.totalamount} onChange={handleChange} id='totalamount' />
+                <input type="number" disabled={user?.role.toLocaleLowerCase() !== 'manager' || user?.role.toLocaleLowerCase() !== 'admin' || user?.isAdmin} required defaultValue={data?.totalamount} onChange={handleChange} id='totalamount' />
             </div>
             <div className="inputGroup">
             <label htmlFor="">Full Payment?: (Current: {data?.fullpayment})</label>
@@ -96,7 +96,7 @@ function EditDepartures({departureId}){
             </div>
                     <div className="inputGroup">
                         <label htmlFor="">Balance Payment:</label>
-                        <input defaultValue={data?.balancepayment} type="number" required={formData.fullpayment === 'NO'} onChange={handleChange} id='balancepayment' />
+                        <input disabled={user?.role.toLocaleLowerCase() !== 'manager' || user?.role.toLocaleLowerCase() !== 'admin' || user?.isAdmin} defaultValue={data?.balancepayment} type="number" required={formData.fullpayment === 'NO'} onChange={handleChange} id='balancepayment' />
                     </div>
 
             <div className="inputClass">
@@ -117,13 +117,10 @@ function EditDepartures({departureId}){
                 <label htmlFor="">Driver Name:</label>
                 <input disabled defaultValue={data?.drivername} required type="text" onChange={handleChange} id='drivername' />
             </div>
-            {
-                user?.role.toLocaleLowerCase() === 'manager' || user?.role.toLocaleLowerCase() === 'admin' || user?.isAdmin && (
-                    <div className="btn">
-                        <button disabled={isLoading || isLoadingDeparture} >{isLoading ? 'Updating...' : 'Update'}</button>
-                    </div>
-                )
-            }
+             <div className="btn">
+                <button disabled={isLoading || isLoadingDeparture} >{isLoading ? 'Updating...' : 'Update'}</button>
+            </div>
+
     </form>
   )
 }

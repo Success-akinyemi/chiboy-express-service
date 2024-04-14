@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Aside from '../../Components/Aside/Aside'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Spinner from '../../Components/Spinner/Spinner'
@@ -11,11 +12,15 @@ function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
   //console.log('DATA', departureData?.data)
   const data = departureData?.data
   const sortedData = data?.sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt));
-  
+  const [searchQuery, setSearchquery] = useState("");
+
   const handleEditDeparture = (id) => {
     setSelectedCard('editDepartureForm')
     setDepartureId(id)
   }
+
+  const filteredData = sortedData?.filter(item => item?.receiptId?.includes(searchQuery))
+  
 
   return (
     <div className='container'>
@@ -39,6 +44,13 @@ function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
                       </div>
                     ) : (
                       <>
+                                  <div className="searchBar">
+              <input
+                placeholder="Enter Expense ID or Vehicle Registration number to serach"
+                value={searchQuery}
+                onChange={(e) => setSearchquery(e.target.value)}
+              />
+            </div>
                         <div className="head">
                           <h4>ID</h4>
                           <h4>Vechicle type</h4>
@@ -48,7 +60,7 @@ function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
                         </div>
                         <div className="body">
                           {
-                            sortedData?.map((item) => (
+                            filteredData?.map((item) => (
                               <div className="bodyInfo">
                                 <p>{item?.receiptId}</p>
                                 <p>{item?.vechicletype}</p>
