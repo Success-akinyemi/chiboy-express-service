@@ -139,6 +139,24 @@
     font-weight: 600;
 }
 
+@media screen and (max-width: 1600px) {
+    .aside{
+        width: 19rem;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .aside{
+        width: 15rem;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .aside{
+        width: 10rem;
+    }
+}
+
 @media screen and (max-width: 1500px) {
     .aside .hide{
         display: none;

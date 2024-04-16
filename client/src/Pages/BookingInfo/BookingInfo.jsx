@@ -90,7 +90,7 @@ function BookingInfo({ toggleMenu, menuOpen, setBookingId, setSelectedCard }) {
                 </span>
                 <div className="minGroup">
                   <span>
-                    Number of Seat: <p>{data?.numberofseat}</p>
+                    Seat: Number(S) <p>{data?.numberofseat}</p>
                   </span>
                   <span>
                     Departure Date{" "}
@@ -104,6 +104,9 @@ function BookingInfo({ toggleMenu, menuOpen, setBookingId, setSelectedCard }) {
                 </div>
                 <span>
                   Departure Time: <p>{data?.departuretime}</p>
+                </span>
+                <span>
+                  Blood Group: <p>{data?.bloodgroup}</p>
                 </span>
               </div>
 

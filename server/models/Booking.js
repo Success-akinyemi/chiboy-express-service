@@ -11,7 +11,7 @@ const BookingSchema = new mongoose.Schema({
         type: String
     },
     numberofseat: {
-        type: Number
+        type: String
     },
     travelingfrom: {
         type: String
@@ -41,6 +41,9 @@ const BookingSchema = new mongoose.Schema({
         type: String
     },
     nextofkinnumber: {
+        type: String
+    },
+    bloodgroup:  {
         type: String
     },
     receiptId: {

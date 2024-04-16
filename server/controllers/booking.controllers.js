@@ -7,9 +7,9 @@ import StaffModel from "../models/Staff.js";
 
 //create new booking
 export async function createBooking(req, res){
-    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, nextofkin, nextofkinnumber, preparedby} = req.body
+    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, nextofkin, nextofkinnumber, preparedby} = req.body
     try {
-        if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !nextofkin || !nextofkinnumber || !preparedby){
+        if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !bloodgroup || !nextofkin || !nextofkinnumber || !preparedby){
             return res.status(400).json({ success: false, data: 'Fill all necessary feilds'})
         }
         if(fullpayment === 'NO' && !balancepayment){
@@ -38,7 +38,7 @@ export async function createBooking(req, res){
         }
 
         const newBooking = new BookingModel({
-            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, nextofkin, nextofkinnumber, preparedby, receiptId
+            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, nextofkin, nextofkinnumber, preparedby, receiptId
         })
         await newBooking.save()
 
@@ -46,55 +46,61 @@ export async function createBooking(req, res){
         const outputFilePath = `booking-${receiptId}.pdf`; // Define output file path
         const outputFileName = `booking_receipt_${receiptId}.pdf`;
 
-        const doc = new PDFDocument({ size: 'A7', margin: 10 });
+        const doc = new PDFDocument({ size: [164, 330], margin: 4 });
         const stream = fs.createWriteStream(outputFilePath);
         doc.pipe(stream);
 
         // Add content to the PDF
         doc.font('Times-Roman')
-            .fontSize(10)
-            .text('CHI-BOY Express Services Booking reciept', { align: 'center' });
+            .fontSize(11)
+            .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
 
         doc.font('Times-Roman')
-            .fontSize(6) 
-            .text(`Receipt: ${receiptId}`, { align: 'center' })
-            .text(`Prepared by: ${preparedby}`, { align: 'center' });
+            .fontSize(10) 
+            .text(`Receipt Id: ${receiptId}`, { align: 'center' })
+            //.text(`Prepared by: ${preparedby}`, { align: 'center' });
 
 
-        doc.moveDown(1);
+        doc.moveDown(0.5);
         doc.font('Times-Roman')
-            .fontSize(8)
+            .fontSize(11)
             .text('Customer Information:', { align: 'left' })
-            .moveDown()
             .text(`Name: ${name}`)
+            //.text(`${name}`)
             .text(`Phone Number: ${phonenumber}`)
-            .text(`Number of Seats: ${numberofseat}`)
+            //.text(`${phonenumber}`)
+            .text(`Seats Number: ${numberofseat}`)
+            //.text(`${numberofseat}`)
+            .text(`Blood Group ${bloodgroup}`)
+            //.text(`${bloodgroup}`)
             .text(`Departure Date: ${departuretdate}`)
-            .text(`Departure Time: ${departuretime}`);
+            //.text(`${departuretdate}`)
+            .text(`Departure Time: ${departuretime}`)
+            //.text(`${departuretime}`);
 
-        doc.moveDown(1);
+        doc.moveDown(0.5);
         doc.font('Times-Roman')
-            .fontSize(8)
+            .fontSize(11)
             .text('Booking Details:', { align: 'left' })
-            .moveDown()
             .text(`Traveling From: ${travelingfrom}`)
+            //.text(`${travelingfrom}`)
             .text(`Traveling To: ${travelingto}`)
+            //.text(`${travelingto}`)
             .text(`Vehicle Type: ${vechicletype}`)
-            .text(`Amount: ${amount}`);
+            //.text(`${vechicletype}`)
+            .text(`Amount: NGN ${amount.toLocaleString()}`)
+            //.text(`NGN ${amount}`)
 
-        doc.moveDown(1);
+        doc.moveDown(0.5);
         doc.font('Times-Roman')
-            .fontSize(8)
+            .fontSize(11)
             .text('Payment:', { align: 'left' })
-            .moveDown()
             .text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
         
         doc.moveDown(2);
         doc.font('Times-Roman')
-            .fontSize(8)
-            .text('Built and powered by:', { align: 'center' })
-            .text('success_hub technology', { align: 'center' })
-            .text('09059309831', { align: 'center' });
+            .fontSize(9)
+            .text('Built and powered by: success_hub technology 09059309831', { align: 'center' })
        
         doc.end();
 
@@ -176,54 +182,59 @@ export async function generateReceipt(req, res){
                 const outputFilePath = `booking-${booking.receiptId}.pdf`; // Define output file path
                 const outputFileName = `booking_receipt_${booking.receiptId}.pdf`;
         
-                const doc = new PDFDocument({ size: 'A7', margin: 10 });
+                const doc = new PDFDocument({ size: [164, 330], margin: 4 });
                 const stream = fs.createWriteStream(outputFilePath);
                 doc.pipe(stream);
         
                 // Add content to the PDF
                 doc.font('Times-Roman')
-                    .fontSize(10)
-                    .text('CHI-BOY Express Services Booking reciept', { align: 'center' });
+                    .fontSize(11)
+                    .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
         
                 doc.font('Times-Roman')
-                    .fontSize(6) 
+                    .fontSize(10) 
                     .text(`Receipt: ${booking.receiptId}`, { align: 'center' })
-                    .text(`Prepared by: ${booking.preparedby}`, { align: 'center' });
+                    //.text(`Prepared by: ${booking.preparedby}`, { align: 'center' });
                 
-                doc.moveDown(1);
+                doc.moveDown(0.7);
                 doc.font('Times-Roman')
-                    .fontSize(8)
+                    .fontSize(11)
                     .text('Customer Information:', { align: 'left' })
-                    .moveDown()
                     .text(`Name: ${booking.name}`)
+                    //.text(`${booking.name}`)
                     .text(`Phone Number: ${booking.phonenumber}`)
-                    .text(`Number of Seats: ${booking.numberofseat}`)
+                    //.text(`${booking.phonenumber}`)
+                    .text(`Seat Number: ${booking.numberofseat}`)
+                    //.text(`${booking.numberofseat}`)
                     .text(`Departure Date: ${booking.departuretdate}`)
-                    .text(`Departure Time: ${booking.departuretime}`);
+                    //.text(`${booking.departuretdate}`)
+                    .text(`Departure Time: ${booking.departuretime}`)
+                    //.text(`${booking.departuretime}`);
         
-                doc.moveDown(1);
+                doc.moveDown(0.7);
                 doc.font('Times-Roman')
-                    .fontSize(8)
+                    .fontSize(11)
                     .text('Booking Details:', { align: 'left' })
-                    .moveDown()
                     .text(`Traveling From: ${booking.travelingfrom}`)
+                    //.text(`${booking.travelingfrom}`)
                     .text(`Traveling To: ${booking.travelingto}`)
+                    //.text(`${booking.travelingto}`)
                     .text(`Vehicle Type: ${booking.vechicletype}`)
-                    .text(`Amount: ${booking.amount}`);
+                    //.text(`${booking.vechicletype}`)
+                    .text(`Amount: NGN ${booking.amount.toLocaleString()}`)
+                    //.text(`${booking.amount}`);
 
-                doc.moveDown(1);
+                doc.moveDown(0.7);
                 doc.font('Times-Roman')
-                    .fontSize(8)
+                    .fontSize(11)
                     .text('Payment:', { align: 'left' })
-                    .moveDown()
                     .text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
                     
                 doc.moveDown(2);
                 doc.font('Times-Roman')
-                    .fontSize(8)
+                    .fontSize(9)
                     .text('Built and powered by:', { align: 'center' })
-                    .text('success_hub technology', { align: 'center' })
-                    .text('09059309831', { align: 'center' });
+                    .text('success_hub technology 09059309831', { align: 'center' })
 
                 doc.end();
         

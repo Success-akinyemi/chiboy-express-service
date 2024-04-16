@@ -92,8 +92,8 @@ function BookingForm() {
                 <input required type="number" onChange={handleChange} id='phonenumber' />
             </div>
             <div className="inputGroup">
-                <label htmlFor="">Number of Seat(s):</label>
-                <input required type="number" onChange={handleChange} id='numberofseat' />
+                <label htmlFor="">Seat Number(s):</label>
+                <input required type="text" onChange={handleChange} id='numberofseat' />
             </div>
         </div>
         <div className="inputClass travel">
@@ -139,6 +139,11 @@ function BookingForm() {
         <div className="inputGroup">
             <label htmlFor="">Amount:</label>
             <input type="number" required onChange={handleChange} id='amount' />
+        </div>
+
+        <div className="inputGroup">
+            <label htmlFor="">Blood Group:</label>
+            <input type="text" required onChange={handleChange} id='bloodgroup' />
         </div>
 
         <div className="inputClass">
