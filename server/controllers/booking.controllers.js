@@ -46,7 +46,7 @@ export async function createBooking(req, res){
         const outputFilePath = `booking-${receiptId}.pdf`; // Define output file path
         const outputFileName = `booking_receipt_${receiptId}.pdf`;
 
-        const doc = new PDFDocument({ size: [164, 330], margin: 4 });
+        const doc = new PDFDocument({ size: [164, 365], margin: 4 });
         const stream = fs.createWriteStream(outputFilePath);
         doc.pipe(stream);
 
@@ -90,6 +90,15 @@ export async function createBooking(req, res){
             //.text(`${vechicletype}`)
             .text(`Amount: NGN ${amount.toLocaleString()}`)
             //.text(`NGN ${amount}`)
+
+            doc.moveDown(0.5);
+            doc.font('Times-Roman')
+                .fontSize(11)
+                .text('Next of Kin Details:', { align: 'left' })
+                .text(`Next Of Kin Name: ${nextofkin}`)
+                //.text(`${nextofkin}`)
+                .text(`Next of Kin Number: ${nextofkinnumber}`)
+                //.text(`${nextofkinnumber}`)
 
         doc.moveDown(0.5);
         doc.font('Times-Roman')
@@ -182,7 +191,7 @@ export async function generateReceipt(req, res){
                 const outputFilePath = `booking-${booking.receiptId}.pdf`; // Define output file path
                 const outputFileName = `booking_receipt_${booking.receiptId}.pdf`;
         
-                const doc = new PDFDocument({ size: [164, 330], margin: 4 });
+                const doc = new PDFDocument({ size: [164, 365], margin: 4 });
                 const stream = fs.createWriteStream(outputFilePath);
                 doc.pipe(stream);
         
@@ -223,6 +232,15 @@ export async function generateReceipt(req, res){
                     //.text(`${booking.vechicletype}`)
                     .text(`Amount: NGN ${booking.amount.toLocaleString()}`)
                     //.text(`${booking.amount}`);
+                
+                doc.moveDown(0.5);
+                doc.font('Times-Roman')
+                    .fontSize(11)
+                    .text('Next of Kin Details:', { align: 'left' })
+                    .text(`Next Of Kin Name: ${booking.nextofkin}`)
+                    //.text(`${nextofkin}`)
+                    .text(`Next of Kin Number: ${booking.nextofkinnumber}`)
+                    //.text(`${nextofkinnumber}`)
 
                 doc.moveDown(0.7);
                 doc.font('Times-Roman')
