@@ -52,8 +52,8 @@ export async function createBooking(req, res){
 
         // Add content to the PDF
         doc.font('Times-Roman')
-            .fontSize(12)
-            .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
+            .fontSize(13)
+            .text('CHI-BOY EXPRESS SERVICES BOOKING RECEIPT', { align: 'center' });
 
         doc.font('Times-Roman')
             .fontSize(10) 
@@ -94,7 +94,6 @@ export async function createBooking(req, res){
             doc.moveDown(0.5);
             doc.font('Times-Roman')
                 .fontSize(11)
-                .text('Next of Kin Details:', { align: 'left' })
                 //.text(`Next Of Kin Name: ${nextofkin}`)
                 //.text(`${nextofkin}`)
                 .text(`Next of Kin Number: ${nextofkinnumber}`)
@@ -199,7 +198,7 @@ export async function generateReceipt(req, res){
                 // Add content to the PDF
                 doc.font('Times-Roman')
                     .fontSize(12)
-                    .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
+                    .text('CHI-BOY EXPRESS SERVICES BOOKING RECEIPT', { align: 'center' });
         
                 doc.font('Times-Roman')
                     .fontSize(10) 
@@ -237,7 +236,6 @@ export async function generateReceipt(req, res){
                 doc.moveDown(0.5);
                 doc.font('Times-Roman')
                     .fontSize(11)
-                    .text('Next of Kin Details:', { align: 'left' })
                     //.text(`Next Of Kin Name: ${booking.nextofkin}`)
                     //.text(`${nextofkin}`)
                     .text(`Next of Kin Number: ${booking.nextofkinnumber}`)
