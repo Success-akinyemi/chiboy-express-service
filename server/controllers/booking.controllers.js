@@ -7,9 +7,9 @@ import StaffModel from "../models/Staff.js";
 
 //create new booking
 export async function createBooking(req, res){
-    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, nextofkin, nextofkinnumber, preparedby} = req.body
+    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, preparedby} = req.body
     try {
-        if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !bloodgroup || !nextofkin || !nextofkinnumber || !preparedby){
+        if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !bloodgroup || !paymenttype || !nextofkin || !nextofkinnumber || !preparedby){
             return res.status(400).json({ success: false, data: 'Fill all necessary feilds'})
         }
         if(fullpayment === 'NO' && !balancepayment){
@@ -38,7 +38,7 @@ export async function createBooking(req, res){
         }
 
         const newBooking = new BookingModel({
-            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, nextofkin, nextofkinnumber, preparedby, receiptId
+            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, preparedby, receiptId
         })
         await newBooking.save()
 
@@ -52,7 +52,7 @@ export async function createBooking(req, res){
 
         // Add content to the PDF
         doc.font('Times-Roman')
-            .fontSize(11)
+            .fontSize(12)
             .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
 
         doc.font('Times-Roman')
@@ -82,7 +82,7 @@ export async function createBooking(req, res){
         doc.font('Times-Roman')
             .fontSize(11)
             .text('Booking Details:', { align: 'left' })
-            .text(`Traveling From: ${travelingfrom}`)
+            //.text(`Traveling From: ${travelingfrom}`)
             //.text(`${travelingfrom}`)
             .text(`Traveling To: ${travelingto}`)
             //.text(`${travelingto}`)
@@ -95,7 +95,7 @@ export async function createBooking(req, res){
             doc.font('Times-Roman')
                 .fontSize(11)
                 .text('Next of Kin Details:', { align: 'left' })
-                .text(`Next Of Kin Name: ${nextofkin}`)
+                //.text(`Next Of Kin Name: ${nextofkin}`)
                 //.text(`${nextofkin}`)
                 .text(`Next of Kin Number: ${nextofkinnumber}`)
                 //.text(`${nextofkinnumber}`)
@@ -103,8 +103,9 @@ export async function createBooking(req, res){
         doc.moveDown(0.5);
         doc.font('Times-Roman')
             .fontSize(11)
-            .text('Payment:', { align: 'left' })
-            .text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
+            .text('No Refund of Money After Payment')
+            .text("Luaggages at Owner's Risk")
+            //.text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
         
         doc.moveDown(2);
         doc.font('Times-Roman')
@@ -197,7 +198,7 @@ export async function generateReceipt(req, res){
         
                 // Add content to the PDF
                 doc.font('Times-Roman')
-                    .fontSize(11)
+                    .fontSize(12)
                     .text('CHI-BOY EXPRESS SERVICES BOOKING RECIEPT', { align: 'center' });
         
                 doc.font('Times-Roman')
@@ -224,7 +225,7 @@ export async function generateReceipt(req, res){
                 doc.font('Times-Roman')
                     .fontSize(11)
                     .text('Booking Details:', { align: 'left' })
-                    .text(`Traveling From: ${booking.travelingfrom}`)
+                    //.text(`Traveling From: ${booking.travelingfrom}`)
                     //.text(`${booking.travelingfrom}`)
                     .text(`Traveling To: ${booking.travelingto}`)
                     //.text(`${booking.travelingto}`)
@@ -237,7 +238,7 @@ export async function generateReceipt(req, res){
                 doc.font('Times-Roman')
                     .fontSize(11)
                     .text('Next of Kin Details:', { align: 'left' })
-                    .text(`Next Of Kin Name: ${booking.nextofkin}`)
+                    //.text(`Next Of Kin Name: ${booking.nextofkin}`)
                     //.text(`${nextofkin}`)
                     .text(`Next of Kin Number: ${booking.nextofkinnumber}`)
                     //.text(`${nextofkinnumber}`)
@@ -245,8 +246,8 @@ export async function generateReceipt(req, res){
                 doc.moveDown(0.7);
                 doc.font('Times-Roman')
                     .fontSize(11)
-                    .text('Payment:', { align: 'left' })
-                    .text(`${booking.fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
+                    .text('No Refund of Money After Payment')
+                    .text("Luaggages at Owner's Risk")
                     
                 doc.moveDown(2);
                 doc.font('Times-Roman')

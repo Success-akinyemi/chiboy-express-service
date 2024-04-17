@@ -46,6 +46,9 @@ const BookingSchema = new mongoose.Schema({
     bloodgroup:  {
         type: String
     },
+    paymenttype: {
+        type: String
+    },
     receiptId: {
         type: String
     },

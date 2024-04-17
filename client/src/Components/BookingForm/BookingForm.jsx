@@ -159,6 +159,16 @@ function BookingForm() {
                 <label htmlFor="">Date:</label>
                 <input type="date" id='departuretdate' onChange={handleChange} min={new Date().toISOString().split('T')[0]} />
             </div>
+            <div className="inputGroup">
+            <label htmlFor="">Payment Type:</label>
+            <div className="opt">
+                <select required className='vehicle' onChange={handleChange} id='paymenttype' >
+                        <option value=''>Select Payment Type</option>
+                        <option key={idx} value='Cash'>Cash</option>
+                        <option key={idx} value='Card'>Card</option>
+                </select>
+            </div>
+        </div>
         </div>
 
 
