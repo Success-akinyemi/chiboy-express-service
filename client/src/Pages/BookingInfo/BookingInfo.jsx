@@ -150,6 +150,10 @@ function BookingInfo({ toggleMenu, menuOpen, setBookingId, setSelectedCard }) {
                   Payment Status:{" "}
                   {data?.fullpayment === "NO" ? "PART PAYMENT" : "PAID"}
                 </span>
+                <h2>Payment Method:</h2>
+                <span>
+                  {data?.paymenttype}
+                </span>
               </div>
             </div>
           </div>

@@ -159,6 +159,7 @@ function BookingForm() {
                 <label htmlFor="">Date:</label>
                 <input type="date" id='departuretdate' onChange={handleChange} min={new Date().toISOString().split('T')[0]} />
             </div>
+        </div>
             <div className="inputGroup">
             <label htmlFor="">Payment Type:</label>
             <div className="opt">
@@ -168,8 +169,7 @@ function BookingForm() {
                         <option value='Card'>Card</option>
                 </select>
             </div>
-        </div>
-        </div>
+            </div>
 
 
 

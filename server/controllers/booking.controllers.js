@@ -103,8 +103,8 @@ export async function createBooking(req, res){
         doc.moveDown(0.5);
         doc.font('Times-Roman')
             .fontSize(11)
-            .text('No Refund of Money After Payment')
-            .text("Luaggages at Owner's Risk")
+            .text('No Refund of Money After Payment', { align: 'center' })
+            .text("Luaggages at Owner's Risk", { align: 'center' })
             //.text(`${fullpayment === 'YES' ? 'PAID' : 'PAID'}`);
         
         doc.moveDown(2);
@@ -246,8 +246,8 @@ export async function generateReceipt(req, res){
                 doc.moveDown(0.7);
                 doc.font('Times-Roman')
                     .fontSize(11)
-                    .text('No Refund of Money After Payment')
-                    .text("Luaggages at Owner's Risk")
+                    .text('No Refund of Money After Payment', { align: 'center' })
+                    .text("Luaggages at Owner's Risk", { align: 'center' })
                     
                 doc.moveDown(2);
                 doc.font('Times-Roman')
