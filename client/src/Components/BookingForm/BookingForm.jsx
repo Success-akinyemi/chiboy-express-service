@@ -164,8 +164,8 @@ function BookingForm() {
             <div className="opt">
                 <select required className='vehicle' onChange={handleChange} id='paymenttype' >
                         <option value=''>Select Payment Type</option>
-                        <option key={idx} value='Cash'>Cash</option>
-                        <option key={idx} value='Card'>Card</option>
+                        <option value='Cash'>Cash</option>
+                        <option value='Card'>Card</option>
                 </select>
             </div>
         </div>
