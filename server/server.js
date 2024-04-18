@@ -48,4 +48,5 @@ app.use('/api/vehicleCategory', vehicleCategoryRoutes)
 
 const PORT = process.env.PORT || 9004
 
+
 app.listen(PORT, () => {console.log(`server runing on http://localhost:${PORT}`)})
