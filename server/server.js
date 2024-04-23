@@ -8,6 +8,7 @@ import departureRoutes from './routes/departures.routes.js'
 import vehicleRoutes from './routes/vehicle.routes.js'
 import vehicleCategoryRoutes from './routes/vehicleCatgory.routes.js'
 import financeRoutes from './routes/finance.routes.js'
+import smsRoutes from './routes/sms.routes.js'
 import cors from 'cors'
 
 const app = express()
@@ -43,6 +44,7 @@ app.use('/api/booking', bookingRoutes)
 app.use('/api/departure', departureRoutes)
 app.use('/api/vehicle', vehicleRoutes)
 app.use('/api/finance', financeRoutes)
+app.use('/api/sms', smsRoutes)
 app.use('/api/vehicleCategory', vehicleCategoryRoutes)
 
 

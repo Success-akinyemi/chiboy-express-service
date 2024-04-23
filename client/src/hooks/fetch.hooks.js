@@ -220,3 +220,30 @@ export function useFetchStaffs(query) {
 
     return staff;
 }
+
+//fetch vehicle types/category
+export function useSmsBalance(query){
+    const [data, setData] = useState({isLoadingSmsBal: true, smsData: null, smsStatus: null, smsError: null})
+
+    const fetchSmsData = useCallback(async () => {
+        try {
+ 
+            const { data, status } = !query ? await axios.get(`/sms/getSmsBalance`, { withCredentials: true }) : await axios.get(`/sms/getSmsBalance/${query}`, { withCredentials: true })
+            if (status === 200) {
+                setData({ isLoadingSmsBal: false, smsData: data, smsStatus: status, smsError: null })
+            } else {
+                setData({ isLoadingSmsBal: false, smsData: null, smsStatus: status, smsError: null })
+                console.log('SECOND')
+            }
+        } catch (error) {
+            setData({ isLoadingSmsBal: false, smsData: null, smsStatus: null, smsError: error })
+            console.log(error)
+        }
+    }, [query]);
+
+    useEffect(() => {
+        fetchSmsData();
+    }, [fetchSmsData]);
+
+    return data;
+}

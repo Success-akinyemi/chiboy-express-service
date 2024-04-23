@@ -26,6 +26,7 @@ import VehicleExpense from './Pages/VehicleExpense/VehicleExpense'
 import UpdateVehicleExpense from './Components/UpdateVehicleExpense/UpdateVehicleExpense'
 import EditBooking from './Components/EditBooking/EditBooking'
 import VehicleFinance from './Pages/VehicleFinance/VehicleFinance'
+import Messages from './Pages/Messages/Messages'
 
 
 
@@ -158,6 +159,12 @@ function App() {
           <Route element={<AuthorizeUser />}>
             <Route path='/departures' element={<Departures menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} setDepartureId={setDepartureId} />} />
           </Route>
+
+          
+          <Route element={<AuthorizeUser />}>
+            <Route path='/messages' element={<Messages menuOpen={menuOpen} toggleMenu={toggleMenu} setSelectedCard={setSelectedCard} />} />
+          </Route>
+          
 
           <Route element={<AuthorizeUser />}>
             <Route path='/finance' element={<Finance menuOpen={menuOpen} toggleMenu={toggleMenu} />} />

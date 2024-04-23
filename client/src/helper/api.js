@@ -66,7 +66,7 @@ export async function createBooking(formData){
       }
     } catch (error) {
         console.log('ERROR CREATING BOOKING', error)
-        const errorMsg = error.response.data.data || `Could Not create receipt. \n fill all fileds \n Depature and Arrival Must not be the same`
+        const errorMsg = error.response.data.data 
         console.log('MSG', errorMsg)
         toast.error(errorMsg)
     }
@@ -307,5 +307,19 @@ export async function deleteVehicleExpense({path}){
         console.log('ERR', error)   
         const errorMsg = error?.response?.data.data
         toast.error(errorMsg)
+    }
+}
+
+//Send SMS
+export async function sendSms({message, phoneNumbers}){
+    try {
+        const res = await axios.post('/sms/sendSms', {message, phoneNumbers}, {withCredentials: true})
+        if(res?.data.success){
+            return res?.data
+        }
+    } catch (error) {
+        console.log('ERR', error)   
+        const errorMsg = error?.response?.data.data
+        toast.error(errorMsg)   
     }
 }

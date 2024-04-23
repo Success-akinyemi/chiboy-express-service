@@ -10,6 +10,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import MessageIcon from '@mui/icons-material/Message';
 import { signOut } from '../../redux/user.js/userSlice';
 import { apiUrl } from '../../utils/api';
 import BuildIcon from '@mui/icons-material/Build';
@@ -72,6 +73,11 @@ function Sidebar({toggleMenu, menuOpen}) {
           <Link onClick={toggleMenu}  to='/departures' className={`link h-2 menuLinks ${isActive('/departures') ? 'active' : ''} `}>
             <DepartureBoardIcon className='menuLinks-icon' />
             <Link to='/departures' className='link menuLink'>Departures</Link>
+          </Link>
+
+          <Link onClick={toggleMenu}  to='/messages' className={`link h-2 menuLinks ${isActive('/messages') ? 'active' : ''} `}>
+            <MessageIcon className='menuLinks-icon' />
+            <Link to='/messages' className='link menuLink'>Messages</Link>
           </Link>
 
           {
