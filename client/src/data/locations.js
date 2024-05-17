@@ -20,4 +20,7 @@ export const travelLocations = [
     {
         location: 'Aba (Miverty)',
     },
+    {
+        location: 'Uwka',
+    },
 ]
