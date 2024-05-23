@@ -10,6 +10,7 @@ import vehicleCategoryRoutes from './routes/vehicleCatgory.routes.js'
 import financeRoutes from './routes/finance.routes.js'
 import smsRoutes from './routes/sms.routes.js'
 import cors from 'cors'
+import schedule  from 'node-schedule'
 
 const app = express()
 
@@ -33,6 +34,7 @@ app.use(cors(corsOptions));
 
 //DB
 import './connection/db.js'
+import BookingModel from './models/Booking.js';
 
 /**HTTP get request */
 app.get('/', (req, res) => {
@@ -47,6 +49,22 @@ app.use('/api/finance', financeRoutes)
 app.use('/api/sms', smsRoutes)
 app.use('/api/vehicleCategory', vehicleCategoryRoutes)
 
+
+//Scheduler to run every 10 mintues
+const rule = new schedule.RecurrenceRule();
+rule.minute = new schedule.Range(0, 59, 2); // This task runs every 10 minutes
+
+// Schedule the task
+const task = schedule.scheduleJob(rule, async () => {
+
+  try {
+    const bookings = await BookingModel.find()
+
+    console.log('Total number of bookings.', bookings.length);
+  } catch (error) {
+    console.error('Error get all bookings:', error);
+  }
+});
 
 const PORT = process.env.PORT || 9004
 

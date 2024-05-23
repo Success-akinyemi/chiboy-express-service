@@ -10,7 +10,8 @@ function Login() {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, error } = useSelector((state) => state.user)
+  const { error } = useSelector((state) => state.user)
+  const [ loading, setLoading ] = useState(false)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value})
@@ -24,8 +25,9 @@ function Login() {
     }
     try {
       dispatch(signInStart())
+      setLoading(true)
       const res = await LoginUser(formData)
-      console.log('SERVER RES>', res)
+      //console.log('SERVER RES>', res)
       if(res?.success){
         dispatch(signInSuccess(res?.data))
         localStorage.setItem('token', res?.token)
@@ -38,6 +40,8 @@ function Login() {
       const errorMsg = 'Something went wrong'
       dispatch(signInFailure(errorMsg))
       console.log('ERROR', error)
+    } finally {
+      setLoading(false)
     }
   }
 
