@@ -64,7 +64,7 @@ function Login() {
             className='inputField'
           />
           <button className={`${loading ? 'loading' : ''}`}  >
-            Login
+            {loading ? 'Loading' : 'Login'}
           </button>
           <p className='errorText'>{error ? error : ''}</p>
       </form>
