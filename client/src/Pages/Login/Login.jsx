@@ -63,8 +63,8 @@ function Login() {
             onChange={handleChange}
             className='inputField'
           />
-          <button className={`${loading ? 'loading' : ''}`} disabled={loading} >
-            {loading ? 'Loading...' : 'Login'}
+          <button className={`${loading ? 'loading' : ''}`}  >
+            Login
           </button>
           <p className='errorText'>{error ? error : ''}</p>
       </form>
