@@ -7,12 +7,33 @@ import { useFetchVehicleExpense } from "../../hooks/fetch.hooks";
 import Spinner from "../../Components/Spinner/Spinner";
 import { date, expense } from "../../data/date";
 import { Link } from "react-router-dom";
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 function Expense({ menuOpen, toggleMenu, setSelectedCard }) {
   const { expenseData, isLoadingExpense } = useFetchVehicleExpense();
   const data = expenseData?.data;
   //const data = expense
   //console.log(data)
+
+        //Scheduler to run every 2 mintues
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+
+      const { data, status } = await axios.get(`/booking/corn-job-Booking`, { withCredentials: true });
+    } catch (error) {
+      console.error('Error getting all bookings:', error);
+    }
+  };
+
+  // Schedule the task to run every 2 minutes (120,000 milliseconds)
+  const intervalId = setInterval(fetchBookings, 120000);
+
+  // Cleanup the interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
+
   const [dataArray, setDataArray] = useState([]);
   const [searchQuery, setSearchquery] = useState("");
 

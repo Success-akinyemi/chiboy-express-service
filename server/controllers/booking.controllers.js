@@ -310,3 +310,16 @@ export async function updateBooking(req, res){
         res.status(500).json({ success: false, data: 'Unable to create booking'})
     }
 }
+
+//corn job  get all booking
+export async function cornJobBooking(req, res){
+    try {
+        const booking = await BookingModel.find()
+
+        console.log('BOKING TOTAL:', booking.length)
+        res.end()
+    } catch (error) {
+        console.log('UNABLE to get Booking')
+        res.end()
+    }
+}

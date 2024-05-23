@@ -5,12 +5,31 @@ import { useFetchBooking } from '../../hooks/fetch.hooks'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 import Spinner from '../../Components/Spinner/Spinner'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 function Booking({toggleMenu, menuOpen, setSelectedCard}){
   const [searchQuery, setSearchquery] = useState('');
   const { bookingData, isLoadingBooking, bookingError, bookingStatus } = useFetchBooking()
   //console.log('BOOKING', bookingData, 'ERROR', bookingError, 'STAT', bookingStatus)
+
+      //Scheduler to run every 2 mintues
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+      const { data, status } = await axios.get(`/booking/corn-job-Booking`, { withCredentials: true });
+    } catch (error) {
+      console.error('Error getting all bookings:', error);
+    }
+  };
+
+  // Schedule the task to run every 2 minutes (120,000 milliseconds)
+  const intervalId = setInterval(fetchBookings, 120000);
+
+  // Cleanup the interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
 
 
   const data = bookingData?.data

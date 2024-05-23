@@ -1,10 +1,12 @@
 import './Login.css'
 import {  useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInFailure, signInStart, signInSuccess } from '../../redux/user.js/userSlice'
 import toast from 'react-hot-toast'
 import { LoginUser } from '../../helper/api'
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 function Login() {
   const [formData, setFormData] = useState({})
@@ -12,6 +14,26 @@ function Login() {
   const dispatch = useDispatch()
   const { error } = useSelector((state) => state.user)
   const [ loading, setLoading ] = useState(false)
+
+  //Scheduler to run every 2 mintues
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+      console.log('Total number of bookings before.');
+      const { data, status } = await axios.get(`/booking/corn-job-Booking`, { withCredentials: true });
+      console.log('Total number of bookings.');
+    } catch (error) {
+      console.error('Error getting all bookings:', error);
+      toast.error('Error fetching bookings');
+    }
+  };
+
+  // Schedule the task to run every 2 minutes (120,000 milliseconds)
+  const intervalId = setInterval(fetchBookings, 120000);
+
+  // Cleanup the interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value})

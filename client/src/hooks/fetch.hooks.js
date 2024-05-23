@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useCallback, useEffect, useState } from "react";
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 //fetch vehicle types/category
 export function usefetchVehicleType(query){
@@ -41,14 +41,11 @@ export function useFetchBooking(query) {
 
             if (status === 200) {
                 setBooking({ isLoadingBooking: false, bookingData: data, bookingStatus: status, bookingError: null })
-                console.log('1', booking)
             } else {
                 setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: status.response, bookingError: null })
-                console.log('CLG', booking)
             }
         } catch (error) {
             setBooking({ isLoadingBooking: false, bookingData: null, bookingStatus: error.response?.status, bookingError: error.response?.data?.data ? error.response?.data?.data : error })
-            console.log('CLG2', booking)
         }
     }, [query]);
 
@@ -247,4 +244,3 @@ export function useSmsBalance(query){
 
     return data;
 }
-

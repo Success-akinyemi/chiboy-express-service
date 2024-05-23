@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Aside from '../../Components/Aside/Aside'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import Spinner from '../../Components/Spinner/Spinner'
@@ -6,6 +6,8 @@ import { useFetchDeparture } from '../../hooks/fetch.hooks'
 import './Departures.css'
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { formatDistanceToNow } from 'date-fns'
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
   const { departureData, isLoadingDeparture } = useFetchDeparture()
@@ -13,6 +15,24 @@ function Departures({toggleMenu, menuOpen, setSelectedCard, setDepartureId}) {
   const data = departureData?.data
   const sortedData = data?.sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt));
   const [searchQuery, setSearchquery] = useState("");
+
+      //Scheduler to run every 2 mintues
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+
+      const { data, status } = await axios.get(`/booking/corn-job-Booking`, { withCredentials: true });
+    } catch (error) {
+      console.error('Error getting all bookings:', error);
+    }
+  };
+
+  // Schedule the task to run every 2 minutes (120,000 milliseconds)
+  const intervalId = setInterval(fetchBookings, 120000);
+
+  // Cleanup the interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
 
   const handleEditDeparture = (id) => {
     setSelectedCard('editDepartureForm')

@@ -8,6 +8,8 @@ import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 import { useFetchBooking, useFetchDeparture, useFetchVehicle } from '../../hooks/fetch.hooks'
 import Loading from '../../Components/Loading/Loading'
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
 function Dashboard({toggleMenu, menuOpen}) {
   const [ dateInput, setDateInput ] = useState(date[0].value)
@@ -15,6 +17,24 @@ function Dashboard({toggleMenu, menuOpen}) {
   const { bookingData, isLoadingBooking } = useFetchBooking()
   const { departureData, isLoadingDeparture } = useFetchDeparture()
   const { isLoadingVehicle, vehicleData } = useFetchVehicle()
+
+    //Scheduler to run every 2 mintues
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+      const { data, status } = await axios.get(`/booking/corn-job-Booking`, { withCredentials: true });
+    } catch (error) {
+      console.error('Error getting all bookings:', error);
+    }
+  };
+
+  // Schedule the task to run every 2 minutes (120,000 milliseconds)
+  const intervalId = setInterval(fetchBookings, 120000);
+
+  // Cleanup the interval on component unmount
+  return () => clearInterval(intervalId);
+}, []);
+
 
   const booking = bookingData?.data || []
   const departure = departureData?.data || []

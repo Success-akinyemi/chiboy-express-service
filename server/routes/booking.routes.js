@@ -10,5 +10,6 @@ router.route('/updateBooking').post(verifyToken, controller.updateBooking)
 
 router.route('/getBooking').get(verifyToken, controller.getBooking)
 router.route('/getBooking/:id').get(verifyToken, controller.getABooking)
+router.route('/corn-job-Booking').get(controller.cornJobBooking)
 
 export default router
