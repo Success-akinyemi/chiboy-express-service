@@ -23,4 +23,13 @@ export const travelLocations = [
     {
         location: 'Awka',
     },
+    {
+        location: 'Obollo',
+    },
+    {
+        location: 'Night mile',
+    },
+    {
+        location: 'Nsukka',
+    },
 ]
