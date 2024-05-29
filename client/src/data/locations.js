@@ -21,6 +21,6 @@ export const travelLocations = [
         location: 'Aba (Miverty)',
     },
     {
-        location: 'Uwka',
+        location: 'Awka',
     },
 ]

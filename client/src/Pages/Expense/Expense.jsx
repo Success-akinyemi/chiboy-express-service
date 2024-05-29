@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_API
 
+
+
 function Expense({ menuOpen, toggleMenu, setSelectedCard }) {
   const { expenseData, isLoadingExpense } = useFetchVehicleExpense();
   const data = expenseData?.data;
