@@ -21,6 +21,18 @@
     margin-bottom: 5rem;
 }
 
+.messages .accountNumber{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #000;
+}
+
+.messages .accountNumber h3{
+    font-size: 19px;
+    font-weight: 500;
+}
+
 .messages .selectCard select{
     padding: 10px 20px;
     border: none;
