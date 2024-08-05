@@ -66,6 +66,24 @@ const task = schedule.scheduleJob(rule, async () => {
   }
 });
 
+app.get('/keep-alive', async (req, res) => {
+  const bookings = await BookingModel.find()
+
+  console.log('Total number of bookings.', bookings.length);
+  res.status(201).json(`Keep alive Request fun: ${bookings.length}`)
+})
+
+const sendMessage = async () => {
+  const res = await axios.post(`${process.env.NEBOUR_URL}/keep-alive`)
+
+  console.log('ALIVE RESPONSE', res.data)
+
+}
+const job = schedule.scheduleJob('*/4 * * * *', () => {
+  sendMessage();
+});
+
+
 const PORT = process.env.PORT || 9004
 
 
