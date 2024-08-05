@@ -11,6 +11,8 @@ import financeRoutes from './routes/finance.routes.js'
 import smsRoutes from './routes/sms.routes.js'
 import cors from 'cors'
 import schedule  from 'node-schedule'
+import BookingModel from './models/Booking.js';
+import axios from 'axios';
 
 const app = express()
 
@@ -34,7 +36,7 @@ app.use(cors(corsOptions));
 
 //DB
 import './connection/db.js'
-import BookingModel from './models/Booking.js';
+
 
 /**HTTP get request */
 app.get('/', (req, res) => {
