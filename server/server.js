@@ -18,16 +18,31 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.NEBOUR_URL,
+];
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', `${process.env.CLIENT_URL}`);
+  const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
+    }
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
 
+
 const corsOptions = {
-    origin: `${process.env.CLIENT_URL}`,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },    
     credentials: true,
 };
 
