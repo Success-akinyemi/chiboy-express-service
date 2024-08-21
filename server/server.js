@@ -67,38 +67,8 @@ app.use('/api/sms', smsRoutes)
 app.use('/api/vehicleCategory', vehicleCategoryRoutes)
 
 
-//Scheduler to run every 10 mintues
-const rule = new schedule.RecurrenceRule();
-rule.minute = new schedule.Range(0, 59, 2); // This task runs every 10 minutes
+//CORN PUT HERE
 
-// Schedule the task
-const task = schedule.scheduleJob(rule, async () => {
-
-  try {
-    const bookings = await BookingModel.find()
-
-    console.log('Total number of bookings.', bookings.length);
-  } catch (error) {
-    console.error('Error get all bookings:', error);
-  }
-});
-
-app.get('/keep-alive', async (req, res) => {
-  const bookings = await BookingModel.find()
-
-  console.log('Total number of bookings.', bookings.length);
-  res.status(201).json(`Keep alive Request fun: ${bookings.length}`)
-})
-
-const sendMessage = async () => {
-  const res = await axios.get(`${process.env.NEBOUR_URL}/keep-alive`)
-
-  console.log('ALIVE RESPONSE', res.data)
-
-}
-const job = schedule.scheduleJob('*/4 * * * *', () => {
-  sendMessage();
-});
 
 
 const PORT = process.env.PORT || 9004
