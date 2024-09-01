@@ -68,6 +68,19 @@ app.use('/api/vehicleCategory', vehicleCategoryRoutes)
 
 
 //CORN PUT HERE
+import './corn.js'
+// Express route to keep the server alive
+app.get('/keep-alive', async (req, res) => {
+  try {
+    const bookings = await BookingModel.find();
+    console.log('Total number of bookings:', bookings.length);
+    res.status(201).json(`Keep alive Request fun: ${bookings.length}`);
+  } catch (error) {
+    console.error('Error getting all bookings:', error);
+    res.status(500).json('Error');
+  }
+});
+
 
 
 
