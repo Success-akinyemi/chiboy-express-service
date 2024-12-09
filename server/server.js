@@ -113,7 +113,7 @@ function scheduleSendMessageJob() {
 // Function to send a message
 const sendMessage = async () => {
   try {
-    const res = await axios.get(`${process.env.NEBOUR_URL}/keep-alive`);
+    const res = await axios.get(`${process.env.NEBOUR_URL}`);
     console.log('ALIVE RESPONSE', res.data);
   } catch (error) {
     console.error('Error sending message:', error);

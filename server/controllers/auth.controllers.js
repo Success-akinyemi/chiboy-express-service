@@ -13,7 +13,7 @@ export async function newStaff(req, res){
         if(email){
             const isExist = await StaffModel.findOne({ email, email })
             if(isExist){
-                return res.status(403).json({ success: false, data: 'Email Alreaqdy Exist' })
+                return res.status(403).json({ success: false, data: 'Email Already Exist' })
             }
         }
         

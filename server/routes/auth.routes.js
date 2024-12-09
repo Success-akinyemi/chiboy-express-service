@@ -4,7 +4,10 @@ import { verifyAdmin, verifyToken } from '../utils/verify.js'
 
 const router = express.Router()
 
-router.route('/newStaff').post(verifyAdmin, controller.newStaff) // create new staff
+//router.route('/newStaff').post(verifyAdmin, controller.newStaff) // create new staff
+
+router.route('/newStaff').post(controller.newStaff) // create new staff
+
 
 router.route('/login').post(controller.login) //staff login
 router.route('/updateStaff/:id').post(verifyToken, controller.updateStaff) // update staff

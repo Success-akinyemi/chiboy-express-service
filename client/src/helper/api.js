@@ -68,7 +68,7 @@ export async function createBooking(formData){
         console.log('ERROR CREATING BOOKING', error)
         const errorMsg = error.response.data.data 
         console.log('MSG', errorMsg)
-        toast.error(errorMsg)
+        toast.error(errorMsg || 'fill all necessary fileds')
     }
 }
 

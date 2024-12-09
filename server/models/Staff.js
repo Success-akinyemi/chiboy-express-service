@@ -18,7 +18,8 @@ const StafSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'Staff'
+        default: 'Staff',
+        enum: ['Staff', 'Manager', 'Admin']
         //Staff Manager Admin
     },
     password: {

@@ -101,7 +101,7 @@ function Messages({toggleMenu, menuOpen}) {
                                 </select>
 
                                 <div className="balance">
-                                    <h3>Balnace:</h3> <p>NGN {smsBal.toFixed(2)}</p>
+                                    <h3>Balnace:</h3> <p>NGN {smsBal?.toFixed(2)}</p>
                                 </div>
                                 <div className="accountNumber">
                                     <h3>6639568943</h3> <p>- Moniepoint Microfinance Bank. <br /> Account Name: Audacity Mobile Ltd-suc</p>

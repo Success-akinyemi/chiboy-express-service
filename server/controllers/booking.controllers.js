@@ -7,6 +7,7 @@ import StaffModel from "../models/Staff.js";
 
 //create new booking
 export async function createBooking(req, res){
+    console.log('object', req.body)
     const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, preparedby} = req.body
     try {
         if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !bloodgroup || !paymenttype || !nextofkin || !nextofkinnumber || !preparedby){
@@ -63,7 +64,7 @@ export async function createBooking(req, res){
 
         doc.moveDown(0.5);
         doc.font('Times-Roman')
-            .fontSize(11)
+            .fontSize(10)
             .text('Customer Information:', { align: 'left' })
             .text(`Name: ${name}`)
             //.text(`${name}`)
@@ -80,7 +81,7 @@ export async function createBooking(req, res){
 
         doc.moveDown(0.5);
         doc.font('Times-Roman')
-            .fontSize(11)
+            .fontSize(10)
             .text('Booking Details:', { align: 'left' })
             //.text(`Traveling From: ${travelingfrom}`)
             //.text(`${travelingfrom}`)
@@ -93,7 +94,7 @@ export async function createBooking(req, res){
 
             doc.moveDown(0.5);
             doc.font('Times-Roman')
-                .fontSize(11)
+                .fontSize(10)
                 //.text(`Next Of Kin Name: ${nextofkin}`)
                 //.text(`${nextofkin}`)
                 .text(`Next of Kin Number: ${nextofkinnumber}`)

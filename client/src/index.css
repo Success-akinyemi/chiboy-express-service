@@ -34,8 +34,8 @@
   min-height: 100vh;
   position: relative;
   display: grid;
-  gap: 1.8rem;
-  grid-template-columns: 15rem auto 23rem;
+  gap: 2rem;
+  grid-template-columns: 14rem auto 20rem;
   background: var(--color-background);
 }
 
@@ -47,7 +47,7 @@
 .mainContainer{
   height: 100%;
   position: relative;
-  width: 95%;
+  width: 90%;
   overflow-x: hidden;
 }
 
