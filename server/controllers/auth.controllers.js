@@ -115,13 +115,13 @@ export async function updateStaff(req, res){
             req.params.id,
             {
                 $set: {
-                    email: req.body.email,
-                    password: req.body.password,
-                    name: req.body.name,
-                    active: req.body.active,
-                    role: req.body.role,
-                    phoneNumber: req.body.phonenumber,
-                    isAdmin: req.body?.role?.toLocaleLowerCase() === 'admin' ? true : false
+                    email: req.body.email || admin.email,
+                    password: req.body.password || admin.password,
+                    name: req.body.name || admin.name,
+                    active: req.body.active || admin.active,
+                    role: req.body.role || admin.role,
+                    phoneNumber: req.body.phonenumber || admin.phoneNumber,
+                    isAdmin: req.body?.role?.toLocaleLowerCase() === 'admin' ? true : false || admin.isAdmin
                 }
             },
             { new: true }
