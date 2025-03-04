@@ -21,7 +21,12 @@ function NewStaffForm({ staffId }) {
 
   useEffect(() => {
     if (user) {
-      setFormData({ ...formData, id: user._id, staffId: data.staffId });
+      setFormData({ ...formData, id: user?._id });
+    }
+  }, []);
+  useEffect(() => {
+    if (data) {
+      setFormData({ ...formData, staffId: data?.staffId });
     }
   }, []);
 
