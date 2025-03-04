@@ -39,6 +39,8 @@ function NewStaffForm({ staffId }) {
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
+    console.log('IDD', data._id)
+    setFormData({ ...formData, id: data._id })
     try {
       setIsLoading(true);
       const res = await updateAccount(formData);
@@ -79,7 +81,7 @@ function NewStaffForm({ staffId }) {
             </div>
           </div>
         ) : (
-          <form className="formA" onSubmit={handleUpdateUser}>
+          <form className="formA" onSubmit={() => handleUpdateUser(data._id)}>
             <small className="bold">
               <b>ID: {data?.staffId}</b>
             </small>

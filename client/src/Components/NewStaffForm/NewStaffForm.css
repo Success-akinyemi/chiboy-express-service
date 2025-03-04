@@ -1,8 +1,9 @@
 .newStaffForm{
     width: 60vw;
     min-height: 30vh;
+    height: 80vh;
     margin-top: 20px;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-left: 10px;
     padding-right: 10px;
     display: flex;
