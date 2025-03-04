@@ -83,9 +83,9 @@ export async function login(req, res){
 export async function updateStaff(req, res){
     const {id} = req.params
     console.log('DII', id)
-    console.log(req.user)
     try {
         const admin = await StaffModel.findById({ _id: id })
+        console.log(req.user, "USER", admin)
         if(!(req.user.id === req.params.id || admin.isAdmin)){
             return res.status(401).json({ success: false, data: 'You can only update you Account'})
         }
@@ -121,7 +121,7 @@ export async function updateStaff(req, res){
                     active: req.body.active || admin.active,
                     role: req.body.role || admin.role,
                     phoneNumber: req.body.phonenumber || admin.phoneNumber,
-                    isAdmin: req.body?.role?.toLocaleLowerCase() === 'admin' ? true : false || admin.isAdmin
+                    isAdmin: req.body?.role === 'Admin' ? true : false || admin.isAdmin
                 }
             },
             { new: true }
