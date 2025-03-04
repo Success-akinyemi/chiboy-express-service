@@ -101,10 +101,11 @@ export async function updateStaff(req, res){
             if(!admin.isAdmin && !req.body.newpassword){
                 return res.status(404).json({ success: false, data: 'New Password is neeeded'})
             }
-
-            const validPassword = bcryptjs.compareSync(req.body.oldpassword, admin.password)
-            if(!validPassword){
-                return res.status(401).json({ success: false, data: 'Invalid Old Password'})
+            if(!admin.isAdmin){
+                const validPassword = bcryptjs.compareSync(req.body.oldpassword, admin.password)
+                if(!validPassword){
+                    return res.status(401).json({ success: false, data: 'Invalid Old Password'})
+                }
             }
 
             req.body.password = bcryptjs.hashSync(req.body.newpassword, 10)
