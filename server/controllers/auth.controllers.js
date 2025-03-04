@@ -84,7 +84,7 @@ export async function updateStaff(req, res){
     const {id} = req.params
     console.log('DII', id)
     try {
-        const admin = await StaffModel.findById({ _id: id })
+        const admin = await StaffModel.findOne({ staffId: id })
         console.log(req.user, "USER", admin)
         if(!(req.user.id === req.params.id || admin.isAdmin)){
             return res.status(401).json({ success: false, data: 'You can only update you Account'})

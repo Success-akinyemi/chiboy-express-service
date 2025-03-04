@@ -37,7 +37,7 @@ export async function LoginUser(formData){
 //update profle
 export async function updateAccount(formData){
     try {
-        const res = await axios.post(`/auth/updateStaff/${formData?.id}`, formData, {withCredentials: true})
+        const res = await axios.post(`/auth/updateStaff/${formData?.staffId}`, formData, {withCredentials: true})
         if(res?.data.success){
             return res.data
         }

@@ -21,7 +21,7 @@ function NewStaffForm({ staffId }) {
 
   useEffect(() => {
     if (user) {
-      setFormData({ ...formData, id: user._id });
+      setFormData({ ...formData, id: user._id, staffId: data.staffId });
     }
   }, []);
 
@@ -40,8 +40,6 @@ function NewStaffForm({ staffId }) {
   const handleUpdateUser = async (e) => {
     e.preventDefault();
     try {
-      console.log('IDD', data._id)
-      setFormData({ ...formData, id: data._id })
       setIsLoading(true);
       const res = await updateAccount(formData);
       if (res?.success) {
