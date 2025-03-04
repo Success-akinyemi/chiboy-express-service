@@ -39,9 +39,9 @@ function NewStaffForm({ staffId }) {
 
   const handleUpdateUser = async (e) => {
     e.preventDefault();
-    console.log('IDD', data._id)
-    setFormData({ ...formData, id: data._id })
     try {
+      console.log('IDD', data._id)
+      setFormData({ ...formData, id: data._id })
       setIsLoading(true);
       const res = await updateAccount(formData);
       if (res?.success) {
