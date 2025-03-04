@@ -6,6 +6,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { updateAccount } from '../../helper/api'
 import { updateUserFailure, updateUserStart, updateUserSuccess } from '../../redux/user.js/userSlice'
+import { useEffect } from 'react'
 
 function Profile({toggleMenu, menuOpen}) {
     const {currentUser} = useSelector(state => state.user)
@@ -13,6 +14,12 @@ function Profile({toggleMenu, menuOpen}) {
     const [ formData, setFormData] = useState({ id: user?._id})
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+      if (user) {
+        setFormData({ ...formData, id: user?._id });
+      }
+    }, [user]);
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.id]: e.target.value })

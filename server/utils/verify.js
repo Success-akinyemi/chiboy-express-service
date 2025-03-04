@@ -22,7 +22,7 @@ export const verifyManager = async (req, res, next) => {
             req.user = user;
             next()
         } else {
-            return res.status(413).json({ success: false, data: 'NOT ALLOWED'})
+            return res.status(403).json({ success: false, data: 'NOT ALLOWED'})
         }
     })
 }
@@ -30,11 +30,11 @@ export const verifyManager = async (req, res, next) => {
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, async () => {
         const user = await StaffModel.findById({ _id: req.user.id})
-        console.log('first', user.isAdmin)
+        console.log('first', user.isAdmin, user)
         if(user.isAdmin){
             next()
         } else {
-            return res.status(413).json({ success: false, data: 'You are Forbidden'})
+            return res.status(403).json({ success: false, data: 'You are Forbidden'})
         }
     })
 }

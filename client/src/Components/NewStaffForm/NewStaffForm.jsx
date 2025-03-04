@@ -23,12 +23,12 @@ function NewStaffForm({ staffId }) {
     if (user) {
       setFormData({ ...formData, id: user?._id });
     }
-  }, []);
+  }, [user]);
   useEffect(() => {
     if (data) {
-      setFormData({ ...formData, staffId: data?.staffId });
+      setFormData({ ...formData, id: data?._id });
     }
-  }, []);
+  }, [data]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -48,7 +48,9 @@ function NewStaffForm({ staffId }) {
       setIsLoading(true);
       const res = await updateAccount(formData);
       if (res?.success) {
-        dispatch(updateUserSuccess(res));
+        if(user?._id === data?._id){
+          dispatch(updateUserSuccess(res)); //would replace current user
+        }
         window.location.reload();
       }
     } catch (error) {
@@ -84,7 +86,7 @@ function NewStaffForm({ staffId }) {
             </div>
           </div>
         ) : (
-          <form className="formA" onSubmit={() => handleUpdateUser(data._id)}>
+          <form className="formA" onSubmit={handleUpdateUser}>
             <small className="bold">
               <b>ID: {data?.staffId}</b>
             </small>

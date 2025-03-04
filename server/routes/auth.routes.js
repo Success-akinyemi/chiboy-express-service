@@ -14,7 +14,7 @@ router.route('/updateStaff/:id').post(verifyToken, controller.updateStaff) // up
 router.route('/signout').post(controller.signout)
 
 
-router.route('/getAllstaffs').get(verifyToken, controller.getAllStaffs) //get all staff
+router.route('/getAllstaffs').get(verifyToken, verifyAdmin, controller.getAllStaffs) //get all staff
 router.route('/getAStaff/:id').get(verifyToken, controller.getAStaff) //get a staff
 
 
