@@ -49,10 +49,16 @@ const BookingSchema = new mongoose.Schema({
     paymenttype: {
         type: String
     },
+    vehiclenumber: {
+        type: String
+    },
     receiptId: {
         type: String
     },
     preparedby: {
+        type: String
+    },
+    staffId: {
         type: String
     },
     updatedby: {

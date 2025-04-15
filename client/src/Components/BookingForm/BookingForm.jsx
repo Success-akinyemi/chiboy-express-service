@@ -151,7 +151,8 @@ function BookingForm() {
                 <label htmlFor="">Departure time:</label>
                 <select onChange={handleChange} id='departuretime'>
                     <option value="">Departure time</option>
-                    <option value="5:00am (Morning Time)">5:00am (Morning Time)</option>
+                    <option value="5:00am (Morning Time - Bus)">5:00am (Morning Time - Bus)</option>
+                    <option value="4:30am (Morning Time - Sienna)">5:00am (Morning Time - Sienna)</option>
                     <option value="3:00pm (Evening Time)">3:00pm (Evening Time)</option>
                 </select>
             </div>
@@ -160,17 +161,28 @@ function BookingForm() {
                 <input type="date" id='departuretdate' onChange={handleChange} min={new Date().toISOString().split('T')[0]} />
             </div>
         </div>
+        <div className="inputClass">
             <div className="inputGroup">
-            <label htmlFor="">Payment Type:</label>
-            <div className="opt">
-                <select required className='vehicle' onChange={handleChange} id='paymenttype' >
-                        <option value=''>Select Payment Type</option>
-                        <option value='Cash'>Cash</option>
-                        <option value='Card'>Card</option>
+                <label htmlFor="">Payment Type:</label>
+                <div className="opt">
+                    <select required className='vehicle' onChange={handleChange} id='paymenttype' >
+                            <option value=''>Select Payment Type</option>
+                            <option value='Cash'>Cash</option>
+                            <option value='Card'>Card</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div className="inputGroup">
+                <label htmlFor="">Vehicle Number:</label>
+                <select onChange={handleChange} id='vehiclenumber'>
+                    <option value="">Departure time</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                 </select>
             </div>
-            </div>
-
+        </div>
 
 
         <hr />

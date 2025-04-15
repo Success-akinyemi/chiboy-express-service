@@ -8,7 +8,8 @@ import StaffModel from "../models/Staff.js";
 //create new booking
 export async function createBooking(req, res){
     console.log('object', req.body)
-    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, preparedby} = req.body
+    const { staffId, name: staffName } = req.user
+    const {travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, vehiclenumber, nextofkinnumber, preparedby} = req.body
     try {
         if(!travelingfrom || !travelingto || !name || !phonenumber || !vechicletype || !amount || !numberofseat || !departuretdate || !departuretime || !bloodgroup || !paymenttype || !nextofkin || !nextofkinnumber || !preparedby){
             return res.status(400).json({ success: false, data: 'Fill all necessary feilds'})
@@ -39,7 +40,7 @@ export async function createBooking(req, res){
         }
 
         const newBooking = new BookingModel({
-            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, preparedby, receiptId
+            travelingfrom, travelingto, name, email, phonenumber, numberofseat, vechicletype, amount, fullpayment, balancepayment, departuretdate, departuretime, bloodgroup, paymenttype, nextofkin, nextofkinnumber, vehiclenumber, preparedby: staffName, staffId, receiptId
         })
         await newBooking.save()
 
@@ -88,6 +89,8 @@ export async function createBooking(req, res){
             .text(`Traveling To: ${travelingto}`)
             //.text(`${travelingto}`)
             .text(`Vehicle Type: ${vechicletype}`)
+            //.text()
+            .text(`Departure bus number: ${vehiclenumber}`)
             //.text(`${vechicletype}`)
             .text(`Amount: NGN ${amount.toLocaleString()}`)
             //.text(`NGN ${amount}`)
@@ -230,6 +233,8 @@ export async function generateReceipt(req, res){
                     .text(`Traveling To: ${booking.travelingto}`)
                     //.text(`${booking.travelingto}`)
                     .text(`Vehicle Type: ${booking.vechicletype}`)
+                    //.text()
+                    .text(`Departure bus number: ${booking?.vehiclenumber}`)
                     //.text(`${booking.vechicletype}`)
                     .text(`Amount: NGN ${booking.amount.toLocaleString()}`)
                     //.text(`${booking.amount}`);

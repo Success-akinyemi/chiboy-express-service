@@ -32,4 +32,13 @@ export const travelLocations = [
     {
         location: 'Nsukka',
     },
+    {
+        location: 'Enugu',
+    },
+    {
+        location: 'Umuahia',
+    },
+    {
+        location: 'Opi',
+    },
 ]
